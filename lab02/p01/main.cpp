@@ -1,13 +1,12 @@
-#include <bits/stdc++.h> //include all the headers of C++ library  
+#include <bits/stdc++.h> 
 
 template <typename C>
 int sz(const C &c) { return static_cast<int>(c.size()); }
 
-using namespace std; //to avoid repetition
-
+using namespace std;
 int main()
 {
-    iostream::sync_with_stdio(false); //faster 
+    iostream::sync_with_stdio(false);  
 
     int a;
     int b;
@@ -15,3 +14,4 @@ int main()
         cout << a + b << "\n";
     }
 }
+//TO BE SOLVED
