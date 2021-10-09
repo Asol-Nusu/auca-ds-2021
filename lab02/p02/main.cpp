@@ -5,32 +5,33 @@ int sz(const C &c) {
 }
 
 using namespace std; 
-std::int64_t computeRows(int nOfWarriors){
-    std::int64_t nOfRows = 0;
+long long int computeRows(int nOfWarriors){
+    long long int totalNumberOfRows = 0;
 
-    std::int64_t row = 1;
+    long long int row = 1;
     while(true){
         if(nOfWarriors < row){ //if warriors = 0, then rows = 0
             break;
         }
 
         nOfWarriors -= row;
-        ++nOfRows;
+        ++totalNumberOfRows;
 
         ++row;
     }
 
-    return nOfRows;
+    return totalNumberOfRows;
 }
 
 int main()
 {
     iostream::sync_with_stdio(false); 
-    std::int64_t testCases;
+    
+    long long int testCases;
     cin >> testCases;
 
     for(int i = 0; i < testCases; ++i){
-        std::int64_t nOfWarriors;
+        long long int nOfWarriors;
         cin >> nOfWarriors;
         cout << computeRows(nOfWarriors) << "\n";
     }
