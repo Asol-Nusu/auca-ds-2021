@@ -20,13 +20,13 @@ int main()
 
         cin >> rows;
         cin >> columns;
-        int grid[rows - 2][columns - 2];
+        
+        rows -= 2;
+        columns -= 2;
 
+        int locatorsPerLine = rows/3 + (rows % 3 != 0); //true - 1, false - 0
+        int nOfLines = columns/3 + (columns % 3 != 0);
+
+        cout << nOfLines * locatorsPerLine << "\n";
     }
-} 
-
-/*
-0 - not protected
-1 - protected
-8 - X
-*/
+}
