@@ -1,3 +1,4 @@
+//ACCEPTED
 #include <bits/stdc++.h> 
 #include <algorithm> 
 template <typename C>
@@ -18,9 +19,11 @@ int main()
         if(currentChannel == -1 && goToChannel == -1){
             break;
         }
-        int minChannel = min(currentChannel, goToChannel);
-        int maxChannel = max(currentChannel, goToChannel);
+        int minChannel = min(currentChannel, goToChannel) + 1;
+        int maxChannel = max(currentChannel, goToChannel) + 1;
 
-        int timesToPress = maxChannel - minChannel;
+        int timesToPress = min(100 + minChannel - maxChannel, maxChannel - minChannel);
+        cout << abs(timesToPress) << endl;
     }
 } 
+
