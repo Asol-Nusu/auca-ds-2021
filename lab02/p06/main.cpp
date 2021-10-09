@@ -1,5 +1,5 @@
 #include <bits/stdc++.h> 
- 
+//ACCEPTED 
 template <typename C>
 int sz(const C &c) { 
     return static_cast<int>(c.size()); 
@@ -13,10 +13,17 @@ int main()
     int tests;
     cin >> tests;
 
-    for(int i = 0; i < tests; ++i){
+    for(int test = 0; test < tests; ++test){
         int one, two, three;
         cin >> one >> two >> three;
-        int salary = min(max(one, two), three);
-        cout << "Case " << i << ": " << salary << "\n";
+        int maxSalary = max(max(one, two), three);
+        int minSalary = min(min(one, two), three);
+        
+        int employees [3] = {one, two, three};
+        for(int i = 0; i < 3; i++){
+            if(employees[i] > minSalary && employees[i] < maxSalary){
+                cout << "Case " << test + 1 << ": " << employees[i] << endl;
+            }
+        }
     }
 } 
