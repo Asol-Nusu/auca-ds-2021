@@ -5,7 +5,7 @@ int sz(const C &c) {
 }
 
 using namespace std; 
-long long int computeRows(int nOfWarriors){
+long long int computeRows(long long int nOfWarriors){
     long long int totalNumberOfRows = 0;
 
     long long int row = 1;
@@ -13,7 +13,6 @@ long long int computeRows(int nOfWarriors){
         if(nOfWarriors < row){ //if warriors = 0, then rows = 0
             break;
         }
-
         nOfWarriors -= row;
         ++totalNumberOfRows;
 
@@ -30,7 +29,7 @@ int main()
     long long int testCases;
     cin >> testCases;
 
-    for(int i = 0; i < testCases; ++i){
+    for(long long int i = 0; i < testCases; ++i){
         long long int nOfWarriors;
         cin >> nOfWarriors;
         cout << computeRows(nOfWarriors) << "\n";
