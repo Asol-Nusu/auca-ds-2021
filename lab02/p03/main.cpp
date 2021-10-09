@@ -7,7 +7,7 @@ int sz(const C &c) {
 
 using namespace std; 
 
-//11044
+//11044 ACCEPTED
 int main()
 {
     iostream::sync_with_stdio(false); 
