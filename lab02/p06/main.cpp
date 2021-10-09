@@ -1,0 +1,22 @@
+#include <bits/stdc++.h> 
+ 
+template <typename C>
+int sz(const C &c) { 
+    return static_cast<int>(c.size()); 
+}
+
+using namespace std; 
+
+int main()
+{
+    iostream::sync_with_stdio(false); 
+    int tests;
+    cin >> tests;
+
+    for(int i = 0; i < tests; ++i){
+        int one, two, three;
+        cin >> one >> two >> three;
+        int salary = min(max(one, two), three);
+        cout << "Case " << i << ": " << salary << "\n";
+    }
+} 
