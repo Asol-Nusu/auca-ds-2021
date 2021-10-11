@@ -1,3 +1,4 @@
+package lab01.p04;
 import java.util.*;
 
 public class Main{
