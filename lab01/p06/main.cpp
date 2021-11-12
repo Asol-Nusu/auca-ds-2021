@@ -73,3 +73,14 @@ TEST_CASE("vector's move constructor"){
     What the 2nd array has now is what it's left with 
     */
 }
+TEST_CASE("vector's erase method"){
+    vector<int> container = {1, 2, 3, 4, 5, 11, 12, 15, 19};
+    auto it = container.begin();
+    container.erase(it);
+
+    REQUIRE(container[0] == 2); //{^2, 3, 4, ^5, 11, 12, 15, 19}
+
+    container.erase(container.begin(), container.begin() + 4);
+    REQUIRE(container[0] == 11);
+}
+
