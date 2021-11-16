@@ -1,5 +1,13 @@
-//10205
+/*
+UVA 10205
+52 cards = 4 suits * 13
+
+Clubs, Diamonds, Hearts, Spades
+2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King, Ace
+*/
+
 #include <bits/stdc++.h>
+
 template <typename C>
 int sz(const C &c) { 
     return static_cast<int>(c.size()); 
@@ -7,9 +15,9 @@ int sz(const C &c) {
 
 using namespace std;
 
-//functions
+//Function Prototypes
 vector<int> createDeck();
-void printDeck(const vector<int> &deck);
+void printDeck(const vector<int> &deck); //no copies & no changes (const)
 vector<vector<int>> readShuffles();
 
 int main(){
@@ -30,13 +38,6 @@ int main(){
     // printDeck(deck);
 }
 
-void printDeck(const vector<int> &deck){
-    vector<string> ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
-    vector<string> suits = {"Clubs", "Diamonds", "Hearts", "Spades"};
-    for(auto card : deck){
-        cout << ranks[card % 13] << " of " << suits[card/13] << endl;
-    }
-}
 vector<int> createDeck(){
     vector<int> deck(52);
     for(int i = 0; i < 52; i++){
@@ -45,18 +46,27 @@ vector<int> createDeck(){
 
     return deck;
 }
+
+void printDeck(const vector<int> &deck){
+    static vector<string> values = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
+    static vector<string> suits = {"Clubs", "Diamonds", "Hearts", "Spades"};
+    for(auto card : deck){
+        cout << values[card % 13] << " of " << suits[card/13] << endl;
+    }
+}
+
 vector<vector<int>> readShuffles(){
-    int n;
-    cin >> n;
+    int nOfShuffles;
+    cin >> nOfShuffles;
 
-    vector<vector<int>> result(n, vector<int>(52));
+    vector<vector<int>> result(nOfShuffles, vector<int>(52));
 
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i < nOfShuffles; i++){
         for(int j = 0; j < 52; j++){
             cin >> result[i][j];
         }
     }
 
-    cin.ignore(1024, '\n');
+    cin.ignore(1024, '\n'); //a tricky thing to read input correctly
     return result;
 }
