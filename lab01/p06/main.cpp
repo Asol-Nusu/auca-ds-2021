@@ -15,18 +15,18 @@ TEST_CASE("vector's default constructor"){
     REQUIRE(v.empty());
 }
 TEST_CASE("vector's move constructor"){ 
-    vector<int> v1 = {1, 2, 3, 4, 5};
+    vector<int> v = {1, 2, 3, 4, 5};
+    REQUIRE(v.size() == 5);
+
+    vector<int> v1 = move(v); 
+    REQUIRE(v.empty()); //<-
     REQUIRE(v1.size() == 5);
 
-    vector<int> v2 = move(v1); 
-    REQUIRE(v1.empty()); //<-
-    REQUIRE(v2.size() == 5);
-
-    REQUIRE(v2[0] == 1);
-    REQUIRE(v2[1] == 2);
-    REQUIRE(v2[2] == 3);
-    REQUIRE(v2[3] == 4);
-    REQUIRE(v2[4] == 5);
+    REQUIRE(v1[0] == 1);
+    REQUIRE(v1[1] == 2);
+    REQUIRE(v1[2] == 3);
+    REQUIRE(v1[3] == 4);
+    REQUIRE(v1[4] == 5);
 
     /*
     move() constructor literally takes and moves. 
@@ -35,7 +35,6 @@ TEST_CASE("vector's move constructor"){
 }
 TEST_CASE("vector's constructor with count copies"){
     vector<int> v(5);
-    
     REQUIRE(v.size() == 5);
 
     REQUIRE(v[0] == 0);
@@ -44,17 +43,19 @@ TEST_CASE("vector's constructor with count copies"){
     REQUIRE(v[3] == 0);
     REQUIRE(v[4] == 0);
 
-    vector<string> v2(3);
-    REQUIRE(v2.size() == 3);
-    REQUIRE(v2[0].empty());
-    REQUIRE(v2[1].empty());
-    REQUIRE(v2[2].empty());
+    vector<string> v1(3);
+    REQUIRE(v1.size() == 3);
 
-    vector<int> v3(3, 42);
-    REQUIRE(v3.size() == 3);
-    REQUIRE(v3[0] == 42);
-    REQUIRE(v3[1] == 42);
-    REQUIRE(v3[2] == 42);
+    REQUIRE(v1[0].empty());
+    REQUIRE(v1[1].empty());
+    REQUIRE(v1[2].empty());
+
+    vector<int> v2(3, 42);
+    REQUIRE(v2.size() == 3);
+    
+    REQUIRE(v2[0] == 42);
+    REQUIRE(v2[1] == 42);
+    REQUIRE(v2[2] == 42);
 }
 
 TEST_CASE("vector's copy constructor"){
