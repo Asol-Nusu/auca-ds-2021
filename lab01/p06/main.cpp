@@ -4,8 +4,26 @@
 #include <vector>
 #include <sstream>
 #include <string>
+#include <stdexcept> 
 
 using namespace std;
+
+template <typename Container>
+string containerToStr(const Container &container){
+    ostringstream sinp;
+    sinp << "{";
+    bool isFirstElement = true;
+
+    for(const auto &e : container){
+        if(!isFirstElement){
+            sinp << ", ";
+        }
+        sinp << e;
+        isFirstElement = false;
+    }
+    sinp << "}";
+    return sinp.str();
+}
 
 TEST_CASE("vector's default constructor"){
     vector<int> v;
@@ -52,27 +70,44 @@ TEST_CASE("vector's constructor with count copies"){
 
     vector<int> v2(3, 42);
     REQUIRE(v2.size() == 3);
-    
+
     REQUIRE(v2[0] == 42);
     REQUIRE(v2[1] == 42);
     REQUIRE(v2[2] == 42);
 }
-
 TEST_CASE("vector's copy constructor"){
     vector<int> v(3);
     v[0] = 1;
     v[1] = 2;
     v[2] = 3;
 
-    vector<int> v2 = v; //two independent vars //value semantics
+    vector<int> v1 = v; //two independent vectors //value semantics
 
     v[1] = 1000;
 
-    REQUIRE(v2[1] != v[1]);
+    REQUIRE(v1[1] != v[1]);
     REQUIRE(v[1] == 1000);
-    REQUIRE(v2[1] == 2);
+    REQUIRE(v1[1] == 2);
+}
+TEST_CASE("vector's assignment operator"){
+    vector<int> v = {1, 2, 3};
+    vector<int> v1 = {10, 20};
+
+    v1 = v;
+    REQUIRE(v1.size() == 3);
+    REQUIRE(containerToStr(v1) == "{1, 2, 3}");
+
+    v[0] = 1000;
+
+    REQUIRE(containerToStr(v) == "{1000, 2, 3}");
+    REQUIRE(containerToStr(v1) == "{1, 2, 3}");
+    REQUIRE(containerToStr(v) != containerToStr(v1));
 }
 
+TEST_CASE("vector's at operator"){
+    vector<int> v = {1, 2, 3};
+    REQUIRE_THROWS_AS(v.at(3), out_of_range); 
+}
 
 TEST_CASE("vector's erase method"){
     vector<int> container = {1, 2, 3, 4, 5, 11, 12, 15, 19};
