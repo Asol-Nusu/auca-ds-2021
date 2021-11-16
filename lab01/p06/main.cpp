@@ -32,6 +32,7 @@ TEST_CASE("vector's default constructor"){
     REQUIRE(v.capacity() == 0);
     REQUIRE(v.empty());
 }
+
 TEST_CASE("vector's move constructor"){ 
     vector<int> v = {1, 2, 3, 4, 5};
     REQUIRE(v.size() == 5);
@@ -51,6 +52,7 @@ TEST_CASE("vector's move constructor"){
     What the 2nd array has now is what it's left with 
     */
 }
+
 TEST_CASE("vector's constructor with count copies"){
     vector<int> v(5);
     REQUIRE(v.size() == 5);
@@ -75,6 +77,7 @@ TEST_CASE("vector's constructor with count copies"){
     REQUIRE(v2[1] == 42);
     REQUIRE(v2[2] == 42);
 }
+
 TEST_CASE("vector's copy constructor"){
     vector<int> v(3);
     v[0] = 1;
@@ -89,6 +92,7 @@ TEST_CASE("vector's copy constructor"){
     REQUIRE(v[1] == 1000);
     REQUIRE(v1[1] == 2);
 }
+
 TEST_CASE("vector's assignment operator"){
     vector<int> v = {1, 2, 3};
     vector<int> v1 = {10, 20};
