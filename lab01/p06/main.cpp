@@ -14,7 +14,25 @@ TEST_CASE("vector's default constructor"){
     REQUIRE(v.capacity() == 0);
     REQUIRE(v.empty());
 }
+TEST_CASE("vector's move constructor"){ 
+    vector<int> v1 = {1, 2, 3, 4, 5};
+    REQUIRE(v1.size() == 5);
 
+    vector<int> v2 = move(v1); 
+    REQUIRE(v1.empty()); //<-
+    REQUIRE(v2.size() == 5);
+
+    REQUIRE(v2[0] == 1);
+    REQUIRE(v2[1] == 2);
+    REQUIRE(v2[2] == 3);
+    REQUIRE(v2[3] == 4);
+    REQUIRE(v2[4] == 5);
+
+    /*
+    move() constructor literally takes and moves. 
+    What the 2nd array has now is what it's left with 
+    */
+}
 TEST_CASE("vector's constructor with count copies"){
     vector<int> v(5);
     
@@ -54,25 +72,7 @@ TEST_CASE("vector's copy constructor"){
     REQUIRE(v2[1] == 2);
 }
 
-TEST_CASE("vector's move constructor"){ 
-    vector<int> v(3);
-    
-    v[0] = 1;
-    v[1] = 2;
-    v[2] = 3;
 
-    vector<int> v2 = move(v); 
-    REQUIRE(v.empty()); //<-
-    REQUIRE(v2.size() == 3);
-
-    REQUIRE(v2[0] == 1);
-    REQUIRE(v2[1] == 2);
-    REQUIRE(v2[2] == 3);
-    /*
-    move() constructor literally takes and moves. 
-    What the 2nd array has now is what it's left with 
-    */
-}
 TEST_CASE("vector's erase method"){
     vector<int> container = {1, 2, 3, 4, 5, 11, 12, 15, 19};
     auto it = container.begin();
