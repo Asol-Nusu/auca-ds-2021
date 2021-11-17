@@ -1,3 +1,6 @@
+/*
+UVA1033
+*/
 #include <bits/stdc++.h>   
 template <typename C>
 int sz(const C &c) { 
@@ -11,10 +14,11 @@ class Computer{
     vector<int> memory;
     int instructionPointer;
 
-    void runCommand2(int d1, int d2){
-        registers[d1] = d2;
+    void runCommand2(int d, int n){
+        registers[d] = n;
         instructionPointer++;
     }
+
     public:
     Computer()
         : registers(10, 0), memory(1000, 0), instructionPointer(0)
@@ -30,7 +34,7 @@ class Computer{
     }
 
     int run(){
-        int result = 0;
+        int result = 1;
         while(memory[instructionPointer] != 100){
             int t = memory[instructionPointer];
 
@@ -48,7 +52,7 @@ class Computer{
             result++;
         }
 
-        return result;
+        return result++;
     }
 };
 
@@ -57,7 +61,9 @@ int main()
     iostream::sync_with_stdio(false); 
     int tests;
     cin >> tests >> ws;
-    Computer computer;
-    computer.readCommands(cin);
-    cout << computer.run() << "\n";
+    for(int test = 0; test < tests; test++){
+        Computer computer;
+        computer.readCommands(cin);
+        cout << computer.run() << "\n";
+    }
 }
