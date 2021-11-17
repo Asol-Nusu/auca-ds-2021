@@ -1,6 +1,7 @@
 #pragma once
 #include <iosfwd>
 #include <stdexcept>
+#include <cctype>
 
 template<typename T>
 class Rational{
@@ -46,12 +47,6 @@ class Rational{
     }
 };
 
-template<typename T>
-std::ostream &operator<<(std::ostream &out, const Rational<T> &r){
-    out << r.numerator() << "/" << r.denominator();  
-
-    return out;
-}
 
 template<typename T>
 Rational<T> operator+(const Rational<T> &a, const Rational<T> &b){
@@ -114,4 +109,45 @@ bool operator==(const Rational<T> &a, const Rational<T> &b){
 template<typename T>
 bool operator!=(const Rational<T> &a, const Rational<T> &b){
     return !(a == b);
+}
+
+template<typename T>
+std::ostream &operator<<(std::ostream &out, const Rational<T> &r){
+    out << r.numerator() << "/" << r.denominator();  
+
+    return out;
+}
+
+template<typename T>
+std::istream &operator>>(std::istream &inp, Rational<T> &r){
+    T num;
+    if(!(inp >> num)){
+        return inp;
+    }
+    
+    char ch;
+    if(!(inp.get(ch))){
+        return inp;
+    }
+
+    if(ch != '/'){
+        inp.setstate(std::ios_base::failbit);
+        return inp;
+    }
+
+    if(!(inp.get(ch))){
+        return inp;
+    }
+    if(!(ch == '+' || ch == '-' || isdigit(ch))){
+        inp.putback(ch);
+        inp.setstate(std::ios_base::failbit);
+        return inp;
+    }
+
+    T den;
+    if(!(inp >> den)){
+        return inp;
+    }
+    r = Rational<T>(num, den);
+    return inp;
 }

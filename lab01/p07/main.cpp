@@ -164,3 +164,45 @@ TEST_CASE("Rational: getters"){
     REQUIRE(r.numerator() == 0);
     REQUIRE(r.denominator() == 1);
 }
+
+TEST_CASE("Rational: input operator"){
+    SUBCASE("1/2"){
+        istringstream sinp("1/2");
+        Rational<int> r;
+        sinp >> r;
+
+        ostringstream sout;
+        sout << r;
+        REQUIRE(sout.str() == "1/2");
+    } 
+
+    SUBCASE("one over two"){
+        istringstream sinp("one over two");
+        Rational<int> r;
+        sinp >> r;
+
+        REQUIRE(sinp.fail());
+        REQUIRE(r.numerator() == 0);
+        REQUIRE(r.denominator() == 1);
+    }
+
+    SUBCASE("1:2"){
+        istringstream sinp("1:2");
+        Rational<int> r;
+        sinp >> r;
+
+        REQUIRE(sinp.fail());
+        REQUIRE(r.numerator() == 0);
+        REQUIRE(r.denominator() == 1);
+    }
+
+    SUBCASE("1/ 2"){
+        istringstream sinp("1/ 2");
+        Rational<int> r;
+        sinp >> r;
+
+        REQUIRE(sinp.fail());
+        REQUIRE(r.numerator() == 0);
+        REQUIRE(r.denominator() == 1);
+    }
+}
