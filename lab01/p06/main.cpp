@@ -113,6 +113,46 @@ TEST_CASE("vector's at operator"){
     REQUIRE_THROWS_AS(v.at(3), out_of_range); 
 }
 
+TEST_CASE("vector's methods front(), back()"){
+    vector<int> v = {1, 2, 3, 4, 5, 6};
+
+    REQUIRE(v.front() == 1);    
+    v.front() = 10;
+    REQUIRE(v.front() == 10);
+
+    REQUIRE(v.back() == 6);
+    v.back() = 8;
+    REQUIRE(v.back() == 8);
+}
+
+struct Student{
+    int mID;
+    int mBirthYear;
+    Student(int id, int birthYear)
+        : mID(id), mBirthYear(birthYear)
+    {
+    }
+};
+
+TEST_CASE("vectors<T>: iterators"){
+    vector<int> v = {10, 1, 2, 3};
+    // vector<int>::iterator it = v.begin();
+    auto it = v.begin();
+    REQUIRE(*it == 10);
+    ++it;
+    REQUIRE(*it == 1);
+
+    auto it2 = v.end();
+    REQUIRE(it != it2);
+    REQUIRE(it < it2);
+
+    --it2;
+    REQUIRE(*it2 == 3);
+    vector<Student> students = {{1001, 2003}, {1002, 2004}};
+    auto it3 = students.begin();
+    REQUIRE((*it3).mBirthYear == 2003);
+    //it3->mBirthYear == 2003;
+}
 TEST_CASE("vector's erase method"){
     vector<int> container = {1, 2, 3, 4, 5, 11, 12, 15, 19};
     auto it = container.begin();
