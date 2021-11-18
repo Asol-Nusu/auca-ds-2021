@@ -126,7 +126,7 @@ std::istream &operator>>(std::istream &inp, Rational<T> &r){
     }
     
     char ch;
-    if(!(inp.get(ch))){
+    if(!inp.get(ch)){ //no skipping spaces
         return inp;
     }
 
@@ -135,10 +135,12 @@ std::istream &operator>>(std::istream &inp, Rational<T> &r){
         return inp;
     }
 
-    if(!(inp.get(ch))){
+    if(!inp.get(ch)){
         return inp;
     }
-    if(!(ch == '+' || ch == '-' || isdigit(ch))){
+    if(ch == '+' || ch == '-' || isdigit(ch)){
+        inp.putback(ch);
+    }else{
         inp.putback(ch);
         inp.setstate(std::ios_base::failbit);
         return inp;
