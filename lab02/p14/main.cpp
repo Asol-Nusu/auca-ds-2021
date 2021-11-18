@@ -1,3 +1,4 @@
+//ACCEPTED
 #include <bits/stdc++.h> 
 
 template <typename C>
@@ -23,33 +24,29 @@ int main()
             beards.push_back(currentBeard);
         }
 
-        bool orderedRight = true; // min from left
+        bool orderedSL = true; // shortest to longest
         for(int j = 1; j < 10; j++){
             if(beards[j - 1] > beards[j]){
-                orderedRight = false;
-            }
-
-            if(!orderedRight){
+                orderedSL = false;
                 break;
             }
         }
 
-        bool orderedLeft = true; //min from right
-        for(int j = 9; j < 0; j--){
-            if(beards[j] < beards[j-1]){
-                orderedRight = false;
-            }
-
-            if(!orderedRight){
+        bool orderedLS = true; // longest to shortest
+        for(int j = 1; j < 10; j++){
+            if(beards[j-1] < beards[j] ){
+                orderedLS = false;
                 break;
             }
         }
 
-        cout << "Lumberjacks:\n";
-        if(!orderedLeft && !orderedRight){
-            cout << "Unordered\n";
-        }else{
+        if(i == 0){
+            cout << "Lumberjacks:\n";
+        }
+        if(orderedLS || orderedSL){
             cout << "Ordered\n";
+        }else{
+            cout << "Unordered\n";
         }
     }
 } 
