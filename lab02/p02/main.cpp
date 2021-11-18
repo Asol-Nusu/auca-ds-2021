@@ -5,19 +5,13 @@ int sz(const C &c) {
 }
 
 using namespace std; 
-long long int computeRows(long long int nOfWarriors){
-    long long int totalNumberOfRows = 0;
-
-    long long int row = 1;
-    while(true){
-        if(nOfWarriors < row){ //if warriors = 0, then rows = 0
-            break;
-        }
-        nOfWarriors -= row;
-        ++totalNumberOfRows;
-
-        ++row;
-    }
+std::int64_t computeRows(std::int64_t nOfWarriors){
+    /*
+        Arithmetic Progression
+        S = (a1 + an)/2 * n
+    */
+    std::int64_t discriminantRoot = std::sqrt(1 + 8 * nOfWarriors);
+    std::int64_t totalNumberOfRows = (-1 + discriminantRoot)/2;
 
     return totalNumberOfRows;
 }
@@ -26,11 +20,11 @@ int main()
 {
     iostream::sync_with_stdio(false); 
     
-    long long int testCases;
+    int testCases;
     cin >> testCases;
 
-    for(long long int i = 0; i < testCases; ++i){
-        long long int nOfWarriors;
+    for(int i = 0; i < testCases; ++i){
+        std::int64_t nOfWarriors;
         cin >> nOfWarriors;
         cout << computeRows(nOfWarriors) << "\n";
     }
