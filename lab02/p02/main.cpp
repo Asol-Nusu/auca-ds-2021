@@ -1,3 +1,4 @@
+//ACCEPTED
 #include <bits/stdc++.h> 
 template <typename C>
 int sz(const C &c) { 
