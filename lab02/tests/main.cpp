@@ -13,6 +13,5 @@ using namespace std; //to avoid repetition
 int main()
 {
     iostream::sync_with_stdio(false); 
-    char a = '6';
-    cout << int('6');
+    cout << 200/3;
 } 
