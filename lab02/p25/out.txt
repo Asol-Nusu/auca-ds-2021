@@ -1,0 +1,12 @@
+Case 1:
+Closest sum to 1 is 29.
+Closest sum to 51 is 67.
+Closest sum to 30 is 67.
+Case 2:
+Closest sum to 1 is 5.
+Closest sum to 2 is 5.
+Closest sum to 3 is 5.
+Case 3:
+Closest sum to 4 is 5.
+Closest sum to 5 is 5.
+Closest sum to 6 is 5.
