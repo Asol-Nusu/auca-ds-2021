@@ -13,5 +13,5 @@ using namespace std; //to avoid repetition
 int main()
 {
     iostream::sync_with_stdio(false); 
-    cout << 200/3;
+    cout << setfill('.') << fixed;
 } 
