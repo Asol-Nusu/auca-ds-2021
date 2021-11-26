@@ -7,6 +7,11 @@ class BigInt{
     std:: vector<int> mDigits;
     bool mIsNegative;
 
+static BigInt addAbsValues(const BigInt &a, const BigInt &b){
+    BigInt r;
+    r.mDigits.clear();
+    // endIterator of a, endInterator of b
+}
 public:
     BigInt()
         : mIsNegative(false)
