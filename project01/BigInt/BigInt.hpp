@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 #include <iosfwd>
+#include <stdexcept>
+#include <cctype>
 
 class BigInt{
     friend std::ostream &operator<<(std::ostream &out, const BigInt &x);
@@ -22,8 +24,25 @@ public:
     BigInt(const string &s)
         : mIsNegative(false)
     {
+        if(s.empty()){
+            throw std::runtime_error("BigInt: empty string");
+        }
         size_t i = 0;
-        
+        if(s[i] == '+' || s[i] == '-'){
+            mIsNegative = s[i] == '-';
+            i++;
+        }
+
+        while(i < s.size()){
+            if(!isdigit(s[i])){
+                throw runtime_error("BigInt: incorrect string");
+            }
+            mDigits.push_back(s[i] - '0');
+            i++;
+        }
+        if(mDigits.empty()){ //no digits were assigned 
+            throw runtime_error("BigInt: incorrect string");
+        }
     }
 };
 
