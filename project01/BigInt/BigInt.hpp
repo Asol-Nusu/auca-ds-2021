@@ -18,6 +18,13 @@ public:
     {
         mDigits.push_back(0);
     }
+
+    BigInt(const string &s)
+        : mIsNegative(false)
+    {
+        size_t i = 0;
+        
+    }
 };
 
 inline 
