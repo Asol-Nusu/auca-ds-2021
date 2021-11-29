@@ -7,7 +7,7 @@ int main(void){
     x = 1;
     p = &x;
     printf("x = %d\n", x);
-    printf("x = %d\n", *p);
+    printf("x = %d\n", *p); //dereference operator 
     printf("address of x = %p\n", p); //hexadecimal value
 
     *p = 2;
