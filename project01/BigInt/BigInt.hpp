@@ -4,16 +4,41 @@
 #include <stdexcept>
 #include <cctype>
 #include <string>
+#include <algorithm>
 
 class BigInt{
     friend std::ostream &operator<<(std::ostream &out, const BigInt &x);
+    friend BigInt operator+(const BigInt &a, const BigInt &b);
+    
     std:: vector<int> mDigits;
     bool mIsNegative;
 
-static BigInt addAbsValues(const BigInt &a, const BigInt &b){
-    BigInt r;
-    r.mDigits.clear();
-    // endIterator of a, endInterator of b
+    static BigInt addAbsValues(const BigInt &a, const BigInt &b){
+        BigInt r;
+        r.mDigits.clear();
+
+        auto i = a.mDigits.rbegin();
+        auto j =  b.mDigits.rbegin();
+
+        int carry = 0;
+
+        while(i != a.mDigits.rend() || j != b.mDigits.rend()){
+            int sum = carry;
+
+             if(i != a.mDigits.rend() ){
+                 sum += *i;
+                 i++;
+            }
+
+            if(j != b.mDigits.rend()){
+                sum += *j;
+                j++;
+            }
+            r.mDigits.push_back(sum % 10);
+            carry = sum / 10;
+        }
+        std::reverse(r.mDigits.begin(), r.mDigits.end());
+        return r;
 }
 public:
     BigInt()
@@ -52,9 +77,8 @@ public:
     {
     }
 };
-
-inline 
-std::ostream &operator<<(std::ostream &out, const BigInt &x){
+ 
+inline std::ostream &operator<<(std::ostream &out, const BigInt &x){
     if(x.mIsNegative){
         out << '-';
     }
@@ -64,4 +88,13 @@ std::ostream &operator<<(std::ostream &out, const BigInt &x){
     }
 
     return out;
+}
+
+inline BigInt operator+(const BigInt &a, const BigInt &b){
+    if(a.mIsNegative == b.mIsNegative){
+        BigInt r = BigInt::addAbsValues(a, b);
+        r.mIsNegative = a.mIsNegative;
+        return r;
+    }
+    throw std::runtime_error("not implemented yet");
 }
