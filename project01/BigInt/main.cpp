@@ -44,8 +44,18 @@ TEST_CASE("Constructor with string"){
         REQUIRE(sout.str() == "12345");
     }
 }
+
+TEST_CASE("Constructor with long long"){
+    ostringstream sout;
+
+    SUBCASE("-9,223,372,036,854,775,808"){
+        BigInt x(-9223372036854775808);
+        sout << x;
+        REQUIRE(sout.str() == "-9223372036854775808");
+    }
+}
 /*
+Corner Cases:
 -0
 0000000678
-
 */
