@@ -3,6 +3,7 @@
 #include <iosfwd>
 #include <stdexcept>
 #include <cctype>
+#include <string>
 
 class BigInt{
     friend std::ostream &operator<<(std::ostream &out, const BigInt &x);
@@ -21,7 +22,7 @@ public:
         mDigits.push_back(0);
     }
 
-    BigInt(const string &s)
+    BigInt(const std::string &s)
         : mIsNegative(false)
     {
         if(s.empty()){
@@ -35,14 +36,20 @@ public:
 
         while(i < s.size()){
             if(!isdigit(s[i])){
-                throw runtime_error("BigInt: incorrect string");
+                throw std::runtime_error("BigInt: incorrect string");
             }
             mDigits.push_back(s[i] - '0');
             i++;
         }
         if(mDigits.empty()){ //no digits were assigned 
-            throw runtime_error("BigInt: incorrect string");
+            throw std::runtime_error("BigInt: incorrect string");
         }
+    }
+
+    //Constructor Delegation
+    BigInt(long long x)
+        : BigInt(std::to_string(x))
+    {
     }
 };
 

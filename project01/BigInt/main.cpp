@@ -39,8 +39,13 @@ TEST_CASE("Constructor with string"){
         REQUIRE(sout.str() == "-12345");
     }
     SUBCASE("+12345"){
-        BigInt x("+2345");
+        BigInt x("+12345");
         sout << x;
         REQUIRE(sout.str() == "12345");
     }
 }
+/*
+-0
+0000000678
+
+*/
