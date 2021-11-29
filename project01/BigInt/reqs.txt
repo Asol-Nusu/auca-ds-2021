@@ -3,3 +3,5 @@ Requirements for BigInt class:
 - The inner representation is a std::vector<int> (or std::vector<int64_t>) of digits
 - Test w/ unit tests
 
+- Make string constructor more advanced
+- Work on + operator

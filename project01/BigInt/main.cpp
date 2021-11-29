@@ -64,6 +64,14 @@ TEST_CASE("operator+"){
         sout << x + y;
         REQUIRE(sout.str() == "142");
     }
+
+    SUBCASE("99999999 + 1"){
+        BigInt x(99999999);
+        BigInt y(1);
+
+        sout << x + y;
+        REQUIRE(sout.str() == "99100000");
+    }
 }
 /*
 Corner Cases:
