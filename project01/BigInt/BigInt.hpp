@@ -55,15 +55,23 @@ class BigInt{
         //0 is equal, 1 is more, -1 is less
         if(a.mDigits.size() > b.mDigits.size()){
             return 1;
-        }else if(a.mDigits.size() == b.mDigits.size()){
-            return 0;
         }else{
             return -1;
         }
+        //919 
+        //999
+        //TODO
     }
 
     static BigInt subtractAbsValues(const BigInt &a, const BigInt &b){
+        // It's guaranteed that always a > b
+        BigInt r;
+        r.mDigits.clear();
 
+        auto i = a.mDigits.rbegin(); //last element
+        auto j =  b.mDigits.rbegin(); //last element
+
+        int borrow = 0;
     }
 
 public:
@@ -145,9 +153,6 @@ inline BigInt operator+(const BigInt &a, const BigInt &b){
         BigInt r = BigInt::subtractAbsValues(b, a); // b - a
         r.mIsNegative = b.mIsNegative;
         return r;
-    }else{
-        //if a = b (signs are different)
-        return BigInt(0);
     }
 }
 
