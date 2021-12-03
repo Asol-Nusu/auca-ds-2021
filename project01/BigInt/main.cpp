@@ -73,37 +73,14 @@ TEST_CASE("operator+"){
         REQUIRE(sout.str() == "1000000");
     }
 }
-TEST_CASE("compareAbsValues() static method"){
-    SUBCASE("123 and 178"){
-        BigInt a = BigInt("123");
-        BigInt b = BigInt("178");
-        int r = BigInt::compareAbsValues(a, b);
-        REQUIRE(r == -1);
-    }
-    SUBCASE("999 and 919"){
-        BigInt a = BigInt("999");
-        BigInt b = BigInt("919");
-        int r = BigInt::compareAbsValues(a, b);
-        REQUIRE(r == 1);
-    }
-    SUBCASE("189 and 189"){
-        BigInt a = BigInt("189");
-        BigInt b = BigInt("189");
-        int r = BigInt::compareAbsValues(a, b);
-        REQUIRE(r == 0);
-    }
-    SUBCASE("888 and 887"){
-        BigInt a = BigInt("888");
-        BigInt b = BigInt("887");
-        int r = BigInt::compareAbsValues(a, b);
-        REQUIRE(r == 1);
-    }
 
-    SUBCASE("123456789 and 908"){
-        BigInt a = BigInt("123456789");
-        BigInt b = BigInt("908");
-        int r = BigInt::compareAbsValues(a, b);
-        REQUIRE(r == 1);
+TEST_CASE("static subtractAbsValues()"){
+    SUBCASE("123 - 23"){
+        BigInt a = BigInt("123");
+        BigInt b = BigInt("23");
+
+        BigInt r = BigInt::subtractAbsValues(a, b);
+        REQUIRE();
     }
 }
 /*

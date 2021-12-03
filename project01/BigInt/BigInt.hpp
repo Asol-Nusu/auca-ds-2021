@@ -28,7 +28,7 @@ class BigInt{
         while(i != a.mDigits.rend() || j != b.mDigits.rend()){
             int sum = carry;
 
-             if(i != a.mDigits.rend()){
+            if(i != a.mDigits.rend()){
                  sum += *i;
                  i++;
             }
@@ -45,12 +45,10 @@ class BigInt{
             r.mDigits.push_back(carry);
         }
 
-        std::reverse(r.mDigits.begin(), r.mDigits.end());
+        std::reverse(r.mDigits.begin(), r.mDigits.end()); //в нормальное состояние привести
         return r;
     }
-    public:
     static int compareAbsValues(const BigInt &a, const BigInt &b){
-        //Imagine the BigInt values are valid/perfect
         //0 is equal, 1 is more, -1 is less
         if(a.mDigits.size() > b.mDigits.size()){
             return 1;
@@ -72,6 +70,7 @@ class BigInt{
         }
     }
 
+    public:
     static BigInt subtractAbsValues(const BigInt &a, const BigInt &b){
         // It's guaranteed that always a > b
         BigInt r;
@@ -81,10 +80,39 @@ class BigInt{
         auto j =  b.mDigits.rbegin(); //last element
 
         int borrow = 0;
-        while(i != a.mDigits.rend() || j != b.mDigits.rend()){
-            int subtractionResult = 0;
+        int subtractionResult;
+        while(j != b.mDigits.rend()){
+            if(*i >= *j){
+                subtractionResult = *i - *j - borrow;
+                borrow = 0;
+            }else{
+                subtractionResult = 10 + *i - *j - borrow;
+                borrow = 1;
+            }
+            r.mDigits.push_back(subtractionResult);
 
+            j++;
+            i++;
         }
+
+        //finish pushing
+        for(;i <= a.mDigits.rend(); i++){
+            //digit and borrow 
+            if((*i - borrow) < 0){
+                subtractionResult = 10 + *i - borrow;
+                borrow = 1;
+            }else{
+                subtractionResult = *i - borrow;
+                borrow = 0;
+            }
+            r.mDigits.push_back(subtractionResult);
+        }
+
+        std::reverse(r.mDigits.begin(), r.mDigits.end()); //в нормальное состояние привести
+        return r;
+        /*
+        TODO: removing leading zeros
+        */
     }
 
 public:
