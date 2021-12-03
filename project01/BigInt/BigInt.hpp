@@ -26,10 +26,11 @@ class BigInt{
 
         int carry = 0;
 
+        //digit by digit 
         while(i != a.mDigits.rend() || j != b.mDigits.rend()){
             int sum = carry;
 
-             if(i != a.mDigits.rend() ){
+             if(i != a.mDigits.rend()){
                  sum += *i;
                  i++;
             }
@@ -72,6 +73,10 @@ class BigInt{
         auto j =  b.mDigits.rbegin(); //last element
 
         int borrow = 0;
+        while(i != a.mDigits.rend() || j != b.mDigits.rend()){
+            int subtractionResult = 0;
+            
+        }
     }
 
 public:
