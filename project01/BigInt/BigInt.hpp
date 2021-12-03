@@ -198,5 +198,6 @@ inline BigInt operator+(const BigInt &a, const BigInt &b){
 }
 
 inline BigInt operator-(const BigInt &a, const BigInt &b){
-
+    BigInt r = BigInt::subtractAbsValues(a, b);
+    return r;
 }

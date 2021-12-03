@@ -75,12 +75,13 @@ TEST_CASE("operator+"){
 }
 
 TEST_CASE("static subtractAbsValues()"){
+    ostringstream sout;
     SUBCASE("123 - 23"){
         BigInt a = BigInt("123");
         BigInt b = BigInt("23");
-
-        BigInt r = BigInt::subtractAbsValues(a, b);
-        REQUIRE();
+        
+       sout <<  a - b;
+       REQUIRE(sout.str() == "100");
     }
 }
 /*
