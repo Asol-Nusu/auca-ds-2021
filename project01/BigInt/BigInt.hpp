@@ -58,22 +58,17 @@ class BigInt{
             return -1;
         }else{
             //if equal: 123 and 999, 999 and 123, 222 and 222
-            bool isMore = false;
-            bool isLess = false;
 
             for(int i = 0; i < a.mDigits.size(); i++){
                 if(a.mDigits[i] > b.mDigits[i]){
-                    isMore = true;
                     return 1;
                 }else if(a.mDigits[i] < b.mDigits[i]){
-                    isLess = true;
                     return -1;
                 }
             }
 
-            if(!isLess && !isMore){
-                return 0;
-            }
+            //if it reached this, it's equal
+            return 0;
         }
     }
 

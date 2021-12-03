@@ -92,6 +92,19 @@ TEST_CASE("compareAbsValues() static method"){
         int r = BigInt::compareAbsValues(a, b);
         REQUIRE(r == 0);
     }
+    SUBCASE("888 and 887"){
+        BigInt a = BigInt("888");
+        BigInt b = BigInt("887");
+        int r = BigInt::compareAbsValues(a, b);
+        REQUIRE(r == 1);
+    }
+
+    SUBCASE("123456789 and 908"){
+        BigInt a = BigInt("123456789");
+        BigInt b = BigInt("908");
+        int r = BigInt::compareAbsValues(a, b);
+        REQUIRE(r == 1);
+    }
 }
 /*
 Corner Cases:
