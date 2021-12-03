@@ -6,10 +6,14 @@
 #include <string>
 #include <algorithm>
 
+//0.8%
+
 class BigInt{
     friend std::ostream &operator<<(std::ostream &out, const BigInt &x);
     friend BigInt operator+(const BigInt &a, const BigInt &b);
-    
+    friend BigInt operator-(const BigInt &a, const BigInt &b);
+
+
     std:: vector<int> mDigits;
     bool mIsNegative;
 
@@ -37,9 +41,31 @@ class BigInt{
             r.mDigits.push_back(sum % 10);
             carry = sum / 10;
         }
+
+        if(carry != 0){
+            r.mDigits.push_back(carry);
+        }
+
         std::reverse(r.mDigits.begin(), r.mDigits.end());
         return r;
-}
+    }
+
+    static int compareAbsValues(const BigInt &a, const BigInt &b){
+        //Imagine the BigInt values are valid/perfect
+        //0 is equal, 1 is more, -1 is less
+        if(a.mDigits.size() > b.mDigits.size()){
+            return 1;
+        }else if(a.mDigits.size() == b.mDigits.size()){
+            return 0;
+        }else{
+            return -1;
+        }
+    }
+
+    static BigInt subtractAbsValues(const BigInt &a, const BigInt &b){
+
+    }
+
 public:
     BigInt()
         : mIsNegative(false)
@@ -91,10 +117,40 @@ inline std::ostream &operator<<(std::ostream &out, const BigInt &x){
 }
 
 inline BigInt operator+(const BigInt &a, const BigInt &b){
-    if(a.mIsNegative == b.mIsNegative){
+    /*
+    I)
+    a + b
+    -a + (-b)
+
+    II)
+    a + (-b)
+    -a + b
+    */
+
+   //I)
+    if(a.mIsNegative == b.mIsNegative){ // a + b or -a + (-b)
         BigInt r = BigInt::addAbsValues(a, b);
         r.mIsNegative = a.mIsNegative;
         return r;
     }
-    throw std::runtime_error("not implemented yet");
+
+    //II)
+    if(BigInt::compareAbsValues(a, b) == 1){
+        //if a > b
+        BigInt r = BigInt::subtractAbsValues(a, b); // a - b
+        r.mIsNegative = a.mIsNegative;
+        return r;
+    }else if(BigInt::compareAbsValues(a, b) == -1){
+        //if b > a
+        BigInt r = BigInt::subtractAbsValues(b, a); // b - a
+        r.mIsNegative = b.mIsNegative;
+        return r;
+    }else{
+        //if a = b (signs are different)
+        return BigInt(0);
+    }
+}
+
+inline BigInt operator-(const BigInt &a, const BigInt &b){
+
 }
