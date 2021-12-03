@@ -65,12 +65,32 @@ TEST_CASE("operator+"){
         REQUIRE(sout.str() == "142");
     }
 
-    SUBCASE("99999999 + 1"){
-        BigInt x(99999999);
+    SUBCASE("999999 + 1"){
+        BigInt x(999999);
         BigInt y(1);
 
         sout << x + y;
-        REQUIRE(sout.str() == "99100000");
+        REQUIRE(sout.str() == "1000000");
+    }
+}
+TEST_CASE("compareAbsValues() static method"){
+    SUBCASE("123 and 178"){
+        BigInt a = BigInt("123");
+        BigInt b = BigInt("178");
+        int r = BigInt::compareAbsValues(a, b);
+        REQUIRE(r == -1);
+    }
+    SUBCASE("999 and 919"){
+        BigInt a = BigInt("999");
+        BigInt b = BigInt("919");
+        int r = BigInt::compareAbsValues(a, b);
+        REQUIRE(r == 1);
+    }
+    SUBCASE("189 and 189"){
+        BigInt a = BigInt("189");
+        BigInt b = BigInt("189");
+        int r = BigInt::compareAbsValues(a, b);
+        REQUIRE(r == 0);
     }
 }
 /*

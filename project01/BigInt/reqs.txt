@@ -1,7 +1,16 @@
-Requirements for BigInt class:
-- Signed Integer numbers of arbitrary length 
-- The inner representation is a std::vector<int> (or std::vector<int64_t>) of digits
-- Test w/ unit tests
+TO-DO:
+- Input-output operators (<<, >>)
+- Constructors: 
+    default constructor, 
+    constructor with int parameter, 
+    constructor with string representation of an integer number (This constructor has to throw runtime_error exception if the
+    string argument is an invalid representation of BigInt value)
 
-- Make string constructor more advanced
-- Work on + operator
+- Operators: +, -, *, /, %, += , -=, *=, /=, %=, prefix and postfix ++ and --, unary -, unary +.
+- Operators: ==, !=, <, >, <=, >=
+
+In the case of division by zero you have to throw runtime_error exception. 
+Check how g++
+compiler (in C++11 mode) works with expressions like 3 / -2 or -5 % 10 and emulate this
+behavior in your class. Multiplication and division by numbers of type int can be implemented
+more efficiently and should be overloaded in your class.

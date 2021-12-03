@@ -6,8 +6,6 @@
 #include <string>
 #include <algorithm>
 
-//0.8%
-
 class BigInt{
     friend std::ostream &operator<<(std::ostream &out, const BigInt &x);
     friend BigInt operator+(const BigInt &a, const BigInt &b);
@@ -50,18 +48,33 @@ class BigInt{
         std::reverse(r.mDigits.begin(), r.mDigits.end());
         return r;
     }
-
+    public:
     static int compareAbsValues(const BigInt &a, const BigInt &b){
         //Imagine the BigInt values are valid/perfect
         //0 is equal, 1 is more, -1 is less
         if(a.mDigits.size() > b.mDigits.size()){
             return 1;
-        }else{
+        }else if(a.mDigits.size() < b.mDigits.size()){
             return -1;
+        }else{
+            //if equal: 123 and 999, 999 and 123, 222 and 222
+            bool isMore = false;
+            bool isLess = false;
+
+            for(int i = 0; i < a.mDigits.size(); i++){
+                if(a.mDigits[i] > b.mDigits[i]){
+                    isMore = true;
+                    return 1;
+                }else if(a.mDigits[i] < b.mDigits[i]){
+                    isLess = true;
+                    return -1;
+                }
+            }
+
+            if(!isLess && !isMore){
+                return 0;
+            }
         }
-        //919 
-        //999
-        //TODO
     }
 
     static BigInt subtractAbsValues(const BigInt &a, const BigInt &b){
@@ -75,7 +88,7 @@ class BigInt{
         int borrow = 0;
         while(i != a.mDigits.rend() || j != b.mDigits.rend()){
             int subtractionResult = 0;
-            
+
         }
     }
 
@@ -153,7 +166,7 @@ inline BigInt operator+(const BigInt &a, const BigInt &b){
         BigInt r = BigInt::subtractAbsValues(a, b); // a - b
         r.mIsNegative = a.mIsNegative;
         return r;
-    }else if(BigInt::compareAbsValues(a, b) == -1){
+    }else{
         //if b > a
         BigInt r = BigInt::subtractAbsValues(b, a); // b - a
         r.mIsNegative = b.mIsNegative;
