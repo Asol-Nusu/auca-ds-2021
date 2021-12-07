@@ -2,11 +2,22 @@
 #include <algorithm>
 #include <vector>
 #include <iterator>
+#include <string>
 
 #include "../../au/algol.hpp"
 
 using namespace std;
+struct Student{
+    string mName;
+    double mGpa;
+            
+    Student(const string &name, double gpa)
+    : mName(name), mGpa(gpa)
+    {
+    }
+};
 
+//support call operator: T t; t()
 struct IsEven{
     bool operator()(int value) const{
         return value % 2 == 0;
@@ -91,10 +102,39 @@ void p0202(){
         cout << "even numbers are not found" << endl;
     }
 }
+struct CmpByGPA{
+    bool operator()(const Student &s1, const Student &s2){
+        return s1.mGpa < s2.mGpa;
+    }
+};
+void p06(){
+    vector<Student> students;
+    string name; 
+    double gpa;
+    while(cin >> name >> gpa){
+        students.emplace_back(name, gpa);
+    }
+    sort(begin(students), end(students), [](const Student &s1, const Student &s2)
+    {return s1.mName < s2.mName;});
+
+    for(const auto &s : students){
+        cout << "{" << s.mName << ", " << s.mGpa << "}" << endl;
+    }
+
+    cout << " ---- " << endl;
+
+    sort(begin(students), end(students), CmpByGPA());
+
+    for(const auto &s : students){
+        cout << "{" << s.mName << ", " << s.mGpa << "}" << endl;
+    }
+}
+
 
 int main(){
     //p0101();
     //p0102();
     //p0201();
-    p0202();
+    //p0202();
+    p06();
 }
