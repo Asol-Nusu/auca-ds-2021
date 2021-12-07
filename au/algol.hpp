@@ -34,6 +34,7 @@ ForwardIter auFind(ForwardIter beg, ForwardIter end, const Key &key){
         if(*beg == key){
             return beg;
         }
+        ++beg;
     }
 
     return beg;
