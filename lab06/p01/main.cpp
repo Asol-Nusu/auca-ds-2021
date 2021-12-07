@@ -54,7 +54,6 @@ void p0102(){
         cout << "-1 not found" << endl;
     }
 }
-
 void p0201(){
     vector<int> v = {3, 1, 20, 4, 7, 0, 5};
     
@@ -69,8 +68,33 @@ void p0201(){
     }
 }
 
+void p0202(){
+    vector<int> v = {3, 1, 20, 4, 7, 0, 5};
+    
+    auto itVector = auFindIf(begin(v), end(v), IsEven());
+   
+    if(itVector != end(v)){
+        cout << "position of the first even number is " << itVector - begin(v) << endl;
+        cout << "the number is " << *itVector << endl;
+    }else{
+        cout << "even numbers are not found" << endl;
+    }
+
+    //Lambda Expression
+    auto itVector2 = auFindIf(begin(v), end(v), [](int value)
+        {return value % 2 == 0;});
+   
+    if(itVector2 != end(v)){
+        cout << "position of the first even number is " << itVector2 - begin(v) << endl;
+        cout << "the number is " << *itVector2 << endl;
+    }else{
+        cout << "even numbers are not found" << endl;
+    }
+}
+
 int main(){
     //p0101();
     //p0102();
-    p0201();
+    //p0201();
+    p0202();
 }
