@@ -18,7 +18,7 @@ void reverse(int *beg, int *end){
         if(beg == end){
             break;
         }
-        
+
         int t = *beg;
         *beg = *end;
         *end = t;
@@ -41,6 +41,8 @@ int main(void){
     for(int i = 0; i < n; i++){
         scanf("%d", &dynamicArray[i]);
     }
+    
+    reverse(dynamicArray, dynamicArray + n);
 
     printArray(dynamicArray, dynamicArray + n);
     free(dynamicArray);
