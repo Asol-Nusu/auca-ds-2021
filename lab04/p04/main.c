@@ -8,6 +8,25 @@ void printArray(int *beg, int *end){
     printf("\n");
 }
 
+void reverse(int *beg, int *end){
+    for(;;){
+        if(beg == end){
+            break;
+        }
+        --end;
+
+        if(beg == end){
+            break;
+        }
+        
+        int t = *beg;
+        *beg = *end;
+        *end = t;
+
+        ++beg;
+    }
+}
+
 int main(void){
     printf("the size of the array: ");
     int n;
