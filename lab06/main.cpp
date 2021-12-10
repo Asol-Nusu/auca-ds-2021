@@ -138,6 +138,30 @@ void p10(){
 
 }
 
+void p11(){
+    vector<int> v = {1, 4, 5, 10, 12, 20, 25, 40};
+    for(int x; cin >> x;){
+        auto it = lower_bound(begin(v), end(v), x);
+        if(it == end(v)){
+            cout << "no elements equal or greater than " << x << endl;
+        }else if(*it == x){
+            cout << "index of the first element equal to " << x << " is " << (it - begin(v)) << endl;
+        }else{
+            cout << "index of the first element greater than " << x << " is " << (it - begin(v)) << endl;
+        }
+    }
+}
+
+void p12(){
+    //pair<int, double> y = {23, 3.14};
+    //auto y = make_pair(23, 3.14);
+
+    vector<int> v = {0, 0, 4, 5, 10, 10, 10, 12, 20, 25, 35, 25, 25, 40};
+    for(int x; cin >> x;){
+        auto p = equal_range(begin(v), end(v), x); //it returns pair (beg, end) ~ lower_bound, upper_bound
+        cout << "the number of occurrences is " << p.second - p.first << endl;
+    }
+}
 
 int main(){
     //p0101();
@@ -145,5 +169,6 @@ int main(){
     //p0201();
     //p0202();
     //p06();
-    p10();
+    //p10();
+    p12();
 }
