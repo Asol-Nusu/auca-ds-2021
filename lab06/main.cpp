@@ -156,7 +156,7 @@ void p12(){
     //pair<int, double> y = {23, 3.14};
     //auto y = make_pair(23, 3.14);
 
-    vector<int> v = {0, 0, 4, 5, 10, 10, 10, 12, 20, 25, 35, 25, 25, 40};
+    vector<int> v = {0, 0, 4, 5, 10, 10, 10, 12, 20, 25, 25, 25, 25, 40};
     for(int x; cin >> x;){
         auto p = equal_range(begin(v), end(v), x); //it returns pair (beg, end) ~ lower_bound, upper_bound
         cout << "the number of occurrences is " << p.second - p.first << endl;
