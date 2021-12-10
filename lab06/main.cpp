@@ -4,7 +4,7 @@
 #include <iterator>
 #include <string>
 
-#include "../../au/algol.hpp"
+#include "../au/algol.hpp"
 
 using namespace std;
 struct Student{
@@ -130,11 +130,20 @@ void p06(){
     }
 }
 
+void p10(){
+    vector<int> v = {1, 4, 5, 10, 12, 20, 25, 40};
+    for(int x; cin >> x;){
+        cout << (binary_search(begin(v), end(v), x) ? "yes" : "no") << endl;
+    }
+
+}
+
 
 int main(){
     //p0101();
     //p0102();
     //p0201();
     //p0202();
-    p06();
+    //p06();
+    p10();
 }
