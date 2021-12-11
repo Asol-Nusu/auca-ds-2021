@@ -39,8 +39,14 @@ int main()
             if(result1 != result2){
                 return result1 < result2;  //if r1 < r2 (true), num1 will go first            
             }else{
-                if((num1 % 2 == 1 && num2 % 2 == 0) || (num2 % 2 == 1 && num1 % 2 == 0)){
-                    return 
+                if(num1 % 2 == 1 && num2 % 2 == 0){
+                    return true;
+                }else if(num1 % 2 == 0 && num2 % 2 == 1){
+                    return false;
+                }
+
+                if(num1 % 2 == 1 && num2 % 2 == 1){
+                    return num1 > num2;
                 }
             }
         });
