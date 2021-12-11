@@ -9,12 +9,6 @@ int sz(const C &c) {
 
 using namespace std;
 
-class MyFunctor{
-    int operator () (int num1, int num2) const {
-       return ;
-   }
-};
-
 //Отсортировать числа по возрастанию их остатков при делении на М
 int main()
 {
@@ -24,7 +18,7 @@ int main()
 
     cin >> n >> divider;
     while(n != 0 && divider != 0){
-        vector<int> numbers = vector<int>(n);
+        vector<int> numbers;
 
         for(int i = 0; i < n; i++){
             int number;
@@ -32,25 +26,35 @@ int main()
             numbers.push_back(number);
         }
 
-        sort(begin(numbers), end(numbers), [divider](int num1, int num2){
+        sort(begin(numbers), end(numbers), [divider](int num1, int num2)
+        {
             int result1 = num1 % divider;
             int result2 = num2 % divider;
 
             if(result1 != result2){
                 return result1 < result2;  //if r1 < r2 (true), num1 will go first            
             }else{
-                if(num1 % 2 == 1 && num2 % 2 == 0){
+                if(abs(num1) % 2 == 1 && num2 % 2 == 0){
                     return true;
-                }else if(num1 % 2 == 0 && num2 % 2 == 1){
+                }else if(abs(num1) % 2 == 0 && abs(num2) % 2 == 1){
                     return false;
                 }
-
-                if(num1 % 2 == 1 && num2 % 2 == 1){
+                if(abs(num1) % 2 == 1 && abs(num2) % 2 == 1){
                     return num1 > num2;
+                }else{
+                    //if(num1 % 2 == 0 && num2 % 2 == 0)
+                    //the last possible case
+                    return num1 < num2;
                 }
             }
         });
 
+        //printing the result
+        cout << n << " " << divider << "\n";
+        for(int i = 0; i < n; i++){
+            cout << numbers[i] << "\n";
+        }
         cin >> n >> divider;
     }
-} 
+    cout << "0 0\n";
+}
