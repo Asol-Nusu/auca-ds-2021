@@ -21,6 +21,7 @@ struct Pair{
         mOccurrence++;
     }
 };
+
 bool operator==(const Pair &a, const Pair &b){
     return a.mASCIIValue == b.mASCIIValue;
 }
@@ -33,6 +34,7 @@ int main()
     string input;
     while(getline(cin, input)){
         //Working on a string input
+        cout << "the input is " << input << "\n";
         for(int i = 0; i < (int)input.length(); i++){
             char character = input.at(i);
            
@@ -53,10 +55,12 @@ int main()
             });
 
             //printing 
-            
-        }
+            for(int j = 0; j < sz(pairs); j++){
+                cout << pairs[i].mASCIIValue << " " << pairs[i].mOccurrence << "\n";
+            }
 
-        cout << "\n";
+            cout << "\n";
+        }
     }
 
 } 
