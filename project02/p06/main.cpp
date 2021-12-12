@@ -1,3 +1,4 @@
+//ERROR
 /*
 tournament name, team names and games played 
 outputs the tournament standings
