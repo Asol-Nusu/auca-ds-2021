@@ -1,3 +1,4 @@
+//ACCEPTED
 #include <bits/stdc++.h> 
  
 template <typename C>
@@ -16,8 +17,8 @@ struct SpecialString{
     : mSequence(sequence), mInputIndex(inputIndex)
     {
         //Calculate the number of inversions (A, C, G, T)
-        for(int i = 0; i < sequence.length(); i++){
-            for(int j = i; j < sequence.length(); j++){
+        for(int i = 0; i < (int)sequence.length(); i++){
+            for(int j = i; j < (int)sequence.length(); j++){
                 if(sequence.at(i) > sequence.at(j)){
                     mInversions++;
                 }
@@ -48,7 +49,8 @@ int main()
         //Sorting based on their inversions
         sort(begin(specialStrings), end(specialStrings), [](const SpecialString &string1, const SpecialString &string2){
             if(string1.mInversions != string2.mInversions){
-                return string1.mInversions > string2.mInversions;
+                //from most sorted (i.e. less n of inversions) to least sorted
+                return string1.mInversions < string2.mInversions;
             }else{
                 return string1.mInputIndex < string2.mInputIndex;
             }
@@ -58,6 +60,6 @@ int main()
         for(int i = 0; i < (int)specialStrings.size(); i++){
             cout << specialStrings[i].mSequence << "\n";
         }
-        cout << (test != tests - 1) ? "\n" : "";
+        cout << ((test != tests - 1) ? "\n" : "");
     }
 } 
