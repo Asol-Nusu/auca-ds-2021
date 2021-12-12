@@ -1,3 +1,4 @@
+//ACCEPTED
 /*
  Each job description is terminated by a line containing a period.
 */
@@ -40,7 +41,6 @@ int main()
     sort(begin(skills), end(skills), [](const Skill &skill1, const Skill &skill2){
         return skill1.mName < skill2.mName;
     });
-
     
     for(int i = 0; i < nOfJobDescriptions; i++){
         int sum = 0;
@@ -51,7 +51,9 @@ int main()
             {
                 return skill.mName < word;
             });
-            if(result != end(skills)){ //if it's found
+
+            if(result != end(skills) && (*result).mName == descriptionWord){ //if it's found
+                //l_b returns an iterator to an element that is not only equal but also greater
                 sum += (*result).mValue;
             }
 
@@ -62,10 +64,4 @@ int main()
         //printing the result
         cout << sum << "\n";
     }
-    /*
-    1) Sort a vector of skills based on names
-    2) lower_bound(begin(skills), end(skills), each_job_word)
-    auto iter = lower_bound(begin(skills), end(skills), description, [](const Skill &skill, const string &d){return skill < d;});
-
-    */
 } 
