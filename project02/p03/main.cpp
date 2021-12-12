@@ -1,3 +1,4 @@
+//ACCEPTED
 /*
 Point of interest image coding 
 
@@ -39,7 +40,7 @@ int main()
     iostream::sync_with_stdio(false); 
     int tests;
     cin >> tests;
-    for(int i = 0; i < tests; i++){
+    for(int test = 1; test <= tests; test++){
         int rows;
         int columns;
         int mBytes;
@@ -55,10 +56,29 @@ int main()
 
                 auto isExistingRegion = find(begin(regions), end(regions), Region(letter));
                 if(isExistingRegion != end(regions)){ //if it's an existing element
-                
+                    (*isExistingRegion).mCount++;
+                }else{
+                    regions.push_back(Region(letter));
                 }
-                regions.push_back(Region(letter));
             }
         }
+
+        //Sorting 
+        sort(begin(regions), end(regions), [](const Region &a, const Region &b){
+            return a.mCount < b.mCount;
+        });
+
+        int maxCount = (regions.back()).mCount;
+
+        int result = 0;
+        for(int i = 0; i < (int)regions.size(); i++){
+            if(regions[i].mCount == maxCount){
+                result += mBytes*maxCount;
+            }else{
+                result += nBytes*regions[i].mCount;
+            }
+        }
+
+        cout << "Case " << test << ": "<< result << "\n";
     }
 } 
