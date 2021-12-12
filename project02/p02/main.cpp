@@ -19,10 +19,6 @@ struct Skill{
     : mName(name), mValue(value)
     {
     }
-
-    bool operator()() const{
-
-    }
 };
 
 int main()
@@ -45,17 +41,31 @@ int main()
         return skill1.mName < skill2.mName;
     });
 
-    int sum = 0;
+    
     for(int i = 0; i < nOfJobDescriptions; i++){
-        string word;
-        cin >> word;
-        while(word != "."){
-            
-            cin >> word;
+        int sum = 0;
+        string descriptionWord;
+        cin >> descriptionWord;
+        while(descriptionWord != "."){
+            auto result = lower_bound(begin(skills), end(skills), descriptionWord, [](const Skill &skill, const string &word)
+            {
+                return skill.mName < word;
+            });
+            if(result != end(skills)){ //if it's found
+                sum += (*result).mValue;
+            }
+
+            //reading next word
+            cin >> descriptionWord;
         }
+
+        //printing the result
+        cout << sum << "\n";
     }
     /*
     1) Sort a vector of skills based on names
     2) lower_bound(begin(skills), end(skills), each_job_word)
+    auto iter = lower_bound(begin(skills), end(skills), description, [](const Skill &skill, const string &d){return skill < d;});
+
     */
 } 
