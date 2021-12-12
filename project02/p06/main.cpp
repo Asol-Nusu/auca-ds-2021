@@ -13,7 +13,6 @@ using namespace std;
 struct Team{
     friend bool operator== (const Team &lhs, const Team &rhs);
     string mName;
-    int mRank; //to be calculated
 
     int mGamesPlayed;
     
@@ -89,6 +88,7 @@ int main()
         }
 
         int nOfGamesPlayed;
+        cin >> nOfGamesPlayed;
         /*
         game results
         team_name_1#goals1@goals2#team_name_2
@@ -159,5 +159,9 @@ int main()
         sort(begin(teams), end(teams), CmpByResult());
 
         //Printing the final result
+        cout << tournamentName << "\n";
+        for(int team = 0; team < nOfTeams; team++){
+            cout << (team + 1) << ") " << teams[team].mName << " " << teams[team].mTotalPoints << "p, " << teams[team].mGamesPlayed << "g (" << teams[team].mWins << "-" << teams[team].mTies << "-" << teams[team].mLosses << "), " << teams[team].mGoalDifference << "gd (" << teams[team].mGoalsScored << "-" << teams[team].mGoalsAgainst << ")\n"; 
+        }
     }
 } 
