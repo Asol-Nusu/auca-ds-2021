@@ -11,14 +11,19 @@ int sz(const C &c) {
 
 using namespace std; 
 struct Pair{
-    int mAscii; 
-    int mValue;
+    friend bool operator== (const Pair &lhs, const Pair &rhs);
+    int mASCIIValue; 
+    int mOccurrence = 0; //int value, such naming is not clear to me
 
-    Pair(const int &ascii, const int value)
-    : mAscii(ascii), mValue(value)
+    Pair(const int &asciiValue)
+    : mASCIIValue(asciiValue)
     {
+        mOccurrence++;
     }
 };
+bool operator==(const Pair &a, const Pair &b){
+    return a.mASCIIValue == b.mASCIIValue;
+}
 
 int main()
 {
@@ -30,9 +35,26 @@ int main()
         //Working on a string input
         for(int i = 0; i < (int)input.length(); i++){
             char character = input.at(i);
-            int value = character;
-        }
+           
+            auto isExistingElement = find(begin(pairs), end(pairs), Pair(character));
+            if(isExistingElement != end(pairs)){ //if found
+                (*isExistingElement).mOccurrence++;
+            }else{
+                pairs.push_back(Pair(character));
+            }
 
+            //sorting 
+            sort(begin(pairs), end(pairs), [](const Pair &a, const Pair &b){
+                if(a.mASCIIValue != b.mASCIIValue){
+                    return a.mOccurrence < b.mOccurrence;
+                }else{
+                    return a.mASCIIValue > b.mASCIIValue;
+                }
+            });
+
+            //printing 
+            
+        }
 
         cout << "\n";
     }

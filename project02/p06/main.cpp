@@ -10,5 +10,7 @@ using namespace std;
 int main()
 {
     iostream::sync_with_stdio(false); 
-    
+    char c = 'a';
+    int v = c;
+    cout << v;
 } 
