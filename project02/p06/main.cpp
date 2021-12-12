@@ -1,3 +1,7 @@
+/*
+tournament name, team names and games played 
+outputs the tournament standings
+*/
 #include <bits/stdc++.h> 
 
 template <typename C>
@@ -10,7 +14,5 @@ using namespace std;
 int main()
 {
     iostream::sync_with_stdio(false); 
-    char c = 'a';
-    int v = c;
-    cout << v;
+    
 } 
