@@ -45,7 +45,19 @@ int main()
             specialStrings.push_back(SpecialString(input, i));
         }
 
+        //Sorting based on their inversions
+        sort(begin(specialStrings), end(specialStrings), [](const SpecialString &string1, const SpecialString &string2){
+            if(string1.mInversions != string2.mInversions){
+                return string1.mInversions > string2.mInversions;
+            }else{
+                return string1.mInputIndex < string2.mInputIndex;
+            }
+        });
+
+        //Finally Printing
+        for(int i = 0; i < (int)specialStrings.size(); i++){
+            cout << specialStrings[i].mSequence << "\n";
+        }
         cout << (test != tests - 1) ? "\n" : "";
     }
-    
 } 
