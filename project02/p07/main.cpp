@@ -69,8 +69,13 @@ int main()
     iostream::sync_with_stdio(false); 
     int tests;
     cin >> tests;
+    cin.ignore(10000, '\n');
+    string trash;
+    getline(cin, trash); //FOR CORRECT READING
 
     for(int test = 0; test < tests; test++){
+        cout << "Tests: " << tests << "\n";
+
         vector<Contestant> contestants;
         //Submissions
         int contestantName;
@@ -79,7 +84,7 @@ int main()
         char problemStatus;
         
         while(cin >> contestantName >> problemNumber >> penaltyTime >> problemStatus){
-
+            cout << "contestantName: " << contestantName << " problemNumber: " << problemNumber << " penaltyTime: " << penaltyTime << " problemStatus: " << problemStatus << "\n"; 
             auto isExistingContestant = find_if(begin(contestants), end(contestants), [contestantName](const Contestant &contestant){
                 return contestant.mName == contestantName;
             });
@@ -128,11 +133,8 @@ int main()
                 }
                 
             }
+       
         }
-        //Delete contestants who didn't solve anything
-        // remove_if(begin(contestants), end(contestants), [](const Contestant &contestant){
-        //     return contestant.mTotalSolvedProblems == 0;
-        // });
 
         //Sorting contestants
         sort(begin(contestants), end(contestants), CmpByACMRules());
@@ -142,6 +144,7 @@ int main()
             cout << contestant.mName << " " << contestant.mTotalSolvedProblems << " " << contestant.mTotalPenaltyTime << "\n";
         }
 
+        cout << "I'm going to another test case";
         //To avoid Presentation Error
         if(test != tests - 1){
             cout << "\n";
