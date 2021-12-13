@@ -1,17 +1,3 @@
-/*
-Contestant 
-    int name;
-    int nOfSolvedProblems;
-    int penaltyTime = 0;
-
-Submission
-    string contestantName;
-    int problemNumber;
-    int time;
-    int problemStatus;
-
-sort(contestants);
-*/
 #include <bits/stdc++.h> 
 
 template <typename C>
@@ -55,17 +41,24 @@ struct Contestant{
 
 
 struct CmpByTeamNumber{
-
+    bool operator()(const Contestant &c1, const Contestant &c2){
+        return c1.mName > c2.mName;
+    }
 };
 struct CmpByACMRules{
-    /*
-    1) by the number of problems solved (the more the better)
-    2) then by decreasing amounts of penalty time
-    If two or more contestants are tied in both problems solved and
-    penalty time, 
-    they are displayed in order of increasing team numbers.
-    */
+   bool operator()(const Contestant &c1, const Contestant &c2){
+       if(c1.mTotalSolvedProblems != c2.mTotalSolvedProblems){
+           return c1.mTotalSolvedProblems > c2.mTotalSolvedProblems;
+       }else{
+           if(c1.mTotalPenaltyTime != c2.mTotalPenaltyTime){
+               return c1.mTotalPenaltyTime < c2.mTotalPenaltyTime;
+           }
+       }
 
+       //the last possible case
+       CmpByTeamNumber obj = CmpByTeamNumber();
+       return obj(c1, c2);
+   }
 };
 
 //use find_if, sort
@@ -74,6 +67,7 @@ int main()
     iostream::sync_with_stdio(false); 
     int tests;
     cin >> tests;
+    cout << "TEST: tests is " << tests << "\n";
     cin.ignore(10000, '\n');
     
     for(int test = 0; test < tests; test++){
@@ -86,6 +80,7 @@ int main()
             char problemStatus;
             cin >> problemNumber >> penaltyTime >> problemStatus;
 
+            cout << "TEST: contestantName is " << contestantName << " problemNumber is " << problemNumber << " penaltyTime is " << penaltyTime << " problemStatus is " << problemStatus << "\n";
             auto isExistingContestant = find_if(begin(contestants), end(contestants), [contestantName](const Contestant &contestant){
                 return contestant.mName == contestantName;
             });
@@ -132,6 +127,15 @@ int main()
             //Sorting contestants
             sort(begin(contestants), end(contestants), CmpByACMRules());
         }
-    }
-    
+
+        //printing
+        for(auto contestant : contestants){
+            cout << contestant.mName << " " << contestant.mTotalSolvedProblems << " " << contestant.mTotalPenaltyTime << "\n";
+        }
+
+        //To avoid Presentation Error
+        if(test != tests - 1){
+            cout << "\n";
+        }
+    } 
 } 
