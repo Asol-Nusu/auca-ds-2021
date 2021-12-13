@@ -72,12 +72,18 @@ int main()
     for(int test = 0; test < tests; test++){
         vector<Contestant> contestants;
         //Submissions
-        int contestantName;
-        while(cin >> contestantName){
+        
+        bool areSubmissionsOver = false;
+        
+        while(!areSubmissionsOver){
+            string input;
+            getline(cin, input);
+            
+            int contestantName;
             int problemNumber;
             int penaltyTime;
             char problemStatus;
-            cin >> problemNumber >> penaltyTime >> problemStatus;
+            cin >> contestantName >> problemNumber >> penaltyTime >> problemStatus;
 
             auto isExistingContestant = find_if(begin(contestants), end(contestants), [contestantName](const Contestant &contestant){
                 return contestant.mName == contestantName;
@@ -126,6 +132,7 @@ int main()
         remove_if(begin(contestants), end(contestants), [](const Contestant &contestant){
             return contestant.mTotalSolvedProblems == 0;
         });
+
         //Sorting contestants
         sort(begin(contestants), end(contestants), CmpByACMRules());
 
