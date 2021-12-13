@@ -1,3 +1,17 @@
+/*
+Contestant 
+    int name;
+    int nOfSolvedProblems;
+    int penaltyTime = 0;
+
+Submission
+    string contestantName;
+    int problemNumber;
+    int time;
+    int problemStatus;
+
+sort(contestants);
+*/
 #include <bits/stdc++.h> 
 
 template <typename C>
@@ -7,7 +21,8 @@ int sz(const C &c) {
 
 using namespace std; 
 struct Sumbission{
-    
+    int nOfSolvedProblems; //only if judged correct
+    int penaltyTime = 0;
 };
 
 struct CmpTeamByNumber{
