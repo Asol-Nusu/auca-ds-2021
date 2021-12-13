@@ -30,7 +30,7 @@ struct IProblem{
 struct Contestant{
     int mName;
     vector<IProblem> mSubmittedIncorrectProblems; //if some were correct, aoutomatically calculating (no problem)
-    
+
     int mTotalSolvedProblems = 0;
     int mTotalPenaltyTime = 0;
 
@@ -102,21 +102,27 @@ int main()
 
             if(problemStatus == 'C'){
                 if(isExistingContestant != end(contestants)){
-                    //сущ человек решил новую проблему
-                    //есть вероятность, что прошлая incorrect проблема стала corect
-                    (*isExistingContestant).mTotalSolvedProblems++;
-                    (*isExistingContestant).mTotalPenaltyTime += penaltyTime;
-
-                    //находим прошлый incorrect problem which is now correct
+                    //сущ человек решал эту проблему раньше в incorrectProblems vector
                     auto isPrevIncorrectProblem = find_if(begin((*isExistingContestant).mSubmittedIncorrectProblems), end((*isExistingContestant).mSubmittedIncorrectProblems), [problemNumber](const IProblem &problem){
                         return problemNumber == problem.mNumber;
                     });
 
                     if(isPrevIncorrectProblem != end((*isExistingContestant).mSubmittedIncorrectProblems)){
-                        (*isPrevIncorrectProblem).mStatus = 'C';
-                        (*isPrevIncorrectProblem).calculateFinalPenaltyTime();
-                        (*isExistingContestant).mTotalPenaltyTime += (*isPrevIncorrectProblem).mFinalPenaltyTime;
+                        // >> прежняя incorrect сейчас correct
+                        //решенная проблема может быть сабмитнута еще раз
+                        if((*isPrevIncorrectProblem).mStatus == 'I'){
+                            (*isPrevIncorrectProblem).mStatus = 'C';
+                            (*isExistingContestant).mTotalSolvedProblems++;
+                            (*isPrevIncorrectProblem).calculateFinalPenaltyTime();
+                            (*isExistingContestant).mTotalPenaltyTime += (*isPrevIncorrectProblem).mFinalPenaltyTime;
+                            (*isExistingContestant).mTotalPenaltyTime += penaltyTime;
+                        }
+                    }else{
+                        //сущ человек решил новую проблему
+                        (*isExistingContestant).mTotalSolvedProblems++;
+                        (*isExistingContestant).mTotalPenaltyTime += penaltyTime;
                     }
+                    
                 }else{
                     //новый человек решил новую проблему
                     //у него никаких историй нет
@@ -129,7 +135,9 @@ int main()
                     auto isPrevIncorrectProblem = find_if(begin((*isExistingContestant).mSubmittedIncorrectProblems), end((*isExistingContestant).mSubmittedIncorrectProblems), [problemNumber](const IProblem &problem){
                         return problemNumber == problem.mNumber;
                     }); //but it's still incorrect
-                    (*isPrevIncorrectProblem).mNOfSubmissions++;
+                    if(isPrevIncorrectProblem != end((*isExistingContestant).mSubmittedIncorrectProblems)){
+                        (*isPrevIncorrectProblem).mNOfSubmissions++;
+                    }
                 }else{
                     //новый человек сабмитнул неправильно решенную проблему 
                     //у него никаких историй нет
@@ -138,11 +146,11 @@ int main()
                     contestants.back().mSubmittedIncorrectProblems.back().mNOfSubmissions++;
                 }
             }else{
-                if(isExistingContestant == end(contestants)){ 
+                if(isExistingContestant != end(contestants)){ 
+                }else{
                     //new person
                     contestants.push_back(Contestant(contestantName));
                 }
-                
             }
         }
 
