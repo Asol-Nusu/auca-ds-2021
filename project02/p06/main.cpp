@@ -15,21 +15,25 @@ struct Team{
     friend bool operator== (const Team &lhs, const Team &rhs);
     string mName;
 
-    int mGamesPlayed;
+    int mGamesPlayed = 0;
     
-    int mWins;
-    int mLosses; 
-    int mTies;
+    int mWins = 0;
+    int mLosses = 0; 
+    int mTies = 0;
 
-    int mGoalsScored; 
-    int mGoalsAgainst;
-    int mGoalDifference = mGoalsScored - mGoalsAgainst;//их голы - чужие голы //calculated inside
+    int mGoalsScored = 0; 
+    int mGoalsAgainst = 0;
+    int mGoalDifference;
     
-    int mTotalPoints = mWins * 3 + mTies * 1; //calculated inside
+    int mTotalPoints;
     
     Team(string name)
         : mName(name)
     {
+    }
+    void calculateInsideVariables(){
+        mGoalDifference = mGoalsScored - mGoalsAgainst;//их голы - чужие голы //calculated inside
+        mTotalPoints = mWins * 3 + mTies * 1; //calculated inside
     }
 };
 bool operator==(const Team &a, const Team &b){
@@ -38,7 +42,7 @@ bool operator==(const Team &a, const Team &b){
 
 struct CmpByName{
     //Lexicographic order
-    bool operator()(const Team &t1, const Team &t2){
+    bool operator()(const Team &t1, const Team &t2) {
         return t1.mName < t2.mName;
     }
 };
@@ -59,13 +63,15 @@ struct CmpByResult{
                     }else{
                         if(t1.mGamesPlayed != t2.mGamesPlayed){
                             return t1.mGamesPlayed < t2.mGamesPlayed;
-                        }else{
-                            CmpByName();
                         }
                     }
                 }
             }
         }
+        
+        //last possible case
+        CmpByName cmpObj = CmpByName();
+        return cmpObj(t1, t2);
     }
 };
 
@@ -85,12 +91,13 @@ int main()
 
         getline(cin, tournamentName);
         cin >> nOfTeams;
+        cin.ignore(10000, '\n');
         cout << "TEST: tournaments name is " << tournamentName << "\n";
         cout << "TEST: nOfTeams is " << nOfTeams << "\n";
 
         for(int team = 0; team < nOfTeams; team++){
             string teamName; //no ‘#’ and ‘@’
-            cin >> teamName;
+            getline(cin, teamName);
             cout << "TEST: teamName is " << teamName << "\n";
             teams.push_back(Team(teamName));
         }
@@ -106,6 +113,7 @@ int main()
         for(int game = 0; game < nOfGamesPlayed; game++){
             string input;
             getline(cin, input);
+            cout << "TEST: Each Game Description: " << input << "\n";
 
             //scannign team1Name
             string team1Name;
@@ -115,6 +123,7 @@ int main()
                 index++;
             }
 
+            cout << "TEST: team1Name: " << team1Name << "\n";
             //scanning team1goals
             index++;
             string s1Goals;
@@ -123,6 +132,7 @@ int main()
                 index++;
             }
             int team1Goals = stoi(s1Goals);
+            cout << "TEST: team1Goals: " << team1Goals << "\n";
 
             //scanning team2goals
             index++;
@@ -132,14 +142,16 @@ int main()
                 index++;
             }
             int team2Goals = stoi(s2Goals);
+            cout << "TEST: team2Goals: " << team2Goals << "\n";
 
             //scanning team2Name
             index++;
             string team2Name;
-            while(index != sz(input)){
+            while(index != (int)input.length()){
                 team2Name.push_back(input.at(index));
                 index++;
             }
+            cout << "TEST: team2Name: " << team2Name << "\n";
 
             //Working with formed teams
             //It's guaranteed it'll find the team
@@ -148,6 +160,9 @@ int main()
             (*team1).mGoalsScored += team1Goals;
             (*team1).mGoalsAgainst += team2Goals;
 
+            cout << "TEST: team1.mGamesPlayed: " << (*team1).mGamesPlayed << "\n";
+            cout << "TEST: team1.mGoalsScored: " << (*team1).mGoalsScored << "\n";
+            cout << "TEST: team1.mGoalsAgainst: " << (*team1).mGoalsAgainst << "\n";
             auto team2 = find(begin(teams), end(teams), Team(team2Name));
             (*team2).mGamesPlayed++;
             (*team2).mGoalsScored += team2Goals;
@@ -163,6 +178,8 @@ int main()
                 (*team1).mTies++;
                 (*team2).mTies++;
             }
+            (*team1).calculateInsideVariables();
+            (*team2).calculateInsideVariables();
         }
 
         //Ranking (sorting)
