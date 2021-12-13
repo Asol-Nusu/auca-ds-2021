@@ -20,15 +20,26 @@ int sz(const C &c) {
 }
 
 using namespace std; 
+struct Contestant{
+    string mName;
+    int nOfSolvedProblems = 0;
+    int penaltyTime = 0;
+
+    Contestant(const string &name)
+        : mName(name)
+    {
+    }
+};
+
 struct Sumbission{
     int nOfSolvedProblems; //only if judged correct
     int penaltyTime = 0;
 };
 
-struct CmpTeamByNumber{
+struct CmpByTeamNumber{
 
 };
-struct CmpTeamByACMRules{
+struct CmpByACMRules{
     /*
     1) by the number of problems solved (the more the better)
     2) then by decreasing amounts of penalty time
@@ -46,5 +57,7 @@ int main()
     int tests;
     cin >> tests;
     cin.ignore(10000, '\n');
+
+    //Submissions
 
 } 
