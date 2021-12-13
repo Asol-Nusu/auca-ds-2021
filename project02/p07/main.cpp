@@ -62,7 +62,18 @@ struct CmpByACMRules{
    }
 };
 
+vector<string> makeGoodValues(const string &input){
+    vector<string> result;
+    istringstream ss(input);
 
+    string word; // for storing each word
+    while (ss >> word) 
+    {
+        result.push_back(word);
+    }
+
+    return result;
+}
 //use find_if, sort
 int main()
 {
@@ -74,17 +85,17 @@ int main()
     getline(cin, trash); //FOR CORRECT READING
 
     for(int test = 0; test < tests; test++){
-        cout << "Tests: " << tests << "\n";
-
         vector<Contestant> contestants;
-        //Submissions
-        int contestantName;
-        int problemNumber;
-        int penaltyTime;
-        char problemStatus;
         
-        while(cin >> contestantName >> problemNumber >> penaltyTime >> problemStatus){
-            cout << "contestantName: " << contestantName << " problemNumber: " << problemNumber << " penaltyTime: " << penaltyTime << " problemStatus: " << problemStatus << "\n"; 
+        //Submissions
+        string input;
+        while(getline(cin, input) && !input.empty()){
+            vector<string> goodResult = makeGoodValues(input);
+            int contestantName = stoi(goodResult[0]);
+            int problemNumber = stoi(goodResult[1]);
+            int penaltyTime = stoi(goodResult[2]);
+            char problemStatus = goodResult[3].at(0);
+
             auto isExistingContestant = find_if(begin(contestants), end(contestants), [contestantName](const Contestant &contestant){
                 return contestant.mName == contestantName;
             });
@@ -133,7 +144,6 @@ int main()
                 }
                 
             }
-       
         }
 
         //Sorting contestants
@@ -144,7 +154,6 @@ int main()
             cout << contestant.mName << " " << contestant.mTotalSolvedProblems << " " << contestant.mTotalPenaltyTime << "\n";
         }
 
-        cout << "I'm going to another test case";
         //To avoid Presentation Error
         if(test != tests - 1){
             cout << "\n";
