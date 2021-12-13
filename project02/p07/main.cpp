@@ -122,7 +122,11 @@ int main()
                     contestants.back().mSubmittedIncorrectProblems.back().mNOfSubmissions++;
                 }
             }else{
-                contestants.push_back(Contestant(contestantName));
+                if(isExistingContestant == end(contestants)){ 
+                    //new person
+                    contestants.push_back(Contestant(contestantName));
+                }
+                
             }
         }
         //Delete contestants who didn't solve anything
