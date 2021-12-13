@@ -20,10 +20,28 @@ int sz(const C &c) {
 }
 
 using namespace std; 
+//for submitted Incorrect Problems
+struct IProblem{
+    int problemNumber;
+    int nOfSubmissions;
+    char status = 'I';
+    int finalPenaltyTime = 0;
+
+
+    //if it eventually got 'correct' status:
+    void calculateFinalPenaltyTime(){
+        if(status == 'C'){
+            finalPenaltyTime = 20*nOfSubmissions;
+        }
+    }
+};
+
 struct Contestant{
     string mName;
-    int nOfSolvedProblems = 0;
-    int penaltyTime = 0;
+    vector<IProblem> mSubmittedIncorrectProblems; //if some were correct, aoutomatically calculating (no problem)
+    
+    int mTotalSolvedProblems = 0;
+    int mTotalPenaltyTime = 0;
 
     Contestant(const string &name)
         : mName(name)
@@ -31,10 +49,6 @@ struct Contestant{
     }
 };
 
-struct Sumbission{
-    int nOfSolvedProblems; //only if judged correct
-    int penaltyTime = 0;
-};
 
 struct CmpByTeamNumber{
 
@@ -57,7 +71,14 @@ int main()
     int tests;
     cin >> tests;
     cin.ignore(10000, '\n');
-
+    
     //Submissions
+    int contestantName;
+    while(cin >> contestantName){
+        int problemNumber;
+        int penaltyTime;
+        char problemStatus;
+        cin >> problemNumber >> penaltyTime >> problemStatus;
 
+    }
 } 
