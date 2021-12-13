@@ -74,6 +74,8 @@ int main()
     iostream::sync_with_stdio(false); 
     int nOfTournaments;
     cin >> nOfTournaments;
+    cin.ignore(10000, '\n'); //cin reads until a space, so \n is left
+    cout << "TEST: number of tournaments is " << nOfTournaments << "\n";
 
     for(int tour = 0; tour < nOfTournaments; tour++){
         //Tournament Description
@@ -81,15 +83,22 @@ int main()
         int nOfTeams;
         vector<Team> teams;
 
-        cin >> tournamentName >> nOfTeams;
+        getline(cin, tournamentName);
+        cin >> nOfTeams;
+        cout << "TEST: tournaments name is " << tournamentName << "\n";
+        cout << "TEST: nOfTeams is " << nOfTeams << "\n";
+
         for(int team = 0; team < nOfTeams; team++){
             string teamName; //no ‘#’ and ‘@’
             cin >> teamName;
+            cout << "TEST: teamName is " << teamName << "\n";
             teams.push_back(Team(teamName));
         }
 
         int nOfGamesPlayed;
         cin >> nOfGamesPlayed;
+        cin.ignore(10000, '\n');
+        cout << "TEST: nOfGamesPlayed is " << nOfGamesPlayed << "\n";
         /*
         game results
         team_name_1#goals1@goals2#team_name_2
