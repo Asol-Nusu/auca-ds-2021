@@ -121,12 +121,14 @@ int main()
                     contestants.back().mSubmittedIncorrectProblems.push_back(IProblem(problemNumber));
                     contestants.back().mSubmittedIncorrectProblems.back().mNOfSubmissions++;
                 }
+            }else{
+                contestants.push_back(Contestant(contestantName));
             }
         }
         //Delete contestants who didn't solve anything
-        remove_if(begin(contestants), end(contestants), [](const Contestant &contestant){
-            return contestant.mTotalSolvedProblems == 0;
-        });
+        // remove_if(begin(contestants), end(contestants), [](const Contestant &contestant){
+        //     return contestant.mTotalSolvedProblems == 0;
+        // });
 
         //Sorting contestants
         sort(begin(contestants), end(contestants), CmpByACMRules());
