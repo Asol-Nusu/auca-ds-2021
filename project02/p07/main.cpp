@@ -22,28 +22,32 @@ int sz(const C &c) {
 using namespace std; 
 //for submitted Incorrect Problems
 struct IProblem{
-    int problemNumber;
-    int nOfSubmissions;
-    char status = 'I';
-    int finalPenaltyTime = 0;
+    int mNumber;
 
+    int mNOfSubmissions = 0;
+    char mStatus = 'I';
+    int mFinalPenaltyTime = 0;
 
+    IProblem(const int &problemNumber)
+        : mNumber(problemNumber)
+    {
+    }
     //if it eventually got 'correct' status:
     void calculateFinalPenaltyTime(){
-        if(status == 'C'){
-            finalPenaltyTime = 20*nOfSubmissions;
+        if(mStatus == 'C'){
+            mFinalPenaltyTime = 20*mNOfSubmissions;
         }
     }
 };
 
 struct Contestant{
-    string mName;
+    int mName;
     vector<IProblem> mSubmittedIncorrectProblems; //if some were correct, aoutomatically calculating (no problem)
     
     int mTotalSolvedProblems = 0;
     int mTotalPenaltyTime = 0;
 
-    Contestant(const string &name)
+    Contestant(const int &name)
         : mName(name)
     {
     }
@@ -72,13 +76,29 @@ int main()
     cin >> tests;
     cin.ignore(10000, '\n');
     
-    //Submissions
-    int contestantName;
-    while(cin >> contestantName){
-        int problemNumber;
-        int penaltyTime;
-        char problemStatus;
-        cin >> problemNumber >> penaltyTime >> problemStatus;
+    for(int test = 0; test < tests; test++){
+        vector<Contestant> contestants;
+        //Submissions
+        int contestantName;
+        while(cin >> contestantName){
+            int problemNumber;
+            int penaltyTime;
+            char problemStatus;
+            cin >> problemNumber >> penaltyTime >> problemStatus;
 
+            auto isExistingContestant = find_if(begin(contestants), end(contestants), [contestantName](const Contestant contestant){
+                return contestant.mName == contestantName;
+            });
+
+            if(isExistingContestant != end(contestants)){
+                
+            }
+            if(problemStatus == 'C'){
+
+            }else if(problemStatus == 'I'){
+
+            }
+        }
     }
+    
 } 
