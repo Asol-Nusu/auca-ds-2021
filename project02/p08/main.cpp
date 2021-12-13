@@ -6,18 +6,24 @@ int sz(const C &c) {
 }
 
 using namespace std; 
+vector<string> makeGoodValues(const string &input){
+    vector<string> result;
+    istringstream ss(input);
+  
+    string word; // for storing each word
+    while (ss >> word) 
+    {
+        result.push_back(word);
+    }
 
+    return result;
+}
 int main()
 {
     iostream::sync_with_stdio(false); 
-    vector<int> v;
-    for(int j = 0; j < 5; j++){
-        auto i;
-        cin >> i;
-        v.push_back(i);
-    }
-
-    for(auto e : v){
-        cout << e << "\n";
+    string s = "c";
+    vector<string> r = makeGoodValues("My name is Sol");
+    for(auto w : r){
+        cout << w << "\n";
     }
 } 

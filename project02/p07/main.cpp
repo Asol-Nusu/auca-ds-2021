@@ -1,3 +1,4 @@
+//RUNTIME ERROR
 #include <bits/stdc++.h> 
 
 template <typename C>
@@ -42,7 +43,7 @@ struct Contestant{
 
 struct CmpByTeamNumber{
     bool operator()(const Contestant &c1, const Contestant &c2){
-        return c1.mName > c2.mName;
+        return c1.mName < c2.mName;
     }
 };
 struct CmpByACMRules{
@@ -61,29 +62,23 @@ struct CmpByACMRules{
    }
 };
 
+
 //use find_if, sort
 int main()
 {
     iostream::sync_with_stdio(false); 
     int tests;
     cin >> tests;
-    cin.ignore(10000, '\n');
-    
+
     for(int test = 0; test < tests; test++){
         vector<Contestant> contestants;
         //Submissions
+        int contestantName;
+        int problemNumber;
+        int penaltyTime;
+        char problemStatus;
         
-        bool areSubmissionsOver = false;
-        
-        while(!areSubmissionsOver){
-            string input;
-            getline(cin, input);
-            
-            int contestantName;
-            int problemNumber;
-            int penaltyTime;
-            char problemStatus;
-            cin >> contestantName >> problemNumber >> penaltyTime >> problemStatus;
+        while(cin >> contestantName >> problemNumber >> penaltyTime >> problemStatus){
 
             auto isExistingContestant = find_if(begin(contestants), end(contestants), [contestantName](const Contestant &contestant){
                 return contestant.mName == contestantName;
