@@ -67,7 +67,6 @@ int main()
     iostream::sync_with_stdio(false); 
     int tests;
     cin >> tests;
-    cout << "TEST: tests is " << tests << "\n";
     cin.ignore(10000, '\n');
     
     for(int test = 0; test < tests; test++){
@@ -80,7 +79,6 @@ int main()
             char problemStatus;
             cin >> problemNumber >> penaltyTime >> problemStatus;
 
-            cout << "TEST: contestantName is " << contestantName << " problemNumber is " << problemNumber << " penaltyTime is " << penaltyTime << " problemStatus is " << problemStatus << "\n";
             auto isExistingContestant = find_if(begin(contestants), end(contestants), [contestantName](const Contestant &contestant){
                 return contestant.mName == contestantName;
             });
@@ -123,10 +121,13 @@ int main()
                     contestants.back().mSubmittedIncorrectProblems.back().mNOfSubmissions++;
                 }
             }
-
-            //Sorting contestants
-            sort(begin(contestants), end(contestants), CmpByACMRules());
         }
+        //Delete contestants who didn't solve anything
+        remove_if(begin(contestants), end(contestants), [](const Contestant &contestant){
+            return contestant.mTotalSolvedProblems == 0;
+        });
+        //Sorting contestants
+        sort(begin(contestants), end(contestants), CmpByACMRules());
 
         //printing
         for(auto contestant : contestants){

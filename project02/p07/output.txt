@@ -1,14 +1,2 @@
-TEST: tests is 2
-TEST: contestantName is 1 problemNumber is 2 penaltyTime is 10 problemStatus is I
-TEST: contestantName is 3 problemNumber is 1 penaltyTime is 11 problemStatus is C
-TEST: contestantName is 1 problemNumber is 2 penaltyTime is 19 problemStatus is R
-TEST: contestantName is 1 problemNumber is 2 penaltyTime is 21 problemStatus is C
-TEST: contestantName is 1 problemNumber is 1 penaltyTime is 25 problemStatus is C
-TEST: contestantName is 1 problemNumber is 2 penaltyTime is 10 problemStatus is I
-TEST: contestantName is 3 problemNumber is 1 penaltyTime is 11 problemStatus is C
-TEST: contestantName is 1 problemNumber is 2 penaltyTime is 19 problemStatus is R
-TEST: contestantName is 1 problemNumber is 2 penaltyTime is 21 problemStatus is C
-TEST: contestantName is 1 problemNumber is 1 penaltyTime is 25 problemStatus is C
-1 4 152
-3 2 22
-
+1 2 66
+3 1 11
