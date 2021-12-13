@@ -6,12 +6,21 @@ int sz(const C &c) {
 }
 
 using namespace std; 
+struct Sumbission{
 
+};
+
+struct CmpTeamByNumber{
+
+};
+struct CmpTeamByACMRules{
+
+};
+
+//use find_if, sort
 int main()
 {
     iostream::sync_with_stdio(false); 
-    string longInput;
-    getline(cin, longInput);
-
-    cout << longInput;
+    
+    
 } 
