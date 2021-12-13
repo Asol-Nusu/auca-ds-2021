@@ -1,4 +1,4 @@
-//ERROR
+//ACCEPTED
 /*
 tournament name, team names and games played 
 outputs the tournament standings
@@ -23,9 +23,9 @@ struct Team{
 
     int mGoalsScored = 0; 
     int mGoalsAgainst = 0;
-    int mGoalDifference;
+    int mGoalDifference = 0;
     
-    int mTotalPoints;
+    int mTotalPoints = 0;
     
     Team(string name)
         : mName(name)
@@ -43,7 +43,12 @@ bool operator==(const Team &a, const Team &b){
 struct CmpByName{
     //Lexicographic order
     bool operator()(const Team &t1, const Team &t2) {
-        return t1.mName < t2.mName;
+        string t1Name = t1.mName;
+        transform(t1Name.begin(), t1Name.end(), t1Name.begin(), ::tolower);
+        string t2Name = t2.mName;
+        transform(t2Name.begin(), t2Name.end(), t2Name.begin(), ::tolower);
+        
+        return t1Name < t2Name;
     }
 };
 
@@ -81,7 +86,6 @@ int main()
     int nOfTournaments;
     cin >> nOfTournaments;
     cin.ignore(10000, '\n'); //cin reads until a space, so \n is left
-    cout << "TEST: number of tournaments is " << nOfTournaments << "\n";
 
     for(int tour = 0; tour < nOfTournaments; tour++){
         //Tournament Description
@@ -92,20 +96,16 @@ int main()
         getline(cin, tournamentName);
         cin >> nOfTeams;
         cin.ignore(10000, '\n');
-        cout << "TEST: tournaments name is " << tournamentName << "\n";
-        cout << "TEST: nOfTeams is " << nOfTeams << "\n";
 
         for(int team = 0; team < nOfTeams; team++){
             string teamName; //no ‘#’ and ‘@’
             getline(cin, teamName);
-            cout << "TEST: teamName is " << teamName << "\n";
             teams.push_back(Team(teamName));
         }
 
         int nOfGamesPlayed;
         cin >> nOfGamesPlayed;
         cin.ignore(10000, '\n');
-        cout << "TEST: nOfGamesPlayed is " << nOfGamesPlayed << "\n";
         /*
         game results
         team_name_1#goals1@goals2#team_name_2
@@ -113,7 +113,6 @@ int main()
         for(int game = 0; game < nOfGamesPlayed; game++){
             string input;
             getline(cin, input);
-            cout << "TEST: Each Game Description: " << input << "\n";
 
             //scannign team1Name
             string team1Name;
@@ -123,7 +122,6 @@ int main()
                 index++;
             }
 
-            cout << "TEST: team1Name: " << team1Name << "\n";
             //scanning team1goals
             index++;
             string s1Goals;
@@ -132,7 +130,6 @@ int main()
                 index++;
             }
             int team1Goals = stoi(s1Goals);
-            cout << "TEST: team1Goals: " << team1Goals << "\n";
 
             //scanning team2goals
             index++;
@@ -142,7 +139,6 @@ int main()
                 index++;
             }
             int team2Goals = stoi(s2Goals);
-            cout << "TEST: team2Goals: " << team2Goals << "\n";
 
             //scanning team2Name
             index++;
@@ -151,7 +147,6 @@ int main()
                 team2Name.push_back(input.at(index));
                 index++;
             }
-            cout << "TEST: team2Name: " << team2Name << "\n";
 
             //Working with formed teams
             //It's guaranteed it'll find the team
@@ -160,9 +155,6 @@ int main()
             (*team1).mGoalsScored += team1Goals;
             (*team1).mGoalsAgainst += team2Goals;
 
-            cout << "TEST: team1.mGamesPlayed: " << (*team1).mGamesPlayed << "\n";
-            cout << "TEST: team1.mGoalsScored: " << (*team1).mGoalsScored << "\n";
-            cout << "TEST: team1.mGoalsAgainst: " << (*team1).mGoalsAgainst << "\n";
             auto team2 = find(begin(teams), end(teams), Team(team2Name));
             (*team2).mGamesPlayed++;
             (*team2).mGoalsScored += team2Goals;
@@ -189,6 +181,11 @@ int main()
         cout << tournamentName << "\n";
         for(int team = 0; team < nOfTeams; team++){
             cout << (team + 1) << ") " << teams[team].mName << " " << teams[team].mTotalPoints << "p, " << teams[team].mGamesPlayed << "g (" << teams[team].mWins << "-" << teams[team].mTies << "-" << teams[team].mLosses << "), " << teams[team].mGoalDifference << "gd (" << teams[team].mGoalsScored << "-" << teams[team].mGoalsAgainst << ")\n"; 
+        }
+
+        //To avoid Presentation Error
+        if(tour != nOfTournaments - 1){
+            cout << "\n";
         }
     }
 } 
