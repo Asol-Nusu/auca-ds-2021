@@ -86,18 +86,51 @@ int main()
             char problemStatus;
             cin >> problemNumber >> penaltyTime >> problemStatus;
 
-            auto isExistingContestant = find_if(begin(contestants), end(contestants), [contestantName](const Contestant contestant){
+            auto isExistingContestant = find_if(begin(contestants), end(contestants), [contestantName](const Contestant &contestant){
                 return contestant.mName == contestantName;
             });
 
-            if(isExistingContestant != end(contestants)){
-                
-            }
             if(problemStatus == 'C'){
+                if(isExistingContestant != end(contestants)){
+                    //сущ человек решил новую проблему
+                    //есть вероятность, что прошлая incorrect проблема стала corect
+                    (*isExistingContestant).mTotalSolvedProblems++;
+                    (*isExistingContestant).mTotalPenaltyTime += penaltyTime;
 
+                    //находим прошлый incorrect problem which is now correct
+                    auto isPrevIncorrectProblem = find_if(begin((*isExistingContestant).mSubmittedIncorrectProblems), end((*isExistingContestant).mSubmittedIncorrectProblems), [problemNumber](const IProblem &problem){
+                        return problemNumber == problem.mNumber;
+                    });
+
+                    if(isPrevIncorrectProblem != end((*isExistingContestant).mSubmittedIncorrectProblems)){
+                        (*isPrevIncorrectProblem).mStatus = 'C';
+                        (*isPrevIncorrectProblem).calculateFinalPenaltyTime();
+                        (*isExistingContestant).mTotalPenaltyTime += (*isPrevIncorrectProblem).mFinalPenaltyTime;
+                    }
+                }else{
+                    //новый человек решил новую проблему
+                    //у него никаких историй нет
+                    contestants.push_back(Contestant(contestantName));
+                    contestants.back().mTotalSolvedProblems++;
+                    contestants.back().mTotalPenaltyTime += penaltyTime;
+                }
             }else if(problemStatus == 'I'){
-
+                if(isExistingContestant != end(contestants)){
+                    auto isPrevIncorrectProblem = find_if(begin((*isExistingContestant).mSubmittedIncorrectProblems), end((*isExistingContestant).mSubmittedIncorrectProblems), [problemNumber](const IProblem &problem){
+                        return problemNumber == problem.mNumber;
+                    }); //but it's still incorrect
+                    (*isPrevIncorrectProblem).mNOfSubmissions++;
+                }else{
+                    //новый человек сабмитнул неправильно решенную проблему 
+                    //у него никаких историй нет
+                    contestants.push_back(Contestant(contestantName));
+                    contestants.back().mSubmittedIncorrectProblems.push_back(IProblem(problemNumber));
+                    contestants.back().mSubmittedIncorrectProblems.back().mNOfSubmissions++;
+                }
             }
+
+            //Sorting contestants
+            sort(begin(contestants), end(contestants), CmpByACMRules());
         }
     }
     
