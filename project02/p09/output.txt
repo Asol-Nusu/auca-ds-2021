@@ -1,0 +1,15 @@
+noftests is 4
+Color is B. Lenght is 5
+Color is R. Lenght is 6
+Color is B. Lenght is 1
+Color is R. Lenght is 7
+Color is B. Lenght is 3
+Color is B. Lenght is 5
+Color is R. Lenght is 4
+Color is R. Lenght is 3
+Color is R. Lenght is 2
+Color is R. Lenght is 5
+Color is R. Lenght is 4
+Color is R. Lenght is 3
+Color is B. Lenght is 20
+Color is R. Lenght is 20

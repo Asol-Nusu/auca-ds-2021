@@ -1,4 +1,13 @@
+/*
+build the longest loop of rope while alternating colors.
+𝑆  segments and each segment will either be blue (𝐵) or red (𝑅).
+
+- Alternate between colors
+- If only one color, output 0
+- --*-- (knot consumes 0.5 cm from each rope)
+*/
 #include <bits/stdc++.h> 
+#include <string>
 
 template <typename C>
 int sz(const C &c) { 
@@ -6,27 +15,44 @@ int sz(const C &c) {
 }
 
 using namespace std; 
-vector<string> makeGoodValues(const string &input){
-    vector<string> result;
-    istringstream ss(input);
+struct RopeSegment{
+    int length;
+    char color;
 
-    string word; // for storing each word
-    while (ss >> word) 
+    RopeSegment(const string &rawInput)
+        : color(rawInput.back())
     {
-        result.push_back(word);
+        //1 ≤ 𝐿 ≤ 100 and colors is R or B
+        string sLength;
+        for(auto c : rawInput){
+            if(c != color){
+                sLength.push_back(c);
+            }
+        }
+        length = stoi(sLength);
     }
+};
 
-    return result;
-}
+//Use sort, accumulate
 int main()
 {
     iostream::sync_with_stdio(false); 
-    int contestantName;
-    string input = "12 34 45 l";
-    vector<string> r = makeGoodValues(input);
-    for(int i = 0; i < 4; i++){
-        cout << r[i] << "\n";
+    int tests;
+    cin >> tests;
+    cout << "noftests is " << tests << "\n";
+    for(int test = 1; test <= tests; test++){
+        int nOfRopeSegments;
+        cin >> nOfRopeSegments;
+
+        vector<RopeSegment> ropes;
+        for(int segment = 0; segment < nOfRopeSegments; segment++){
+            string rawInput;
+            cin >> rawInput;
+            ropes.push_back(RopeSegment(rawInput));
+        }
+
+
+
+        cout << "Case #" << test << ": " << "\n";
     }
-    char c = r[3].at(0);
-    cout << c << "\n";
 } 
