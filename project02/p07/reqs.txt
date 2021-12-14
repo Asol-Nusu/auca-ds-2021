@@ -1,0 +1,57 @@
+struct Problem{
+    int mNumber;
+    char mStatus = ' ';
+
+    int mNOfSubmissions = 0;
+    bool mWasPreviouslyIncorrect = false;
+
+    int mPenaltyTime = 0;
+    
+
+    Problem(const int &problemNumber)
+        : mNumber(problemNumber) 
+    {
+    }
+};
+
+struct Contestant{
+    int mName;
+    vector<Problem> problems; //correct с первого раза + the ones which got eventually correct
+
+    Contestant(const int &name)
+        : mName(name)
+    {
+    }
+    
+    //Calculated inside
+    int mTotalSolvedProblems = 0;
+    int mTotalPenaltyTime = 0;
+    void calculateStandings(){
+        for(auto problem : problems){
+            if(problem.mStatus == 'C'){
+                mTotalSolvedProblems++;
+                mTotalPenaltyTime += problem.mPenaltyTime;
+
+                if(problem.mWasPreviouslyIncorrect){
+                    mTotalPenaltyTime += 20*problem.mNOfSubmissions;
+                }
+            }
+        }
+    }
+};
+
+A problem is considered solved by a contestant 
+if any of the submissions for that problem was judged correct 
+(but calculate only the 1st correct submission).
+
+1) First-time correct problems 
+2) Incorrect Problems that eventually got Correct (status is required)
+
+
+При вычислении рез-та смотреть на статус (там могут быть incorrect that remained incorrect)
+и на prevState (if true, calcualte mNOfSubmissions as well)
+
+При каждом submission нужно проверять участника в списке, 
+чтобы рассматривать его портфолио
+
+Если новый участник, нет проблем
