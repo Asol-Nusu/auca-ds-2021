@@ -7,35 +7,39 @@ int sz(const C &c) {
 }
 
 using namespace std; 
-
-struct Problem{
+//for submitted Incorrect Problems
+struct IProblem{
     int mNumber;
-    char mStatus = ' ';
 
     int mNOfSubmissions = 0;
-    bool mWasPreviouslyIncorrect = false;
+    char mStatus = 'I';
+    int mFinalPenaltyTime = 0;
 
-    int mPenaltyTime = 0;
-    
-
-    Problem(const int &problemNumber)
-        : mNumber(problemNumber) 
+    IProblem(const int &problemNumber)
+        : mNumber(problemNumber)
     {
+    }
+    //if it eventually got 'correct' status:
+    void calculateFinalPenaltyTime(){
+        if(mStatus == 'C'){
+            mFinalPenaltyTime = 20*mNOfSubmissions;
+        }
     }
 };
 
 struct Contestant{
     int mName;
-    vector<Problem> problems; //correct с первого раза + the ones which got eventually correct
+    vector<IProblem> mSubmittedIncorrectProblems; //if some were correct, aoutomatically calculating (no problem)
+
+    int mTotalSolvedProblems = 0;
+    int mTotalPenaltyTime = 0;
 
     Contestant(const int &name)
         : mName(name)
     {
     }
-    
-    int mTotalSolvedProblems = 0;
-    int mTotalPenaltyTime = 0;
 };
+
 
 struct CmpByTeamNumber{
     bool operator()(const Contestant &c1, const Contestant &c2){
@@ -96,71 +100,60 @@ int main()
                 return contestant.mName == contestantName;
             });
 
-            if(isExistingContestant != end(contestants)){
-                auto didWorkOnThisProblem = find_if(begin((*isExistingContestant).problems), end((*isExistingContestant).problems), [problemNumber](const Problem &problem){
+            if(problemStatus == 'C'){
+                if(isExistingContestant != end(contestants)){
+                    //сущ человек решал эту проблему раньше в incorrectProblems vector
+                    auto isPrevIncorrectProblem = find_if(begin((*isExistingContestant).mSubmittedIncorrectProblems), end((*isExistingContestant).mSubmittedIncorrectProblems), [problemNumber](const IProblem &problem){
                         return problemNumber == problem.mNumber;
                     });
 
-                if(didWorkOnThisProblem != end((*isExistingContestant).problems)){
-                    if(problemStatus == 'C'){
-                        if((*didWorkOnThisProblem).mStatus != 'C'){
-                            (*didWorkOnThisProblem).mStatus = 'C';
-                            (*didWorkOnThisProblem).mPenaltyTime = penaltyTime;
-                        }else if((*didWorkOnThisProblem).mStatus == 'I'){
-                            (*didWorkOnThisProblem).mWasPreviouslyIncorrect = true;
-                            (*didWorkOnThisProblem).mStatus = 'C';
-                            (*didWorkOnThisProblem).mPenaltyTime = penaltyTime;
+                    if(isPrevIncorrectProblem != end((*isExistingContestant).mSubmittedIncorrectProblems)){
+                        // >> прежняя incorrect сейчас correct
+                        //решенная проблема может быть сабмитнута еще раз
+                        if((*isPrevIncorrectProblem).mStatus == 'I'){
+                            (*isPrevIncorrectProblem).mStatus = 'C';
+                            (*isExistingContestant).mTotalSolvedProblems++;
+                            (*isPrevIncorrectProblem).calculateFinalPenaltyTime();
+                            (*isExistingContestant).mTotalPenaltyTime += (*isPrevIncorrectProblem).mFinalPenaltyTime;
+                            (*isExistingContestant).mTotalPenaltyTime += penaltyTime;
                         }
-                    }else if(problemStatus == 'I'){
-                        (*didWorkOnThisProblem).mNOfSubmissions++;
+                    }else{
+                        //сущ человек решил новую проблему
+                        (*isExistingContestant).mTotalSolvedProblems++;
+                        (*isExistingContestant).mTotalPenaltyTime += penaltyTime;
+                    }
+                    
+                }else{
+                    //новый человек решил новую проблему
+                    //у него никаких историй нет
+                    contestants.push_back(Contestant(contestantName));
+                    contestants.back().mTotalSolvedProblems++;
+                    contestants.back().mTotalPenaltyTime += penaltyTime;
+                }
+            }else if(problemStatus == 'I'){
+                if(isExistingContestant != end(contestants)){
+                    auto isPrevIncorrectProblem = find_if(begin((*isExistingContestant).mSubmittedIncorrectProblems), end((*isExistingContestant).mSubmittedIncorrectProblems), [problemNumber](const IProblem &problem){
+                        return problemNumber == problem.mNumber;
+                    }); //but it's still incorrect
+                    if(isPrevIncorrectProblem != end((*isExistingContestant).mSubmittedIncorrectProblems)){
+                        (*isPrevIncorrectProblem).mNOfSubmissions++;
                     }
                 }else{
-                    (*isExistingContestant).problems.push_back(Problem(problemNumber));
-                    if(problemStatus == 'C'){
-                        (*isExistingContestant).problems.back().mStatus = 'C';
-                        (*isExistingContestant).problems.back().mPenaltyTime = penaltyTime;
-                    }else if(problemStatus == 'I'){
-                        (*isExistingContestant).problems.back().mStatus = 'I';
-                        (*isExistingContestant).problems.push_back(Problem(problemNumber));
-                        (*isExistingContestant).problems.back().mNOfSubmissions++;
-                    }
-                } 
-
+                    //новый человек сабмитнул неправильно решенную проблему 
+                    //у него никаких историй нет
+                    contestants.push_back(Contestant(contestantName));
+                    contestants.back().mSubmittedIncorrectProblems.push_back(IProblem(problemNumber));
+                    contestants.back().mSubmittedIncorrectProblems.back().mNOfSubmissions++;
+                }
             }else{
-                contestants.push_back(Contestant(contestantName));
-                if(problemStatus == 'C'){
-                    contestants.back().problems.push_back(Problem(problemNumber));
-                    contestants.back().problems.back().mStatus = 'C';
-                    contestants.back().problems.back().mPenaltyTime = penaltyTime;
-                }else if(problemStatus == 'I'){
-                    contestants.back().problems.push_back(Problem(problemNumber));
-                    contestants.back().problems.back().mStatus = 'I';
-                    contestants.back().problems.push_back(Problem(problemNumber));
-                    contestants.back().problems.back().mNOfSubmissions++;
+                if(isExistingContestant != end(contestants)){ 
+                }else{
+                    //new person
+                    contestants.push_back(Contestant(contestantName));
                 }
-                //U, E, R
             }
         }
 
-        //Calculate Standings
-        for(auto contestant : contestants){
-            int contestantSolvedPs = 0;
-            int contestantPenaltyTime = 0;
-            for(auto problem : contestant.problems){
-                if(problem.mStatus == 'C'){
-                    contestantSolvedPs++;
-                    contestantPenaltyTime += problem.mPenaltyTime;
-
-                    if(problem.mWasPreviouslyIncorrect){
-                        contestantPenaltyTime += 20*problem.mNOfSubmissions;
-                    }
-                }
-            }
-            contestant.mTotalSolvedProblems = contestantSolvedPs;
-            contestant.mTotalPenaltyTime = contestantPenaltyTime;
-            cout << "Total Solved problems: " << contestant.mTotalSolvedProblems << "\n";
-            cout << "Total penalty time: " << contestant.mTotalPenaltyTime << "\n";
-        }
         //Sorting contestants
         sort(begin(contestants), end(contestants), CmpByACMRules());
 
