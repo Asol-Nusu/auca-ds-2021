@@ -35,6 +35,11 @@ struct RopeSegment{
         }
         mLength = stoi(sLength);
     }
+
+    RopeSegment(const int length, const char color)
+        : mLength(length), mColor(color)
+    {
+    }
 };
 
 //Use sort, accumulate
@@ -55,16 +60,53 @@ int main()
             ropes.push_back(RopeSegment(rawInput));
         }
 
-        //Sort ropes based on lenght (from max to min)
-        sort(begin(ropes), end(ropes), [](const RopeSegment &r1, const RopeSegment &r2)
-        {
-            return r1.mLength > r2.mLength;
-        });
+        //Sort ropes based on alternating colors
+        
+        RopeSegment baseRope = RopeSegment(ropes.front().mLength, ropes.front().mColor);
+        ropes.erase(ropes.begin()); 
 
-        RopeSegment resultingRope = accumulate(begin(ropes), end(ropes), 0, [](const RopeSegment &baseRope, const RopeSegment &ropeSegment){
+        char checkerColor = baseRope.mColor;
+        sort(begin(ropes), end(ropes), [&checkerColor](const RopeSegment &r1, const RopeSegment &r2)
+            {
+                if(r1.mColor != checkerColor){
+                    checkerColor = r1.mColor;
+                    return true;
+                }else{
+                    checkerColor = r2.mColor;
+                    return false;
+                }
+            });
+        
+        cout << "Rope's length is " << baseRope.mLength << ". Rope's color is " << baseRope.mColor << "\n";
+        for(auto rope : ropes){
+            cout << "Rope's length is " << rope.mLength << ". Rope's color is " << rope.mColor << "\n";
+        }
+        //cout << "baseRope's length is " << baseRope.mLength << "and its color is " << baseRope.mColor << "\n"; 
 
-        });
+        // RopeSegment resultingRope = accumulate(begin(ropes), end(ropes), baseRope, [](const RopeSegment &initRope, const RopeSegment &ropeSegment){
+        //     /*
+        //     baseRope is not gonna change
+        //     initRope will be constantly changing and accumulating all values (eventually returned value)
 
-        cout << "Case #" << test << ": " << "\n";
+        //     **baseRope will be returned if the vector is empty
+        //     */
+        //     if(initRope.mColor != ropeSegment.mColor){
+        //         cout << "FIRST ENTRY: here is the initRope's length: " << initRope.mLength << " and the initRope's color " << initRope.mColor <<   " and it's ropeSegment's length " << ropeSegment.mLength << " and the ropeSegment's color " << ropeSegment.mColor << "\n";
+        //         int newLength = initRope.mLength + ropeSegment.mLength;
+        //         char newColor = ropeSegment.mColor;
+
+        //         return RopeSegment(newLength, newColor);
+        //     }else{
+        //         //only same color
+        //         return initRope;
+        //     }    
+        // });
+        // cout << "resultingRope.mLength is " << resultingRope.mLength << " and its color is " << resultingRope.mColor << "\n";
+        // if(nOfRopeSegments == 1){
+        //     cout << "Case #" << test << ": 0\n";
+        // }else{
+        //     cout << "Case #" << test << ": " << resultingRope.mLength << "\n";
+        // }
+        
     }
 } 
