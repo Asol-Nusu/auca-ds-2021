@@ -1,15 +1,19 @@
 noftests is 4
-Color is B. Lenght is 5
-Color is R. Lenght is 6
-Color is B. Lenght is 1
-Color is R. Lenght is 7
-Color is B. Lenght is 3
-Color is B. Lenght is 5
-Color is R. Lenght is 4
-Color is R. Lenght is 3
-Color is R. Lenght is 2
-Color is R. Lenght is 5
-Color is R. Lenght is 4
-Color is R. Lenght is 3
-Color is B. Lenght is 20
-Color is R. Lenght is 20
+Rope's Length: 5, color: B
+Case #1: 
+Rope's Length: 7, color: R
+Rope's Length: 6, color: R
+Rope's Length: 3, color: B
+Rope's Length: 1, color: B
+Case #2: 
+Rope's Length: 5, color: B
+Rope's Length: 5, color: R
+Rope's Length: 4, color: R
+Rope's Length: 4, color: R
+Rope's Length: 3, color: R
+Rope's Length: 3, color: R
+Rope's Length: 2, color: R
+Case #3: 
+Rope's Length: 20, color: B
+Rope's Length: 20, color: R
+Case #4: 
