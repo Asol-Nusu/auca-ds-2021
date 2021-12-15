@@ -1,3 +1,4 @@
+//Accepted
 #include <bits/stdc++.h> 
 
 template <typename C>
@@ -49,6 +50,18 @@ int main()
             //in case they are equal, stable sort will keep the orginal/relative order
         });
 
+        //Final Printing 
+        /*
+        Now rows = original wordLength
+        columns = original nOfWords
+        */
+        for(int column = 0; column < nOfWords; column++){
+            string outputString;
+            for(int row = 0; row < wordLength; row++){
+                outputString.push_back(verticalStrings[row].at(column));
+            }
+            cout << outputString << "\n";
+        }
         firstTime = false;
         cin >> nOfWords >> wordLength;
     }
