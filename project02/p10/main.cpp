@@ -1,3 +1,4 @@
+//ACCEPTED
 /*
 diameter color [XXX]
 color radius  
@@ -22,6 +23,7 @@ pair<string, int> produceValidValues(const string &rawInput){
             part1.push_back(c);
         }else if(c == ' '){
             goToPart2 = true;
+            continue;
         }
 
         if(goToPart2){
@@ -57,6 +59,17 @@ int main()
     for(int i = 0; i < nOfCups; i++){
         string rawInput;
         getline(cin, rawInput);
+        pair<string, int> cup = produceValidValues(rawInput);
+        cups.push_back(cup);
+    }
 
+    //Sorting 
+    sort(begin(cups), end(cups), [](const pair<string, int> &cup1, const pair<string, int> &cup2){
+        return cup1.second < cup2.second; //radius
+    });
+
+    //Printing 
+    for(auto cup : cups){
+        cout << cup.first << "\n";
     }
 } 
