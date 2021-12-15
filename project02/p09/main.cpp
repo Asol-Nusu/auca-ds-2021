@@ -1,3 +1,4 @@
+//ACCEPTED
 /*
 build the longest loop of rope while alternating colors.
 𝑆  segments and each segment will either be blue (𝐵) or red (𝑅).
@@ -40,6 +41,11 @@ struct RopeSegment{
         : mLength(length), mColor(color)
     {
     }
+    RopeSegment(const int length)
+        : mLength(length), mColor('?')
+        //resulting rope's color doesn't matter
+    {
+    }
 };
 
 //Use sort, accumulate
@@ -48,7 +54,6 @@ int main()
     iostream::sync_with_stdio(false); 
     int tests;
     cin >> tests;
-    cout << "noftests is " << tests << "\n";
     for(int test = 1; test <= tests; test++){
         int nOfRopeSegments;
         cin >> nOfRopeSegments;
@@ -68,60 +73,44 @@ int main()
         if(blueRopes.empty() || redRopes.empty()){
             cout << "Case #" << test << ": 0\n";
         }else{
-            
-        }
-        
-        // RopeSegment baseRope = RopeSegment(ropes.front().mLength, ropes.front().mColor);
-        // ropes.erase(ropes.begin()); 
-
-        // char checkerColor = baseRope.mColor;
-        //Blue ones will be at the beginning 
-        sort(begin(ropes), end(ropes), [](const RopeSegment &r1, const RopeSegment &r2)
+            //Sorting blue ropes (max -> min)
+            sort(begin(blueRopes), end(blueRopes), [](const RopeSegment &r1, const RopeSegment &r2)
             {
-                return r1.mColor < r2.mColor;
+                return r1.mLength > r2.mLength;
             });
 
-        // sort(begin(ropes), end(ropes), [](const RopeSegment &r1, const RopeSegment &r2)
-        //     {
-        //         if(r1.mColor != checkerColor){
-        //             checkerColor = r1.mColor;
-        //             return true;
-        //         }else{
-        //             checkerColor = r2.mColor;
-        //             return false;
-        //         }
-        //     });
-        
-        // cout << "Rope's length is " << baseRope.mLength << ". Rope's color is " << baseRope.mColor << "\n";
-        // for(auto rope : ropes){
-        //     cout << "Rope's length is " << rope.mLength << ". Rope's color is " << rope.mColor << "\n";
-        // }
-        //cout << "baseRope's length is " << baseRope.mLength << "and its color is " << baseRope.mColor << "\n"; 
+            //Sorting red ropes (max -> min)
+            sort(begin(redRopes), end(redRopes), [](const RopeSegment &r1, const RopeSegment &r2)
+            {
+                return r1.mLength > r2.mLength;
+            });
 
-        // RopeSegment resultingRope = accumulate(begin(ropes), end(ropes), baseRope, [](const RopeSegment &initRope, const RopeSegment &ropeSegment){
-        //     /*
-        //     baseRope is not gonna change
-        //     initRope will be constantly changing and accumulating all values (eventually returned value)
 
-        //     **baseRope will be returned if the vector is empty
-        //     */
-        //     if(initRope.mColor != ropeSegment.mColor){
-        //         cout << "FIRST ENTRY: here is the initRope's length: " << initRope.mLength << " and the initRope's color " << initRope.mColor <<   " and it's ropeSegment's length " << ropeSegment.mLength << " and the ropeSegment's color " << ropeSegment.mColor << "\n";
-        //         int newLength = initRope.mLength + ropeSegment.mLength;
-        //         char newColor = ropeSegment.mColor;
+            vector<RopeSegment> minVector;
+            auto maxVectorIndex = blueRopes.begin(); //assignment is NOT true, it's to avoid compilation error
+            if(redRopes.size() > blueRopes.size()){
+                minVector = blueRopes;
+                maxVectorIndex = redRopes.begin();
+            }else{
+                minVector = redRopes;
+                maxVectorIndex = blueRopes.begin();
+            }
+            RopeSegment baseRope = RopeSegment(0, '?');
 
-        //         return RopeSegment(newLength, newColor);
-        //     }else{
-        //         //only same color
-        //         return initRope;
-        //     }    
-        // });
-        // cout << "resultingRope.mLength is " << resultingRope.mLength << " and its color is " << resultingRope.mColor << "\n";
-        // if(nOfRopeSegments == 1){
-        //     cout << "Case #" << test << ": 0\n";
-        // }else{
-        //     cout << "Case #" << test << ": " << resultingRope.mLength << "\n";
-        // }
-        
+            RopeSegment resultingRope = accumulate(begin(minVector), end(minVector), baseRope, [&maxVectorIndex](const RopeSegment &initRope, const RopeSegment &ropeSegment)
+                {
+                    /*
+                    baseRope is not gonna change
+                    initRope will be constantly changing and accumulating all values (eventually returned value)
+                    */
+                        int newLength = initRope.mLength + ropeSegment.mLength + (*maxVectorIndex).mLength - 2;
+                        maxVectorIndex++;
+
+                        
+                        return RopeSegment(newLength);
+                });
+            
+            cout << "Case #" << test << ": " << resultingRope.mLength << "\n";
+        } 
     }
 } 
