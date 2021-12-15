@@ -39,6 +39,13 @@ pair<string, string> produceValidValues(const string &rawInput){
     return make_pair(name, socialClass);
 }
 
+void outputEqualSigns(){
+    for(int i = 0; i < 29; i++){
+        cout << "=";
+    }
+    cout << "=\n";
+}
+
 //use stable_sort, pair<string, string>
 int main()
 {
@@ -54,6 +61,8 @@ int main()
             string rawInput;
             getline(cin, rawInput);
             pair<string, string> person = produceValidValues(rawInput);
+            cout << person.first << " " << person.second << "\n";
         }
+        outputEqualSigns();
     }
 } 
