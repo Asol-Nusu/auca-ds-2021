@@ -53,34 +53,49 @@ int main()
         int nOfRopeSegments;
         cin >> nOfRopeSegments;
 
-        vector<RopeSegment> ropes;
+        vector<RopeSegment> blueRopes;
+        vector<RopeSegment> redRopes;
+
         for(int segment = 0; segment < nOfRopeSegments; segment++){
             string rawInput;
             cin >> rawInput;
-            ropes.push_back(RopeSegment(rawInput));
+            if(rawInput.back() == 'B'){
+                blueRopes.push_back(RopeSegment(rawInput));
+            }else{
+                redRopes.push_back(RopeSegment(rawInput));
+            }
         }
-
-        //Sort ropes based on alternating colors
+        if(blueRopes.empty() || redRopes.empty()){
+            cout << "Case #" << test << ": 0\n";
+        }else{
+            
+        }
         
-        RopeSegment baseRope = RopeSegment(ropes.front().mLength, ropes.front().mColor);
-        ropes.erase(ropes.begin()); 
+        // RopeSegment baseRope = RopeSegment(ropes.front().mLength, ropes.front().mColor);
+        // ropes.erase(ropes.begin()); 
 
-        char checkerColor = baseRope.mColor;
-        sort(begin(ropes), end(ropes), [&checkerColor](const RopeSegment &r1, const RopeSegment &r2)
+        // char checkerColor = baseRope.mColor;
+        //Blue ones will be at the beginning 
+        sort(begin(ropes), end(ropes), [](const RopeSegment &r1, const RopeSegment &r2)
             {
-                if(r1.mColor != checkerColor){
-                    checkerColor = r1.mColor;
-                    return true;
-                }else{
-                    checkerColor = r2.mColor;
-                    return false;
-                }
+                return r1.mColor < r2.mColor;
             });
+
+        // sort(begin(ropes), end(ropes), [](const RopeSegment &r1, const RopeSegment &r2)
+        //     {
+        //         if(r1.mColor != checkerColor){
+        //             checkerColor = r1.mColor;
+        //             return true;
+        //         }else{
+        //             checkerColor = r2.mColor;
+        //             return false;
+        //         }
+        //     });
         
-        cout << "Rope's length is " << baseRope.mLength << ". Rope's color is " << baseRope.mColor << "\n";
-        for(auto rope : ropes){
-            cout << "Rope's length is " << rope.mLength << ". Rope's color is " << rope.mColor << "\n";
-        }
+        // cout << "Rope's length is " << baseRope.mLength << ". Rope's color is " << baseRope.mColor << "\n";
+        // for(auto rope : ropes){
+        //     cout << "Rope's length is " << rope.mLength << ". Rope's color is " << rope.mColor << "\n";
+        // }
         //cout << "baseRope's length is " << baseRope.mLength << "and its color is " << baseRope.mColor << "\n"; 
 
         // RopeSegment resultingRope = accumulate(begin(ropes), end(ropes), baseRope, [](const RopeSegment &initRope, const RopeSegment &ropeSegment){
