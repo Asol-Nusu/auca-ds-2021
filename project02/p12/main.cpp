@@ -1,3 +1,4 @@
+//ACCEPTED
 /*
 sort a group of people by their classes 
 to show their true place in the social class hierarchy.
@@ -77,13 +78,44 @@ int main()
         cin >> nOfPeople;
         cin.ignore(10000, '\n');
 
+        vector<pair<string, string>> finalPeople;
         for(int j = 0; j < nOfPeople; j++){
             string rawInput;
             getline(cin, rawInput);
 
             pair<string, string> person = produceValidValues(rawInput);
-            cout << person.first << " " << person.second << "\n";
+            finalPeople.push_back(person);
         }
-        //outputEqualSigns();
+
+        stable_sort(begin(finalPeople), end(finalPeople), [](const pair<string, string> &person1, const pair<string, string> &person2){
+            string p1Class = person1.second;
+            string p2Class = person2.second;
+            reverse(begin(p1Class), end(p1Class));
+            reverse(begin(p2Class), end(p2Class));
+
+            //Lexicographic Comparison (only the 1st character matters)
+            int lengthDiff = max(p1Class.length(), p2Class.length()) - min(p1Class.length(), p2Class.length());
+
+            if(p1Class.length() > p2Class.length()){
+                for(int t = 0; t < lengthDiff; t++){
+                    p2Class.push_back('1');
+                }
+            }else if(p1Class.length() < p2Class.length()){
+                for(int v = 0; v < lengthDiff; v++){
+                    p1Class.push_back('1');
+                }
+            }
+
+            if(p1Class == p2Class){
+                return person1.first < person2.first;
+            }else{
+                return p1Class < p2Class;
+            }
+        });
+
+        for(auto person : finalPeople){
+            cout << person.first << "\n";
+        }
+        outputEqualSigns();
     }
 } 
