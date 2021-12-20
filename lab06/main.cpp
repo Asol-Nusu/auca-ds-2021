@@ -24,6 +24,12 @@ struct IsEven{
     }
 };
 
+struct CmpByGPA{
+    bool operator()(const Student &s1, const Student &s2){
+        return s1.mGpa < s2.mGpa;
+    }
+};
+
 void p0101(){
     int a[] = {3, 1, 20, 4, 7, 0, 5};
     vector<int> v = {3, 1, 20, 4, 7, 0, 5};
@@ -65,6 +71,7 @@ void p0102(){
         cout << "-1 not found" << endl;
     }
 }
+
 void p0201(){
     vector<int> v = {3, 1, 20, 4, 7, 0, 5};
     
@@ -102,11 +109,37 @@ void p0202(){
         cout << "even numbers are not found" << endl;
     }
 }
-struct CmpByGPA{
-    bool operator()(const Student &s1, const Student &s2){
-        return s1.mGpa < s2.mGpa;
+
+struct GreaterThan{
+    int mData;
+    GreaterThan(int data)
+        : mData(data)
+    {
+    }
+
+    bool operator()(int value) const
+    {
+        return value > mData;
     }
 };
+
+void p03(){
+    vector<int> v = {3, 1, 20, 4, 7, 0, 5};
+    int x;
+    cout << "x = ";
+    cin >> x;
+
+    //GreaterThan cmp(42); //initialization
+    //cout << cmp(200) << endl; //operator() 
+    auto it = find_if(begin(v), end(v), GreaterThan(x));
+    if(it != end(v)){
+        cout << "the index: " << it - begin(v) << endl;
+        cout << "the value: " << *it << endl; 
+    }else{
+        cout << "value greater than " << x << " not found" << endl;
+    }
+}
+
 void p06(){
     vector<Student> students;
     string name; 
@@ -168,7 +201,8 @@ int main(){
     //p0102();
     //p0201();
     //p0202();
+    p03();
     //p06();
     //p10();
-    p12();
+    //p12();
 }
