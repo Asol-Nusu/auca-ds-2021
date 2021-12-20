@@ -3,6 +3,7 @@
 #include <vector>
 #include <iterator>
 #include <string>
+#include <utility>
 
 #include "../au/algol.hpp"
 
@@ -209,6 +210,22 @@ void p07(){
     }
 }
 
+void p08(){
+    vector<pair<string, double>> students;
+
+    string name;
+    double gpa;
+    while(cin >> name >> gpa){
+        //students.push_back(make_pair(name, gpa));
+        students.emplace_back(name, gpa);
+    }
+
+    sort(begin(students), end(students));
+    for(const auto &s : students){
+        cout << s.first << ", " << s.second << endl;
+    }
+}
+
 void p10(){
     vector<int> v = {1, 4, 5, 10, 12, 20, 25, 40};
     for(int x; cin >> x;){
@@ -248,7 +265,8 @@ int main(){
     //p0201();
     //p0202();
     //p03();
-    p07();
+    //p07();
+    p08();
     //p06();
     //p10();
     //p12();
