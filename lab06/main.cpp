@@ -4,6 +4,7 @@
 #include <iterator>
 #include <string>
 #include <utility>
+#include <tuple>
 
 #include "../au/algol.hpp"
 
@@ -226,6 +227,28 @@ void p08(){
     }
 }
 
+void p09(){
+    using Employee = tuple<string, int, double>; //pseudonim
+    vector<tuple<string, int, double>> employees;
+
+    string name;
+    int age;
+    double salary;
+    while(cin >> name >> age >> salary){
+        //students.push_back(make_pair(name, gpa));
+        employees.emplace_back(name, age, salary);
+    }
+
+    sort(begin(employees), end(employees), [](const Employee &e1, const Employee &e2)
+    {
+        return get<1>(e1) < get<1>(e2);
+    });
+
+    for(const auto &e : employees){
+        cout << get<0>(e) << ", " << get<1>(e) << ", " << get<2>(e) << endl;
+    }
+}
+
 void p10(){
     vector<int> v = {1, 4, 5, 10, 12, 20, 25, 40};
     for(int x; cin >> x;){
@@ -266,7 +289,8 @@ int main(){
     //p0202();
     //p03();
     //p07();
-    p08();
+    //p08();
+    p09();
     //p06();
     //p10();
     //p12();
