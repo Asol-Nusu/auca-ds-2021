@@ -249,7 +249,7 @@ void p09(){
     }
 }
 
-void p10(){
+void p1001(){
     vector<int> v = {1, 4, 5, 10, 12, 20, 25, 40};
     for(int x; cin >> x;){
         cout << (binary_search(begin(v), end(v), x) ? "yes" : "no") << endl;
@@ -264,9 +264,9 @@ void p11(){
         if(it == end(v)){
             cout << "no elements equal or greater than " << x << endl;
         }else if(*it == x){
-            cout << "index of the first element equal to " << x << " is " << (it - begin(v)) << endl;
+            cout << "index of the first element *equal* to " << x << " is " << (it - begin(v)) << endl;
         }else{
-            cout << "index of the first element greater than " << x << " is " << (it - begin(v)) << endl;
+            cout << "index of the first element *greater* than " << x << " is " << (it - begin(v)) << endl;
         }
     }
 }
@@ -290,8 +290,9 @@ int main(){
     //p03();
     //p07();
     //p08();
-    p09();
+    //p09();
     //p06();
-    //p10();
-    //p12();
+    //p1001();
+    //p11();
+    p12();
 }
