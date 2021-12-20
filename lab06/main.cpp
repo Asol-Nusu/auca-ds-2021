@@ -163,6 +163,52 @@ void p06(){
     }
 }
 
+void p07(){
+    vector<Student> students = {{"C", 3.45}, {"Z", 4.00}, {"D", 2.45}, {"A", 4.00}};
+    //Regular sort
+    //Sort by name
+    sort(begin(students), end(students), [](const Student &s1, const Student &s2){
+        return s1.mName < s2.mName;
+    });
+
+    for(const auto s : students){
+        cout << s.mName << ", " << s.mGpa << endl;
+    }
+    cout << "-*-*-*-*-" << endl;
+
+    //Sort by GPA
+    sort(begin(students), end(students), [](const Student &s1, const Student &s2){
+        return s1.mGpa < s2.mGpa;
+    });
+
+    for(const auto s : students){
+        cout << s.mName << ", " << s.mGpa << endl;
+    }
+
+    cout << "-*-*-*-*-" << endl;
+
+    //Stable Sort
+    //Sort by name
+    stable_sort(begin(students), end(students), [](const Student &s1, const Student &s2){
+        return s1.mGpa < s2.mGpa;
+    });
+
+    for(const auto s : students){
+        cout << s.mName << ", " << s.mGpa << endl;
+    }
+
+    cout << "-*-*-*-*-" << endl;
+
+    //Sort by GPA
+    stable_sort(begin(students), end(students), [](const Student &s1, const Student &s2){
+        return s1.mGpa < s2.mGpa;
+    });
+
+    for(const auto s : students){
+        cout << s.mName << ", " << s.mGpa << endl;
+    }
+}
+
 void p10(){
     vector<int> v = {1, 4, 5, 10, 12, 20, 25, 40};
     for(int x; cin >> x;){
@@ -201,7 +247,8 @@ int main(){
     //p0102();
     //p0201();
     //p0202();
-    p03();
+    //p03();
+    p07();
     //p06();
     //p10();
     //p12();
