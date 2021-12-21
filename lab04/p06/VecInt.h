@@ -1,12 +1,17 @@
-#ifndef VECTINT_H
-#define VECTINT_H
+#ifndef VECINT_H
+#define VECINT_H
+
 #include <stddef.h>
+
 struct VecInt{
     int *data;
     size_t size;
     size_t capacity;
 }; 
 void VecInt_createEmpty(struct VecInt *self); //self == this
+void VecInt_pushBack(struct VecInt *self, int x);
+void VecInt_destroy(struct VecInt *self);
+
 #endif
 
  
