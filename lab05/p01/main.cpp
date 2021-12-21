@@ -13,8 +13,21 @@ void printVecInt(const VecInt &v){
     }
     cout << "\n";
 }
+void p01(){
+    cout << "the size of the array: ";
+    int n;
+    cin >> n;
 
-int main(){
+    VecInt v(n);
+
+    for(int i = 0; i < n; i++){
+        cin >> v[i];
+    }
+    
+    auReverse(v.begin(), v.end());
+    printVecInt(v);    
+}
+void p02(){
     VecInt v;
     for(int x; cin >> x;){
         v.pushBack(x);
@@ -23,4 +36,8 @@ int main(){
     auReverse(v.begin(), v.end());
     v[100000] = 6;
     printVecInt(v);
+}
+
+int main(){
+    p01();
 }

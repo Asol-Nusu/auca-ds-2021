@@ -22,6 +22,14 @@ public:
     {
     }
 
+    VecInt(size_t aSize, int initValue = 0)
+        : data(new int[aSize]), size(aSize), capacity(aSize)
+    {
+        for(size_t i = 0; i < size; i++){
+            data[i] = initValue;
+        }
+    }
+
     ~VecInt(){
         cout << "~VecInt: " << size << " integers released" << endl;
         delete[] data;
