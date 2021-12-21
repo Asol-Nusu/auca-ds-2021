@@ -35,6 +35,11 @@ public:
         delete[] data;
     }
 
+    //Copy constructor 
+    VecInt(const VecInt &other);
+    //Assignment Operator
+    VecInt &operator=(const VecInt &other);
+
     size_t size_f() const {
         //size()
         return size;
@@ -64,7 +69,9 @@ public:
     }
     void pushBack(int x);    
 }; 
-
 #endif
 
+bool operator==(const VecInt &a, const VecInt &b);
+
+bool operator!=(const VecInt &a, const VecInt &b);
     
