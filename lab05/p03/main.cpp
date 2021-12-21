@@ -2,6 +2,7 @@
 #include "../../au/algol.hpp"
 #include "VecInt.hpp"
 #include <algorithm>
+#include <vector> 
 
 using namespace std;
 void printVecInt(const VecInt &v){
@@ -29,6 +30,22 @@ void p01(){
     cout << "number of copies: " << VecInt::numOfCopies << endl;
 }
 
+void p02(){
+    cout << "-----p02-----" << endl;
+    VecInt::numOfCopies = 0;
+    vector<VecInt> v;
+    v.reserve(4);
+    v.emplace_back(100);
+    v.emplace_back(200);
+    v.emplace_back(300);
+
+    VecInt w(400);
+    v.insert(begin(v), w);
+
+    cout << "number of copies: " << VecInt::numOfCopies << endl;
+}
+
 int main(){
-    p01();
+    //p01();
+    p02();
 }
