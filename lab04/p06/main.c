@@ -62,6 +62,6 @@ void p02(){
 }
 
 int main(void){    
-    p01();
+    p02();
     return 0;
 }
