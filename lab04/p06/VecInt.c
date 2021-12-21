@@ -5,7 +5,7 @@
 void VecInt_createEmpty(struct VecInt *self){
      self->data = NULL;
      self->capacity = 0;
-     self->data = 0;
+     self->size = 0;
 }
 
 void VecInt_createOfSize(struct VecInt *self, size_t size, int initValue){
