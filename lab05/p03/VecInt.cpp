@@ -1,6 +1,7 @@
 #include "VecInt.hpp"
 size_t VecInt::numOfCopies;
 
+//Copy Constructor 
 VecInt::VecInt(const VecInt &other)
     : data(new int[other.capacity]), size(other.size), capacity(other.capacity)
 {
@@ -10,6 +11,7 @@ VecInt::VecInt(const VecInt &other)
     }
 }
 
+//Copy Assignment Operator
 VecInt &VecInt::operator=(const VecInt &other){
     if(&other != this){
         int* newData = new int[other.capacity];
@@ -27,6 +29,7 @@ VecInt &VecInt::operator=(const VecInt &other){
     return *this;
 }
 
+//Move Constructor 
 VecInt::VecInt (VecInt &&other)
     : data(other.data), size(other.size), capacity(other.capacity)
 {
