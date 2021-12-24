@@ -21,7 +21,7 @@ int main(){
         v.pushBack(x);
     }
 
-    VecInt w = v;
+    VecInt w = v; //copy constructor 
     reverse(v.begin(), v.end());
     cout << (v == w ? "palindrome" : "not a palindrome") << endl;
 }

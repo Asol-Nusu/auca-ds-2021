@@ -13,5 +13,4 @@ void VecInt_createEmpty(struct VecInt *self); //self == this
 void VecInt_pushBack(struct VecInt *self, int x);
 void VecInt_destroy(struct VecInt *self);
 #endif
-
  
