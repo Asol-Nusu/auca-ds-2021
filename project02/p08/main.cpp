@@ -18,6 +18,15 @@ string case1Func(const vector<int> &numbers){
     return "No\n";
 }
 
+//1, 2, 3, 4, 5
+string case2Func(const vector<int> &numbers){
+    for(int i = 0; i < (int)numbers.size(); i++){
+        
+    }
+
+    return "No\n";
+}
+
 int main()
 {
     iostream::sync_with_stdio(false); 
@@ -32,6 +41,7 @@ int main()
         numbers.push_back(input);
     }
 
+    sort(begin(numbers), end(numbers));
     switch(actionNumber){
         case 1:
         cout << case1Func(numbers);
@@ -54,3 +64,11 @@ int main()
         break;
     }
 } 
+
+/*
+lower_bound returns an iterator pointing to the first element 
+in the range [first,last) which has a value equal OR greater than ‘val’. 
+
+upper_bound returns an iterator pointing to the first element 
+in the range [first,last) which has a value greater than ‘val’.
+*/
