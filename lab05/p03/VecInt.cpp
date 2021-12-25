@@ -20,7 +20,7 @@ VecInt &VecInt::operator=(const VecInt &other){
             newData[i] = other.data[i];
         } 
 
-        delete[] data;
+        delete[] data; //*this previously exists, we don't need it
         size = other.size;
         capacity = other.capacity;
         data = newData;
