@@ -14,6 +14,7 @@ int sz(const C &c) {
 
 using namespace std; 
 vector<pair<int, string>> convertToPairs(const string &rawInput){
+    cout << rawInput << "\n";
     istringstream streamInput(rawInput);
 
     vector<pair<int, string>> pairs;
@@ -28,6 +29,7 @@ vector<pair<int, string>> convertToPairs(const string &rawInput){
 }
 
 vector<string> convertToStrings(const string &rawInput){
+    cout << rawInput << "\n";
     istringstream streamInput(rawInput);
     vector<string> strings;
     for(string s; streamInput >> s;){
@@ -48,6 +50,7 @@ int main()
 
     int nOfSongs;
     cin >> nOfSongs;
+    cout << nOfSongs << "\n";
     cin.ignore(10000, '\n');
 
     vector<vector<string>> playList;
@@ -61,14 +64,16 @@ int main()
     
     int nOfCommands;
     cin >> nOfCommands;
+    cin.ignore(10000, '\n');
+    cout << nOfCommands << "\n";
     bool firstTime = true;
     for(int i = 0; i < nOfCommands; i++){
         if(!firstTime){
             cout << endl;
         }
         string command;
-        cin >> command;
-        
+        getline(cin, command);
+        cout << command << "\n";
         auto foundAttribute = find_if(begin(attributes), end(attributes), [&command](const pair<int, string> &attribute){
             return attribute.second == command;
         });
