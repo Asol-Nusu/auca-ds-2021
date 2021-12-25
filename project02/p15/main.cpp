@@ -44,9 +44,17 @@ int main()
     vector<vector<pair<int, string>>> playList;
     /*vector of songs; each song is a vector of pairs<int, string>*/
     for(int i = 0; i < nOfSongs; i++){
-        string input;
-        getline(cin, input);
-        vector<pair<int, string>> songInfo = convert(input);
-        playList.push_back(songInfo);
+        string record;
+        getline(cin, record);
+        vector<pair<int, string>> recordInfo = convert(record);
+        playList.push_back(recordInfo);
+    }
+    
+    int nOfCommands;
+    cin >> nOfCommands;
+    for(int i = 0; i < nOfCommands; i++){
+        string command;
+        cin >> command;
+        
     }
 } 
