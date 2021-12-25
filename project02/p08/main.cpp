@@ -7,24 +7,25 @@ int sz(const C &c) {
 
 using namespace std; 
 string case1Func(const vector<int> &numbers){
-    for(int i = 0; i < (int)numbers.size(); i++){
-        for(int j = i + 1; j < (int)numbers.size(); j++){
-            if((numbers[i] != numbers[j]) && (numbers[i] + numbers[j] == 7777)){
-                return "Yes\n";
-            }
+    for(int number : numbers){
+        if(binary_search(begin(numbers), end(numbers), 7777-number)){
+            return "Yes\n";
         }
     }
 
     return "No\n";
 }
 
-//1, 2, 3, 4, 5
 string case2Func(const vector<int> &numbers){
     for(int i = 0; i < (int)numbers.size(); i++){
-        
+        for(int j = 0; j < (int)numbers.size(); j++){
+            if (i != j && numbers[i] == numbers[j]){
+                return "Contains duplicate\n";
+            }
+        }
     }
 
-    return "No\n";
+    return "Unique\n";
 }
 
 int main()
@@ -48,7 +49,7 @@ int main()
         break;
 
         case 2:
-        //smth
+        cout << case2Func(numbers);
         break;
 
         case 3:
