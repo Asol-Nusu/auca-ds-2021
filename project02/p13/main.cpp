@@ -22,10 +22,22 @@ int main()
             words.push_back(word);
         }else{
             //New group began
+            sort(begin(words), end(words), [](const string &w1, const string &w2)
+            {
+                if(){
+                    
+                }
+                return w1.back() < w2.back();
+            });
+
+
+
             words.clear();
-            /*Removes all elements from the vector (which are destroyed), 
-              leaving the container with a size of 0.*/
         }
-        
     }    
 } 
+
+/*
+    vector.clear() Removes all elements from the vector (which are destroyed), 
+    leaving the container with a size of 0.
+*/
