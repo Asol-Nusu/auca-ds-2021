@@ -7,13 +7,13 @@ int sz(const C &c) {
 
 using namespace std; 
 
+enum class Event{
+    Departure, Arrival
+};
+
+//sort, pair<int, Event>, where Event: enum class Event {Departure, Arrival}
 int main()
 {
     iostream::sync_with_stdio(false); 
-    int n = 3;
-    for(int i = 0; i < n; i++){
-        string input;
-        cin >> input;
-        cout << input << endl;
-    }
+    
 } 
