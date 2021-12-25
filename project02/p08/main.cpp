@@ -28,6 +28,18 @@ string case2Func(const vector<int> &numbers){
     return "Unique\n";
 }
 
+string case3Func(const vector<int> &numbers, int nOfIntegers){
+    for(int number : numbers){
+        auto lowB = lower_bound(begin(numbers), end(numbers), number);
+        auto upB = upper_bound(begin(numbers), end(numbers), number);
+        if (lowB != end(numbers) && upB != end(numbers) && (upB - lowB) > nOfIntegers/2)
+        {
+            return to_string(number) + "\n";
+        }
+    }
+    return "-1\n";
+}
+
 int main()
 {
     iostream::sync_with_stdio(false); 
@@ -53,7 +65,7 @@ int main()
         break;
 
         case 3:
-        //smth
+        cout << case3Func(numbers, nOfIntegers);
         break;
 
         case 4:
