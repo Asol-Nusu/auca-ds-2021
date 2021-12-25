@@ -1,3 +1,4 @@
+//ACCEPTED
 #include <bits/stdc++.h> 
 
 template <typename C>
@@ -48,6 +49,16 @@ void case4Func(const vector<int> &numbers, int nOfIntegers){
     }
 }
 
+void case5Func(const vector<int> &numbers){
+    for(int i = 0; i < sz(numbers); i++){
+        bool determine = i != (sz(numbers) - 1);
+        string r = determine ? " " : "\n";
+        if(numbers[i] >= 100 && numbers[i] <= 999){
+            cout << numbers[i] << r;
+        }
+    }
+}
+
 int main()
 {
     iostream::sync_with_stdio(false); 
@@ -81,7 +92,7 @@ int main()
         break;
 
         case 5:
-        //smth
+        case5Func(numbers);
         break;
     }
 } 
