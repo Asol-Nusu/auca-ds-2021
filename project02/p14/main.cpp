@@ -1,3 +1,4 @@
+//ACCEPTED
 /*
 sorts a list of student last names, 
 but the sort only uses the first two letters of the name. 
@@ -22,6 +23,8 @@ int main()
     bool firstTime = true;
     int nOfPeople;
     while(cin >> nOfPeople && nOfPeople != 0){
+        cin.ignore(10000, '\n');
+
         if(!firstTime){
             cout << endl;
         }
@@ -30,7 +33,6 @@ int main()
         for(int i = 0; i < nOfPeople; i++){
             getline(cin, name);
             names.push_back(name);
-            cout << "Just read the input: " << name << endl;
         }
 
         stable_sort(begin(names), end(names), [](const string &name1, const string &name2)
@@ -42,7 +44,7 @@ int main()
 
         //printing 
         for(auto n : names){
-            cout << name << endl;
+            cout << n << endl;
         }
         firstTime = false;
     }    
