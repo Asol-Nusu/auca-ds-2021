@@ -6,6 +6,17 @@ int sz(const C &c) {
 }
 
 using namespace std; 
+string case1Func(const vector<int> &numbers){
+    for(int i = 0; i < (int)numbers.size(); i++){
+        for(int j = i + 1; j < (int)numbers.size(); j++){
+            if((numbers[i] != numbers[j]) && (numbers[i] + numbers[j] == 7777)){
+                return "Yes\n";
+            }
+        }
+    }
+
+    return "No\n";
+}
 
 int main()
 {
@@ -23,7 +34,7 @@ int main()
 
     switch(actionNumber){
         case 1:
-        //smth
+        cout << case1Func(numbers);
         break;
 
         case 2:
