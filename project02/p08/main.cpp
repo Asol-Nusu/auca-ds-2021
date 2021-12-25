@@ -40,6 +40,14 @@ string case3Func(const vector<int> &numbers, int nOfIntegers){
     return "-1\n";
 }
 
+void case4Func(const vector<int> &numbers, int nOfIntegers){
+    if(nOfIntegers % 2 == 0){
+        cout << numbers[sz(numbers)/2 - 1] << " " << numbers[sz(numbers)/2] << "\n";
+    }else{
+        cout << numbers[sz(numbers) / 2] << "\n";
+    }
+}
+
 int main()
 {
     iostream::sync_with_stdio(false); 
@@ -69,7 +77,7 @@ int main()
         break;
 
         case 4:
-        //smth
+        case4Func(numbers, nOfIntegers);
         break;
 
         case 5:
