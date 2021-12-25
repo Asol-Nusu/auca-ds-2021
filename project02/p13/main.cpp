@@ -18,6 +18,7 @@ int main()
     string word;
     vector<string> words;
     while(getline(cin, word)){
+        
         if(!word.empty()){
             words.push_back(word);
         }else{
@@ -32,11 +33,32 @@ int main()
                 return reversedW1 < reversedW2;
             });
 
-
-
+            for(auto w : words){
+                cout << w << endl;
+            }
+            cout << endl;
             words.clear();
         }
-    }    
+    }
+
+    //last group
+    sort(begin(words), end(words), [](const string &w1, const string &w2)
+        {
+        string reversedW1 = w1;
+        string reversedW2 = w2;
+        reverse(reversedW1.begin(), reversedW1.end());
+        reverse(reversedW2.begin(), reversedW2.end());
+
+        if(reversedW1 == reversedW2){
+
+        }
+        return reversedW1 < reversedW2;
+    });
+
+    for(auto w : words){
+        cout << w << endl;
+    }
+    cout << endl;    
 } 
 
 /*
