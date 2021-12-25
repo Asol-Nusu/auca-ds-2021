@@ -13,7 +13,19 @@ int sz(const C &c) {
 }
 
 using namespace std; 
+vector<pair<int, string>> convert(const string &rawInput){
+    istringstream streamInput(rawInput);
 
+    vector<pair<int, string>> pairs;
+
+    int index = 0;
+    for(string s; streamInput >> s;){
+        strings.push_back(make_pair(index, s));
+        index++;
+    }
+
+    return pairs;
+}
 //stable_sort with lambda expression (capture), find
 int main()
 {
@@ -22,21 +34,19 @@ int main()
     //Attributes
     string attributesString;
     getline(cin, attributesString);
-    istringstream streamInput(attributesString);
-    
     //Splitting attributes 
-    vector<string> attributes;
-    for(string attribute; streamInput >> attribute;){
-        attributes.push_back(attribute);
-    }
+    vector<pair<int, string>> attributes = convert(attributesString); //each attribute will have its index
 
     int nOfSongs;
     cin >> nOfSongs;
     cin.ignore(10000, '\n');
-    
-    vector<vector<string>> playList;
+
+    vector<vector<pair<int, string>>> playList;
+    /*vector of songs; each song is a vector of pairs<int, string>*/
     for(int i = 0; i < nOfSongs; i++){
         string input;
-        getline()
+        getline(cin, input);
+        vector<pair<int, string>> songInfo = convert(input);
+        playList.push_back(songInfo);
     }
 } 
