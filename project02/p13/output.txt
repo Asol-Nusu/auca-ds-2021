@@ -1,11 +1,10 @@
 banana
-apple
-grape
-kiwi
-pear
+ apple
+ grape
+  kiwi
+  pear
 
-bicycle
+ bicycle
 airplane
-car
-boat
-
+     car
+    boat

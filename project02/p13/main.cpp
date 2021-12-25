@@ -1,3 +1,4 @@
+//ACCEPTED
 /*
 it organizes words based on how they end rather than how they start (alphabetically).
 If two words have the same suffix, the shorter word is sorted earlier.
@@ -11,54 +12,49 @@ int sz(const C &c) {
 
 using namespace std; 
 
+void justifyRight(const string &word, int maxLength){
+    int diff = maxLength - (int)word.length();
+    for(int i = 0; i < diff; i++){
+        cout << " "; 
+    }
+}
+
 //Use sort with functor (lambda), reverse
 int main()
 {
     iostream::sync_with_stdio(false); 
+
     string word;
+    int maxLength = 0;
     vector<string> words;
     while(getline(cin, word)){
         
         if(!word.empty()){
+            reverse(word.begin(), word.end());
+            maxLength = max(maxLength, (int)word.length());
             words.push_back(word);
         }else{
             //New group began
-            sort(begin(words), end(words), [](const string &w1, const string &w2)
-            {
-                string reversedW1 = w1;
-                string reversedW2 = w2;
-                reverse(reversedW1.begin(), reversedW1.end());
-                reverse(reversedW2.begin(), reversedW2.end());
-
-                return reversedW1 < reversedW2;
-            });
+            sort(begin(words), end(words));
 
             for(auto w : words){
+                justifyRight(w, maxLength);
+                reverse(w.begin(), w.end());
                 cout << w << endl;
             }
             cout << endl;
+            maxLength = 0;
             words.clear();
         }
     }
-
-    //last group
-    sort(begin(words), end(words), [](const string &w1, const string &w2)
-        {
-        string reversedW1 = w1;
-        string reversedW2 = w2;
-        reverse(reversedW1.begin(), reversedW1.end());
-        reverse(reversedW2.begin(), reversedW2.end());
-
-        if(reversedW1 == reversedW2){
-
-        }
-        return reversedW1 < reversedW2;
-    });
+    //Last group (else case doesn't work)
+    sort(begin(words), end(words));
 
     for(auto w : words){
+        justifyRight(w, maxLength);
+        reverse(w.begin(), w.end());
         cout << w << endl;
     }
-    cout << endl;    
 } 
 
 /*
