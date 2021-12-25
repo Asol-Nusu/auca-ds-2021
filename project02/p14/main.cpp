@@ -10,5 +10,9 @@ using namespace std;
 int main()
 {
     iostream::sync_with_stdio(false); 
-    
+    vector<string> words = {"abs", "azz", "azyy"};
+    sort(begin(words), end(words));
+    for(string w : words){
+        cout << " " << w;
+    }
 } 

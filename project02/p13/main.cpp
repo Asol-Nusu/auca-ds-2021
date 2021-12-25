@@ -24,10 +24,12 @@ int main()
             //New group began
             sort(begin(words), end(words), [](const string &w1, const string &w2)
             {
-                if(){
-                    
-                }
-                return w1.back() < w2.back();
+                string reversedW1 = w1;
+                string reversedW2 = w2;
+                reverse(reversedW1.begin(), reversedW1.end());
+                reverse(reversedW2.begin(), reversedW2.end());
+
+                return reversedW1 < reversedW2;
             });
 
 
