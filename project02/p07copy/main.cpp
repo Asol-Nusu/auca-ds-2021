@@ -6,19 +6,70 @@ int sz(const C &c) {
 }
 
 using namespace std; 
+struct Problem{
+    int mNumber;
+    char mStatus;
+    int mPenaltyTime;
+
+    int mNOfSubmissions = 0;
+    bool mWasPreviouslyIncorrect = false;
+
+    Problem(int problemNumber, char status, int penaltyTime)
+        : mNumber(problemNumber), mStatus(status), mPenaltyTime(penaltyTime)
+    {
+    }
+};
+
 struct Contestant{
     int mName;
     vector<Problem> problems; //correct с первого раза + the ones which got eventually correct
-    int mTotalSolvedProblems = 0;
-    int mTotalPenaltyTime = 0;
 
     Contestant(const int &name)
         : mName(name)
     {
     }
     
-    void addSubmission(){
-        
+    void addSubmission(Problem &problem){
+        auto problemSubmittedBefore = find_if(begin(problems), end(problems), [&problem](const Problem &problemElement){
+                return problem.mNumber == problemElement.mNumber;
+            });
+
+        if(problemSubmittedBefore != end(problems)){
+            if(problem.mStatus == 'C'){
+                if((*problemSubmittedBefore).mStatus == 'I'){
+                    (*problemSubmittedBefore).mWasPreviouslyIncorrect = true;
+                    (*problemSubmittedBefore).mPenaltyTime = problem.mPenaltyTime;
+                    (*problemSubmittedBefore).mStatus = 'C';
+                }else if((*problemSubmittedBefore).mStatus == 'R' || (*problemSubmittedBefore).mStatus == 'U' || (*problemSubmittedBefore).mStatus == 'E'){
+                    (*problemSubmittedBefore).mPenaltyTime = problem.mPenaltyTime;
+                    (*problemSubmittedBefore).mStatus = 'C';
+                }
+            }else if(problem.mStatus == 'I'){
+                problem.mNOfSubmissions++;
+            }
+        }else{
+            if(problem.mStatus == 'I'){
+                problem.mNOfSubmissions++;
+            }
+            problems.push_back(problem);
+        }    
+    }
+
+    pair<int, int> calculateStandings(){
+        int mTotalSolvedProblems = 0;
+        int mTotalPenaltyTime = 0;
+        for(auto problem : problems){
+            if(problem.mStatus == 'C'){
+                mTotalSolvedProblems++;
+                mTotalPenaltyTime += problem.mPenaltyTime;
+
+                if(problem.mWasPreviouslyIncorrect){
+                    mTotalPenaltyTime += 20*problem.mNOfSubmissions;
+                }
+            }
+        }
+
+        return make_pair(mTotalSolvedProblems, mTotalPenaltyTime);
     }
 };
 
@@ -29,12 +80,15 @@ struct CmpByTeamNumber{
 };
 
 struct CmpByACMRules{
-   bool operator()(const Contestant &c1, const Contestant &c2){
-       if(c1.mTotalSolvedProblems != c2.mTotalSolvedProblems){
-           return c1.mTotalSolvedProblems > c2.mTotalSolvedProblems;
+   bool operator()(Contestant &c1, Contestant &c2){
+       pair<int, int> result1 = c1.calculateStandings();
+       pair<int, int> result2 = c2.calculateStandings();
+
+       if(result1.first != result2.first){
+           return result1.first > result2.first;
        }else{
-           if(c1.mTotalPenaltyTime != c2.mTotalPenaltyTime){
-               return c1.mTotalPenaltyTime < c2.mTotalPenaltyTime;
+           if(result1.second != result2.second){
+               return result1.second < result2.second;
            }
        }
 
@@ -77,6 +131,33 @@ int main()
             int problemNumber = stoi(goodResult[1]);
             int penaltyTime = stoi(goodResult[2]);
             char problemStatus = goodResult[3].at(0);
+
+            auto isExistingContestant = find_if(begin(contestants), end(contestants), [contestantName](const Contestant &contestant){
+                return contestant.mName == contestantName;
+            });
+
+            if(isExistingContestant != end(contestants)){
+                Problem p = Problem(problemNumber, problemStatus, penaltyTime);
+                (*isExistingContestant).addSubmission(p);
+            }else{
+                Contestant newContestant = Contestant(contestantName);
+                Problem p = Problem(problemNumber, problemStatus, penaltyTime);
+                newContestant.addSubmission(p);
+                contestants.push_back(newContestant);
+            }
+
+            //Sorting contestants
+            sort(begin(contestants), end(contestants), CmpByACMRules());
+
+            //printing
+            for(auto contestant : contestants){
+                cout << contestant.mName << " " << contestant.calculateStandings().first << " " << contestant.calculateStandings().second << "\n";
+            }
+
+            //To avoid Presentation Error
+            if(test != tests - 1){
+                cout << "\n";
+            }
         }
     }
 } 
