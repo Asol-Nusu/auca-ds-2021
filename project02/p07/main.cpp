@@ -1,3 +1,7 @@
+/*
+Contestants = 100 (max)
+Problems = 9 (max)
+*/
 #include <bits/stdc++.h> 
 
 template <typename C>
@@ -26,14 +30,14 @@ struct Problem{
 struct Contestant{
     int mName;
     vector<Problem> problems; //correct с первого раза + the ones which got eventually correct
+    int mTotalSolvedProblems = 0;
+    int mTotalPenaltyTime = 0;
 
     Contestant(const int &name)
         : mName(name)
     {
     }
     
-    int mTotalSolvedProblems = 0;
-    int mTotalPenaltyTime = 0;
 };
 
 struct CmpByTeamNumber{
