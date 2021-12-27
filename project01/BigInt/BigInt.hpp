@@ -184,7 +184,7 @@ inline std::istream &operator>>(std::istream &inp, BigInt &x){
     cin >> n;
     */
 
-   string s;
+   std::string s;
    if(!(inp >> s)){
        return inp;
    }
@@ -218,6 +218,11 @@ inline BigInt operator+(const BigInt &a, const BigInt &b){
     return r;
 }
 
+inline BigInt operator+=(BigInt &a, const BigInt &b){
+    BigInt r = a + b;
+    a = r;
+    return a;
+}
 //done
 inline BigInt operator-(const BigInt &a, const BigInt &b){
     //1st Group 
