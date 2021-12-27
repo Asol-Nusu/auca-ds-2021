@@ -67,45 +67,60 @@ TEST_CASE("Constructor with string"){
     }
 }
 
-// TEST_CASE("Constructor with long long"){
-//     ostringstream sout;
+TEST_CASE("Constructor with long long"){
+    ostringstream sout;
 
-//     SUBCASE("-9,223,372,036,854,775,808"){
-//         BigInt x(numeric_limits<long long>::min()); //BigInt x(numeric_limits<long long>::min())
-//         sout << x;
-//         REQUIRE(sout.str() == "-9223372036854775808");
-//     }
-// }
+    SUBCASE("-9,223,372,036,854,775,808"){
+        BigInt x(numeric_limits<long long>::min()); //BigInt x(numeric_limits<long long>::min())
+        sout << x;
+        REQUIRE(sout.str() == "-9223372036854775808");
+    }
+}
 
-// TEST_CASE("operator+"){
-//     ostringstream sout;
-//     SUBCASE("123 + 19"){
-//         BigInt x(123);
-//         BigInt y(19);
+TEST_CASE("operator+"){
+    ostringstream sout;
+    SUBCASE("123 + 19"){
+        BigInt x(123);
+        BigInt y(19);
 
-//         sout << x + y;
-//         REQUIRE(sout.str() == "142");
-//     }
+        sout << x + y;
+        REQUIRE(sout.str() == "142");
+    }
 
-//     SUBCASE("999999 + 1"){
-//         BigInt x(999999);
-//         BigInt y(1);
+    SUBCASE("999999 + 1"){
+        BigInt x(999999);
+        BigInt y(1);
 
-//         sout << x + y;
-//         REQUIRE(sout.str() == "1000000");
-//     }
-// }
+        sout << x + y;
+        REQUIRE(sout.str() == "1000000");
+    }
 
-// TEST_CASE("static subtractAbsValues()"){
-//     ostringstream sout;
-//     SUBCASE("123 - 23"){
-//         BigInt a = BigInt("123");
-//         BigInt b = BigInt("23");
-        
-//        sout <<  a - b;
-//        REQUIRE(sout.str() == "100");
-//     }
-// }
+    SUBCASE("999999 + 1"){
+        BigInt x(999999);
+        BigInt y(1);
+
+        sout << x + y;
+        REQUIRE(sout.str() == "1000000");
+    }
+
+    SUBCASE("-6 + (-6)"){
+        BigInt x("-6");
+        BigInt y("-6");
+
+        sout << x + y;
+        REQUIRE(sout.str() == "-12");
+    }
+
+    SUBCASE("-6 + 3"){
+        BigInt x("-6");
+        BigInt y("3");
+
+        sout << x + y;
+        REQUIRE(sout.str() == "-3");
+    }
+}
+
+
 /*
 Corner Cases:
 -0

@@ -172,6 +172,7 @@ inline std::ostream &operator<<(std::ostream &out, const BigInt &x){
     return out;
 }
 
+//done
 inline BigInt operator+(const BigInt &a, const BigInt &b){
     if(a.mIsNegative == b.mIsNegative){ // a + b or -a + (-b)
         BigInt r = BigInt::addAbsValues(a, b);
@@ -188,12 +189,12 @@ inline BigInt operator+(const BigInt &a, const BigInt &b){
         BigInt r = BigInt::subtractAbsValues(a, b); // a + (-b)
         r.mIsNegative = a.mIsNegative;
         return r;
-    }else if(compare < 0){
-        //if b > a
-        BigInt r = BigInt::subtractAbsValues(b, a); // b + (-a)
-        r.mIsNegative = b.mIsNegative;
-        return r;
     }
+    
+    //if b > a
+    BigInt r = BigInt::subtractAbsValues(b, a); // b + (-a)
+    r.mIsNegative = b.mIsNegative;
+    return r;
 }
 
 // inline BigInt operator-(const BigInt &a, const BigInt &b){
