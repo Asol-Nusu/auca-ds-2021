@@ -10,6 +10,9 @@ class BigInt{
     friend std::ostream &operator<<(std::ostream &out, const BigInt &x);
     friend bool operator<(const BigInt &a, const BigInt &b); 
     friend bool operator>(const BigInt &a, const BigInt &b); 
+    friend bool operator==(const BigInt &a, const BigInt &b);
+    friend bool operator>=(const BigInt &a, const BigInt &b);
+    friend bool operator<=(const BigInt &a, const BigInt &b);
     friend BigInt operator+(const BigInt &a, const BigInt &b);
     friend BigInt operator-(const BigInt &a, const BigInt &b);
 
@@ -204,6 +207,7 @@ inline BigInt operator-(const BigInt &a, const BigInt &b){
     return r;
 }
 
+//done
 inline bool operator<(const BigInt &a, const BigInt &b){
     /*
         :a  b
@@ -230,7 +234,25 @@ inline bool operator<(const BigInt &a, const BigInt &b){
     return BigInt::compareAbsValues(a, b) > 0;
 }
 
+//done
 inline bool operator>(const BigInt &a, const BigInt &b){
     //a > b <=> b < a
     return b < a;
+}
+
+bool operator==(const BigInt &a, const BigInt &b){
+    return !(a > b) && (!(a < b));
+}
+bool operator!=(const BigInt &a, const BigInt &b){
+    return !(a == b);
+}
+
+bool operator<=(const BigInt &a, const BigInt &b){
+    return a < b || a == b;
+    //!(a > b)
+}
+
+bool operator>=(const BigInt &a, const BigInt &b){
+    return a > b || a == b;
+    //!(a > b)
 }

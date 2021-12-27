@@ -120,6 +120,50 @@ TEST_CASE("operator+"){
     }
 }
 
+TEST_CASE("operator== and operator!="){
+    SUBCASE("19 and 19"){
+        BigInt x("19");
+        BigInt y("19");
+
+        REQUIRE(x == y);
+    }
+
+    SUBCASE("-19 and -19"){
+        BigInt x("-19");
+        BigInt y("-19");
+
+        REQUIRE(x == y);
+    }
+
+    SUBCASE("0 and 0"){
+        BigInt x("0");
+        BigInt y("0");
+
+        REQUIRE(x == y);
+    }
+
+    SUBCASE("-2 and 90"){
+        BigInt x("-2");
+        BigInt y("90");
+
+        REQUIRE(x != y);
+    }
+
+    SUBCASE("-2 and 2"){
+        BigInt x("-2");
+        BigInt y("2");
+
+        REQUIRE(x != y);
+    }
+
+    SUBCASE("13 and 14"){
+        BigInt x("13");
+        BigInt y("14");
+
+        REQUIRE(x != y);
+    }
+}
+
 TEST_CASE("operator>"){
     SUBCASE("19 and 123"){
         BigInt x("19");
@@ -177,5 +221,96 @@ TEST_CASE("operator<"){
         BigInt y("19");
 
         REQUIRE(x < y);
+    }
+}
+
+
+TEST_CASE("operator>"){
+    SUBCASE("19 and 123"){
+        BigInt x("19");
+        BigInt y("123");
+
+        REQUIRE(y > x);
+    }
+
+    SUBCASE("-19 and -7"){
+        BigInt x("-19");
+        BigInt y("-7");
+
+        REQUIRE(y > x);
+    }
+
+    SUBCASE("-19 and 7"){
+        BigInt x("-19");
+        BigInt y("7");
+
+        REQUIRE(y > x);
+    }
+
+    SUBCASE("19 and -7"){
+        BigInt x("-7");
+        BigInt y("19");
+
+        REQUIRE(y > x);
+    }
+}
+
+TEST_CASE("operator<="){
+    SUBCASE("19 and 123"){
+        BigInt x("19");
+        BigInt y("123");
+
+        REQUIRE(x <= y);
+    }
+
+    SUBCASE("-19 and -19"){
+        BigInt x("-19");
+        BigInt y("-19");
+
+        REQUIRE(x <= y);
+    }
+
+    SUBCASE("3 and 3"){
+        BigInt x("3");
+        BigInt y("3");
+
+        REQUIRE(x <= y);
+    }
+
+    SUBCASE("-2 and -7"){
+        BigInt x("-7");
+        BigInt y("-2");
+
+        REQUIRE(x <= y);
+    }
+}
+
+TEST_CASE("operator>="){
+    SUBCASE("19 and 123"){
+        BigInt x("19");
+        BigInt y("123");
+
+        REQUIRE(y >= x);
+    }
+
+    SUBCASE("-19 and -19"){
+        BigInt x("-19");
+        BigInt y("-19");
+
+        REQUIRE(x >= y);
+    }
+
+    SUBCASE("3 and 3"){
+        BigInt x("3");
+        BigInt y("3");
+
+        REQUIRE(x >= y);
+    }
+
+    SUBCASE("-2 and -7"){
+        BigInt x("-7");
+        BigInt y("-2");
+
+        REQUIRE(y >= x);
     }
 }
