@@ -119,10 +119,3 @@ TEST_CASE("operator+"){
         REQUIRE(sout.str() == "-3");
     }
 }
-
-
-/*
-Corner Cases:
--0
-0000000678
-*/

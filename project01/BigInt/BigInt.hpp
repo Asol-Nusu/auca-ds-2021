@@ -8,9 +8,9 @@
 
 class BigInt{
     friend std::ostream &operator<<(std::ostream &out, const BigInt &x);
+    friend bool operator<(const BigInt &a, const BigInt &b); 
     friend BigInt operator+(const BigInt &a, const BigInt &b);
     friend BigInt operator-(const BigInt &a, const BigInt &b);
-
 
     std::vector<int> mDigits;
     bool mIsNegative;
@@ -197,7 +197,26 @@ inline BigInt operator+(const BigInt &a, const BigInt &b){
     return r;
 }
 
-// inline BigInt operator-(const BigInt &a, const BigInt &b){
-//     BigInt r = BigInt::subtractAbsValues(a, b);
-//     return r;
-// }
+//TO-DO
+inline BigInt operator-(const BigInt &a, const BigInt &b){
+    BigInt r = BigInt::subtractAbsValues(a, b);
+    return r;
+}
+
+inline bool operator<(const BigInt &a, const BigInt &b){
+    if(a.mIsNegative && !b.mIsNegative){
+        return true;
+    }
+
+    if(!a.mIsNegative && b.mIsNegative){
+        return false;
+    }
+
+    if(!a.mIsNegative && !b.mIsNegative){
+        return BigInt::compareAbsValues(a, b) < 0;
+    }
+
+    if(a.mIsNegative && b.mIsNegative){
+        return BigInt::compareAbsValues(a, b) < 0;
+    }
+}
