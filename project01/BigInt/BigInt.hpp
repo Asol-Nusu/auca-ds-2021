@@ -9,6 +9,7 @@
 class BigInt{
     friend std::ostream &operator<<(std::ostream &out, const BigInt &x);
     friend bool operator<(const BigInt &a, const BigInt &b); 
+    friend bool operator>(const BigInt &a, const BigInt &b); 
     friend BigInt operator+(const BigInt &a, const BigInt &b);
     friend BigInt operator-(const BigInt &a, const BigInt &b);
 
@@ -227,4 +228,9 @@ inline bool operator<(const BigInt &a, const BigInt &b){
     // -2 -5
     //-5 -2
     return BigInt::compareAbsValues(a, b) > 0;
+}
+
+inline bool operator>(const BigInt &a, const BigInt &b){
+    //a > b <=> b < a
+    return b < a;
 }

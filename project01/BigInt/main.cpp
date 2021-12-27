@@ -120,6 +120,36 @@ TEST_CASE("operator+"){
     }
 }
 
+TEST_CASE("operator>"){
+    SUBCASE("19 and 123"){
+        BigInt x("19");
+        BigInt y("123");
+
+        REQUIRE(y > x);
+    }
+
+    SUBCASE("-19 and -7"){
+        BigInt x("-19");
+        BigInt y("-7");
+
+        REQUIRE(y > x);
+    }
+
+    SUBCASE("-19 and 7"){
+        BigInt x("-19");
+        BigInt y("7");
+
+        REQUIRE(y > x);
+    }
+
+    SUBCASE("19 and -7"){
+        BigInt x("-7");
+        BigInt y("19");
+
+        REQUIRE(y > x);
+    }
+}
+
 TEST_CASE("operator<"){
     SUBCASE("19 and 123"){
         BigInt x("19");
