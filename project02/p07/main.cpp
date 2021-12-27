@@ -49,7 +49,6 @@ struct Contestant{
             mTotalSolvedProblems++;
             mProblems[submission.mProblem - 1].first = true;
             mTotalPenaltyTime += submission.mPenaltyTime + mProblems[submission.mProblem - 1].second;
-
         }else if(submission.mProblemStatus == 'I' ){
             mProblems[submission.mProblem - 1].second += 20;
         }
@@ -86,7 +85,6 @@ int main()
     int tests;
     cin >> tests >> ws;
 
-    
     for(int test = 0; test < tests; test++){
         vector<Contestant> contestants;
         for(int i = 1; i <= 100; i++){

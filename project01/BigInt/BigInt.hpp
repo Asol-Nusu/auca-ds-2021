@@ -12,7 +12,7 @@ class BigInt{
     friend BigInt operator-(const BigInt &a, const BigInt &b);
 
 
-    std:: vector<int> mDigits;
+    std::vector<int> mDigits;
     bool mIsNegative;
 
     static BigInt addAbsValues(const BigInt &a, const BigInt &b){
@@ -116,12 +116,14 @@ class BigInt{
     }
 
 public:
+    //done
     BigInt()
         : mIsNegative(false)
     {
         mDigits.push_back(0);
     }
 
+    //done
     BigInt(const std::string &s)
         : mIsNegative(false)
     {
@@ -147,12 +149,14 @@ public:
     }
 
     //Constructor Delegation
+    //done
     BigInt(long long x)
         : BigInt(std::to_string(x))
     {
     }
 };
  
+//done  
 inline std::ostream &operator<<(std::ostream &out, const BigInt &x){
     if(x.mIsNegative){
         out << '-';

@@ -6,8 +6,8 @@ TO-DO:
     constructor with string representation of an integer number (This constructor has to throw runtime_error exception if the
     string argument is an invalid representation of BigInt value)
 
-- Operators: +, -, *, /, %, += , -=, *=, /=, %=, prefix and postfix ++ and --, unary -, unary +.
-- Operators: ==, !=, <, >, <=, >=
+- Arithmetic Operators: +, -, *, /, %, += , -=, *=, /=, %=, prefix and postfix ++ and --, unary -, unary +.
+- Comparison Operators: ==, !=, <, >, <=, >=
 
 In the case of division by zero you have to throw runtime_error exception. 
 Check how g++
