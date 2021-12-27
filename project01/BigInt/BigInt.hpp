@@ -204,6 +204,13 @@ inline BigInt operator-(const BigInt &a, const BigInt &b){
 }
 
 inline bool operator<(const BigInt &a, const BigInt &b){
+    /*
+        :a  b
+        :-a -b
+
+        :a -b
+        :-a b
+    */
     if(a.mIsNegative && !b.mIsNegative){
         return true;
     }
@@ -216,7 +223,8 @@ inline bool operator<(const BigInt &a, const BigInt &b){
         return BigInt::compareAbsValues(a, b) < 0;
     }
 
-    if(a.mIsNegative && b.mIsNegative){
-        return BigInt::compareAbsValues(a, b) < 0;
-    }
+    //negative and negative
+    // -2 -5
+    //-5 -2
+    return BigInt::compareAbsValues(a, b) > 0;
 }

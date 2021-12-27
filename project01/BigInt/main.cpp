@@ -119,3 +119,33 @@ TEST_CASE("operator+"){
         REQUIRE(sout.str() == "-3");
     }
 }
+
+TEST_CASE("operator<"){
+    SUBCASE("19 and 123"){
+        BigInt x("19");
+        BigInt y("123");
+
+        REQUIRE(x < y);
+    }
+
+    SUBCASE("-19 and -7"){
+        BigInt x("-19");
+        BigInt y("-7");
+
+        REQUIRE(x < y);
+    }
+
+    SUBCASE("-19 and 7"){
+        BigInt x("-19");
+        BigInt y("7");
+
+        REQUIRE(x < y);
+    }
+
+    SUBCASE("19 and -7"){
+        BigInt x("-7");
+        BigInt y("19");
+
+        REQUIRE(x < y);
+    }
+}
