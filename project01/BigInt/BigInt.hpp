@@ -70,50 +70,43 @@ class BigInt{
         std::reverse(r.mDigits.begin(), r.mDigits.end()); //в нормальное состояние привести
         return r;
     }
-    public:
-    // static BigInt subtractAbsValues(const BigInt &a, const BigInt &b){
-    //     // It's guaranteed that always a > b
-    //     BigInt r;
-    //     r.mDigits.clear();
+   
+   //done
+    static BigInt subtractAbsValues(const BigInt &a, const BigInt &b){
+        // It's guaranteed that always a > b
+        BigInt r;
+        r.mDigits.clear();
 
-    //     auto i = a.mDigits.rbegin(); //last element
-    //     auto j =  b.mDigits.rbegin(); //last element
+        auto i = a.mDigits.rbegin(); //last element
+        auto j =  b.mDigits.rbegin(); //last element
 
-    //     int borrow = 0;
-    //     int subtractionResult;
-    //     while(j != b.mDigits.rend()){
-    //         if(*i >= *j){
-    //             subtractionResult = *i - *j - borrow;
-    //             borrow = 0;
-    //         }else{
-    //             subtractionResult = 10 + *i - *j - borrow;
-    //             borrow = 1;
-    //         }
-    //         r.mDigits.push_back(subtractionResult);
+        int borrow = 0;
+        while(i != a.mDigits.rend()){
+            int subtractionResult = *i - borrow;
+            i++;
 
-    //         j++;
-    //         i++;
-    //     }
+            if(j != b.mDigits.rend()){
+                subtractionResult -= *j;
+                j++;
+            }
 
-    //     //finish pushing
-    //     for(;i <= a.mDigits.rend(); i++){
-    //         //digit and borrow 
-    //         if((*i - borrow) < 0){
-    //             subtractionResult = 10 + *i - borrow;
-    //             borrow = 1;
-    //         }else{
-    //             subtractionResult = *i - borrow;
-    //             borrow = 0;
-    //         }
-    //         r.mDigits.push_back(subtractionResult);
-    //     }
+            if(subtractionResult < 0){
+                subtractionResult += 10;
+                borrow = 1;
+            }else{
+                borrow = 0;
+            }
 
-    //     std::reverse(r.mDigits.begin(), r.mDigits.end()); //в нормальное состояние привести
-    //     return r;
-    //     /*
-    //     TODO: removing leading zeros
-    //     */
-    // }
+            r.mDigits.push_back(subtractionResult);
+        }
+
+        while(r.mDigits.size() > 1 && r.mDigits.back() == 0){
+            r.mDigits.pop_back();
+        }
+
+        std::reverse(r.mDigits.begin(), r.mDigits.end()); //в нормальное состояние привести
+        return r;
+    }
 
 public:
     //done
