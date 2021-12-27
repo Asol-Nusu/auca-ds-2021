@@ -15,6 +15,28 @@ class BigInt{
     std::vector<int> mDigits;
     bool mIsNegative;
 
+    //done
+    static int compareAbsValues(const BigInt &a, const BigInt &b){
+        //0 is equal, 1 is more, -1 is less
+        if(a.mDigits.size() > b.mDigits.size()){
+            return 1;
+        }else if(a.mDigits.size() < b.mDigits.size()){
+            return -1;
+        }else{
+            //if equal: 123 and 999, 999 and 123, 222 and 222
+
+            for(size_t i = 0; i < a.mDigits.size(); i++){
+                if(a.mDigits[i] != b.mDigits[i]){
+                    return a.mDigits[i] - b.mDigits[i];
+                }
+            }
+
+            //if it reached this, it's equal
+            return 0;
+        }
+    }
+
+    //done
     static BigInt addAbsValues(const BigInt &a, const BigInt &b){
         BigInt r;
         r.mDigits.clear();
@@ -48,28 +70,6 @@ class BigInt{
         std::reverse(r.mDigits.begin(), r.mDigits.end()); //в нормальное состояние привести
         return r;
     }
-    // static int compareAbsValues(const BigInt &a, const BigInt &b){
-    //     //0 is equal, 1 is more, -1 is less
-    //     if(a.mDigits.size() > b.mDigits.size()){
-    //         return 1;
-    //     }else if(a.mDigits.size() < b.mDigits.size()){
-    //         return -1;
-    //     }else{
-    //         //if equal: 123 and 999, 999 and 123, 222 and 222
-
-    //         for(int i = 0; i < a.mDigits.size(); i++){
-    //             if(a.mDigits[i] > b.mDigits[i]){
-    //                 return 1;
-    //             }else if(a.mDigits[i] < b.mDigits[i]){
-    //                 return -1;
-    //             }
-    //         }
-
-    //         //if it reached this, it's equal
-    //         return 0;
-    //     }
-    // }
-
     public:
     // static BigInt subtractAbsValues(const BigInt &a, const BigInt &b){
     //     // It's guaranteed that always a > b
@@ -179,37 +179,29 @@ inline std::ostream &operator<<(std::ostream &out, const BigInt &x){
     return out;
 }
 
-// inline BigInt operator+(const BigInt &a, const BigInt &b){
-//     /*
-//     I)
-//     a + b
-//     -a + (-b)
+inline BigInt operator+(const BigInt &a, const BigInt &b){
+    if(a.mIsNegative == b.mIsNegative){ // a + b or -a + (-b)
+        BigInt r = BigInt::addAbsValues(a, b);
+        r.mIsNegative = a.mIsNegative;
+        return r;
+    }
 
-//     II)
-//     a + (-b)
-//     -a + b
-//     */
-
-//    //I)
-//     if(a.mIsNegative == b.mIsNegative){ // a + b or -a + (-b)
-//         BigInt r = BigInt::addAbsValues(a, b);
-//         r.mIsNegative = a.mIsNegative;
-//         return r;
-//     }
-
-//     //II)
-//     if(BigInt::compareAbsValues(a, b) == 1){
-//         //if a > b
-//         BigInt r = BigInt::subtractAbsValues(a, b); // a - b
-//         r.mIsNegative = a.mIsNegative;
-//         return r;
-//     }else{
-//         //if b > a
-//         BigInt r = BigInt::subtractAbsValues(b, a); // b - a
-//         r.mIsNegative = b.mIsNegative;
-//         return r;
-//     }
-// }
+    int compare = BigInt::compareAbsValues(a, b);
+    if(compare == 0){
+        return BigInt();
+    }
+    if(compare > 0){
+        //if a > b
+        BigInt r = BigInt::subtractAbsValues(a, b); // a + (-b)
+        r.mIsNegative = a.mIsNegative;
+        return r;
+    }else if(compare < 0){
+        //if b > a
+        BigInt r = BigInt::subtractAbsValues(b, a); // b + (-a)
+        r.mIsNegative = b.mIsNegative;
+        return r;
+    }
+}
 
 // inline BigInt operator-(const BigInt &a, const BigInt &b){
 //     BigInt r = BigInt::subtractAbsValues(a, b);
