@@ -43,6 +43,28 @@ TEST_CASE("Constructor with string"){
         sout << x;
         REQUIRE(sout.str() == "12345");
     }
+    SUBCASE("0000002345607"){
+        BigInt x("0000002345607");
+        sout << x;
+        REQUIRE(sout.str() == "2345607");
+    }
+
+    SUBCASE("000"){
+        BigInt x("000");
+        sout << x;
+        REQUIRE(sout.str() == "0");
+    }
+
+    SUBCASE("-0"){
+        BigInt x("-0");
+        sout << x;
+        REQUIRE(sout.str() == "0");
+    }
+    SUBCASE("+0"){
+        BigInt x("+0");
+        sout << x;
+        REQUIRE(sout.str() == "0");
+    }
 }
 
 TEST_CASE("Constructor with long long"){
