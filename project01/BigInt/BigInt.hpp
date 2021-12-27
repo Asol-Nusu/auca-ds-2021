@@ -8,6 +8,7 @@
 
 class BigInt{
     friend std::ostream &operator<<(std::ostream &out, const BigInt &x);
+    friend std::ostream &operator>>(std::istream &inp, const BigInt &x);
     friend bool operator<(const BigInt &a, const BigInt &b); 
     friend bool operator>(const BigInt &a, const BigInt &b); 
     friend bool operator==(const BigInt &a, const BigInt &b);
@@ -177,6 +178,21 @@ inline std::ostream &operator<<(std::ostream &out, const BigInt &x){
     return out;
 }
 
+inline std::istream &operator>>(std::istream &inp, BigInt &x){
+    /*
+    BigInt n;
+    cin >> n;
+    */
+
+   string s;
+   if(!(inp >> s)){
+       return inp;
+   }
+
+   x = BigInt(s);
+   return inp;
+}
+
 //done
 inline BigInt operator+(const BigInt &a, const BigInt &b){
     if(a.mIsNegative == b.mIsNegative){ // a + b or -a + (-b)
@@ -202,7 +218,7 @@ inline BigInt operator+(const BigInt &a, const BigInt &b){
     return r;
 }
 
-//TO-DO
+//done
 inline BigInt operator-(const BigInt &a, const BigInt &b){
     //1st Group 
     if(a.mIsNegative && !b.mIsNegative){
