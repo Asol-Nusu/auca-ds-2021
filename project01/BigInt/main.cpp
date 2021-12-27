@@ -120,6 +120,41 @@ TEST_CASE("operator+"){
     }
 }
 
+TEST_CASE("operator+"){
+    ostringstream sout;
+    SUBCASE("123 - 19"){
+        BigInt x(123);
+        BigInt y(19);
+
+        sout << x - y;
+        REQUIRE(sout.str() == "104");
+    }
+
+    SUBCASE("999999 - 1"){
+        BigInt x(999999);
+        BigInt y(1);
+
+        sout << x - y;
+        REQUIRE(sout.str() == "999998");
+    }
+
+    SUBCASE("-6 - (-6)"){
+        BigInt x("-6");
+        BigInt y("-6");
+
+        sout << x - y;
+        REQUIRE(sout.str() == "0");
+    }
+
+    SUBCASE("-6 - 3"){
+        BigInt x("-6");
+        BigInt y("3");
+
+        sout << x - y;
+        REQUIRE(sout.str() == "-9");
+    }
+}
+
 TEST_CASE("operator== and operator!="){
     SUBCASE("19 and 19"){
         BigInt x("19");
@@ -221,37 +256,6 @@ TEST_CASE("operator<"){
         BigInt y("19");
 
         REQUIRE(x < y);
-    }
-}
-
-
-TEST_CASE("operator>"){
-    SUBCASE("19 and 123"){
-        BigInt x("19");
-        BigInt y("123");
-
-        REQUIRE(y > x);
-    }
-
-    SUBCASE("-19 and -7"){
-        BigInt x("-19");
-        BigInt y("-7");
-
-        REQUIRE(y > x);
-    }
-
-    SUBCASE("-19 and 7"){
-        BigInt x("-19");
-        BigInt y("7");
-
-        REQUIRE(y > x);
-    }
-
-    SUBCASE("19 and -7"){
-        BigInt x("-7");
-        BigInt y("19");
-
-        REQUIRE(y > x);
     }
 }
 

@@ -11,6 +11,7 @@ class BigInt{
     friend bool operator<(const BigInt &a, const BigInt &b); 
     friend bool operator>(const BigInt &a, const BigInt &b); 
     friend bool operator==(const BigInt &a, const BigInt &b);
+    friend bool operator!=(const BigInt &a, const BigInt &b);
     friend bool operator>=(const BigInt &a, const BigInt &b);
     friend bool operator<=(const BigInt &a, const BigInt &b);
     friend BigInt operator+(const BigInt &a, const BigInt &b);
@@ -203,7 +204,52 @@ inline BigInt operator+(const BigInt &a, const BigInt &b){
 
 //TO-DO
 inline BigInt operator-(const BigInt &a, const BigInt &b){
-    BigInt r = BigInt::subtractAbsValues(a, b);
+    //1st Group 
+    if(a.mIsNegative && !b.mIsNegative){
+        //-a - b
+        BigInt r = BigInt::addAbsValues(a, b);
+        r.mIsNegative = true;
+        return r;
+    }
+
+    if(!a.mIsNegative && b.mIsNegative){
+        //a - (-b)
+        BigInt r = BigInt::addAbsValues(a, b);
+        r.mIsNegative = false;
+        return r;
+    }
+
+    //2nd Group
+    int compare = BigInt::compareAbsValues(a, b);
+    if(compare == 0){
+        return BigInt();
+    }
+
+    if(compare > 0 && !a.mIsNegative && !b.mIsNegative){
+        //5 - 3
+        BigInt r = BigInt::subtractAbsValues(a, b);
+        r.mIsNegative = false;
+        return r;
+    }
+
+    if(compare > 0 && a.mIsNegative && b.mIsNegative){
+        //-5 - (-3)
+        BigInt r = BigInt::subtractAbsValues(a, b);
+        r.mIsNegative = true;
+        return r;
+    }
+
+    if(compare < 0 && !a.mIsNegative && !b.mIsNegative){
+        //3 - 5
+        BigInt r = BigInt::subtractAbsValues(b, a);
+        r.mIsNegative = true;
+        return r;
+    }
+
+    //if(compare < 0 && a.mIsNegative && b.mIsNegative)
+    //-3 - (-5)
+    BigInt r = BigInt::subtractAbsValues(b, a);
+    r.mIsNegative = false;
     return r;
 }
 
@@ -240,19 +286,24 @@ inline bool operator>(const BigInt &a, const BigInt &b){
     return b < a;
 }
 
-bool operator==(const BigInt &a, const BigInt &b){
+//done
+inline bool operator==(const BigInt &a, const BigInt &b){
     return !(a > b) && (!(a < b));
 }
-bool operator!=(const BigInt &a, const BigInt &b){
+
+//done
+inline bool operator!=(const BigInt &a, const BigInt &b){
     return !(a == b);
 }
 
-bool operator<=(const BigInt &a, const BigInt &b){
+//done
+inline bool operator<=(const BigInt &a, const BigInt &b){
     return a < b || a == b;
     //!(a > b)
 }
 
-bool operator>=(const BigInt &a, const BigInt &b){
+//done
+inline bool operator>=(const BigInt &a, const BigInt &b){
     return a > b || a == b;
     //!(a > b)
 }
