@@ -6,6 +6,7 @@ int sz(const C &c) {
 }
 
 using namespace std; 
+using Booking = pair<long, long>;
 
 enum class Event{
     Departure, Arrival
@@ -77,13 +78,19 @@ long convertToMins(string &date, string &time){
     }
 
     //Day
-    
-    
+    int intDay = stoi(day);
+    for(int i = 1; i <= intDay; i++){
+        result += 24 * 60;
+    }
 
-    return 0;
+    //Time
+    int timeMins = stoi(hours)*60 + stoi(mins);
+    result += timeMins;
+    
+    return result;
 }
 
-pair<long, long> processInput(const string &rawInput, int roomCleaningTime){
+Booking processInput(const string &rawInput, int roomCleaningTime){
     istringstream streamInput(rawInput);
     long arrivalMins;
     long departureMins;
@@ -94,6 +101,9 @@ pair<long, long> processInput(const string &rawInput, int roomCleaningTime){
     string departureDate;
     string departureTime;
     streamInput >> reservationCode >> arrivalDate >> arrivalTime >> departureDate >> departureTime;
+    arrivalMins = convertToMins(arrivalDate, arrivalTime);
+    departureMins = convertToMins(departureDate, departureTime);
+    departureMins += roomCleaningTime;
 
     return make_pair(arrivalMins, departureMins);
 }
@@ -109,14 +119,23 @@ int main()
         cin >> nOfBookings >> roomCleaningTime; //in mins
         cin.ignore(10000, '\n');
 
-
+        vector<Booking> bookings;
         for(int i = 0; i < nOfBookings; i++){
             string rawInput;
             getline(cin, rawInput);
-            pair<long, long> result = processInput(rawInput, roomCleaningTime);
+            Booking result = processInput(rawInput, roomCleaningTime);
+            bookings.push_back(result);
         }
 
-        int minNOfRooms;
+        sort(begin(bookings), end(bookings), [](const Booking &b1, const Booking &b2){
+            //first-come-first-serve
+            return b1.first < b2.first;
+        });
+
+        int minNOfRooms = 1;
+        for(int i = 1; i < sz(bookings); i++){
+            
+        }
 
         //cout << minNOfRooms << "\n";
     }
