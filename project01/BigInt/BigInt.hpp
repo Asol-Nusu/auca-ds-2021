@@ -16,6 +16,7 @@ class BigInt{
     friend bool operator>=(const BigInt &a, const BigInt &b);
     friend bool operator<=(const BigInt &a, const BigInt &b);
     friend BigInt operator+(const BigInt &a, const BigInt &b);
+    friend BigInt operator*(const BigInt &a, const BigInt &b);
     friend BigInt operator+=(BigInt &a, const BigInt &b);
     friend BigInt operator-(const BigInt &a, const BigInt &b);
     friend BigInt operator-=(BigInt &a, const BigInt &b);
@@ -114,6 +115,10 @@ class BigInt{
 
         std::reverse(r.mDigits.begin(), r.mDigits.end()); //в нормальное состояние привести
         return r;
+    }
+
+    static BigInt multiplyAbsValues(const BigInt &a, const BigInt &b){
+        
     }
 
 public:
@@ -282,6 +287,17 @@ inline BigInt operator-(const BigInt &a, const BigInt &b){
     //-3 - (-5)
     BigInt r = BigInt::subtractAbsValues(b, a);
     r.mIsNegative = false;
+    return r;
+}
+
+BigInt operator*(const BigInt &a, const BigInt &b){
+    BigInt r = BigInt::multiplyAbsValues(a, b);
+    r.mIsNegative = a.mIsNegative ^ b.mIsNegative;
+    /*
+    Exclusive or
+    A bitwise XOR operation results in a 1 (true) only 
+    if the input bits are different, else it results in a 0.
+    */
     return r;
 }
 
