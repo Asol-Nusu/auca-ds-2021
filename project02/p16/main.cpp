@@ -40,8 +40,8 @@ long convertToMins(string &date, string &time){
     if((stoi(year) % 4 == 0 && stoi(year) % 100 != 0) || (stoi(year) % 400 == 0)){
         isLeapYear = true;
     }
+    cout << "Yes, it's a leap year\n";
 
-    cout << isLeapYear << endl;
     if(year == "2013"){
         result += 0;
     }else if(year == "2014"){
@@ -56,37 +56,27 @@ long convertToMins(string &date, string &time){
     //Month 
     int intMonth = stoi(month);
     for(int m = 1; m < intMonth; m++){
-        switch(m){
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
+        if(m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12){
             result += 31 * 24 * 60;
-            break;
-
-            case 2:
+        }else if(m == 2){
             int days = isLeapYear ? 29 : 28;
             result += days * 24 * 60;
-            break;
-
-            default:
+        }else{
             result += 30 * 24 * 60;
         }
     }
 
     //Day
     int intDay = stoi(day);
-    for(int i = 1; i <= intDay; i++){
+    for(int i = 1; i < intDay; i++){
         result += 24 * 60;
     }
 
     //Time
-    int timeMins = stoi(hours)*60 + stoi(mins);
+    long timeMins = stoi(hours)*60 + stoi(mins);
     result += timeMins;
     
+    cout << result << endl;
     return result;
 }
 
@@ -106,6 +96,17 @@ Booking processInput(const string &rawInput, int roomCleaningTime){
     departureMins += roomCleaningTime;
 
     return make_pair(arrivalMins, departureMins);
+}
+
+bool needSeparateRoom(const vector<Booking> &bookingsWithRoom, const Booking &booking){
+    
+    for(int i = 0; i < sz(bookingsWithRoom); i++){
+        if(bookingsWithRoom[i].second <= booking.first){
+            return false;
+        }
+    }
+
+    return true;
 }
 
 int main()
@@ -132,12 +133,18 @@ int main()
             return b1.first < b2.first;
         });
 
+        vector<Booking> bookingsWithRoom;
+        bookingsWithRoom.push_back(bookings.back());
+
         int minNOfRooms = 1;
         for(int i = 1; i < sz(bookings); i++){
-            
+            if(needSeparateRoom(bookingsWithRoom, bookings[i])){
+                bookingsWithRoom.push_back(bookings[i]);
+                minNOfRooms++;
+            }
         }
 
-        //cout << minNOfRooms << "\n";
+        cout << minNOfRooms << "\n";
     }
 } 
 
