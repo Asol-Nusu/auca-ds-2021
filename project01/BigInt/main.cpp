@@ -326,4 +326,11 @@ TEST_CASE("operator*"){
 
         REQUIRE(x * y == 1107);
     }
+
+    SUBCASE("1345678 * (-134567)"){
+        BigInt x("1345678");
+        BigInt y("-134567");
+
+        REQUIRE(x * y == BigInt("-181083851426"));
+    }
 }
