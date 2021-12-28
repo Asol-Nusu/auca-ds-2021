@@ -218,11 +218,20 @@ inline BigInt operator+(const BigInt &a, const BigInt &b){
     return r;
 }
 
+//done 
 inline BigInt operator+=(BigInt &a, const BigInt &b){
     BigInt r = a + b;
     a = r;
     return a;
 }
+
+
+inline BigInt operator-=(BigInt &a, const BigInt &b){
+    BigInt r = a - b;
+    a = r;
+    return a;
+}
+
 //done
 inline BigInt operator-(const BigInt &a, const BigInt &b){
     //1st Group 
