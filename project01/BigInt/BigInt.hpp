@@ -118,7 +118,23 @@ class BigInt{
     }
 
     static BigInt multiplyAbsValues(const BigInt &a, const BigInt &b){
-        
+        if(a == 0 || b == 0){
+            return BigInt();
+        }
+
+        BigInt r;
+        r.mDigits.resize(a.mDigits.size() + b.mDigits.size());
+        for(auto i = b.mDigits.rbegin(); i != b.mDigits.rend(); i++){
+            for(auto j = a.mDigits.rbegin(); j != a.mDigits.rend(); j++ ){
+
+            }
+        }
+        if(r.mDigits.front() == 0){
+            r.mDigits.erase(r.mDigits.begin());
+
+        }
+
+        return r;
     }
 
 public:
