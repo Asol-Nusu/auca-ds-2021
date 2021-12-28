@@ -124,10 +124,21 @@ class BigInt{
 
         BigInt r;
         r.mDigits.resize(a.mDigits.size() + b.mDigits.size());
+        int shift = 0;
         for(auto i = b.mDigits.rbegin(); i != b.mDigits.rend(); i++){
+            int currentShift = shift;
+            int carry = 0;
             for(auto j = a.mDigits.rbegin(); j != a.mDigits.rend(); j++ ){
-
+                int sum = *i * *j + carry;
+                addDigit(r, sum % 10, currentShift);
+                carry = sum / 10;
+                currentShift++;
             }
+
+            if(carry != 0){
+                addDigit(r, carry, currentShift);
+            }
+            shift++;
         }
         if(r.mDigits.front() == 0){
             r.mDigits.erase(r.mDigits.begin());
@@ -135,6 +146,20 @@ class BigInt{
         }
 
         return r;
+    }
+
+    static void addDigit(BigInt r, int d, int shift){
+        auto i = r.mDigits.rbegin() + shift;
+        *i += d; //sum
+        int carry = *i / 10;
+        *i %= 10;
+
+        while(carry != 0){
+            i++;
+            *i += carry;
+            carry = *i;
+            *i %= 10;
+        }
     }
 
 public:
