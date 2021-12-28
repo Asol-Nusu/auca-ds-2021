@@ -118,10 +118,6 @@ class BigInt{
     }
 
     static BigInt multiplyAbsValues(const BigInt &a, const BigInt &b){
-        if(a == 0 || b == 0){
-            return BigInt();
-        }
-
         BigInt r;
         r.mDigits.resize(a.mDigits.size() + b.mDigits.size());
         int shift = 0;
@@ -142,13 +138,12 @@ class BigInt{
         }
         if(r.mDigits.front() == 0){
             r.mDigits.erase(r.mDigits.begin());
-
         }
 
         return r;
     }
 
-    static void addDigit(BigInt r, int d, int shift){
+    static void addDigit(BigInt &r, int d, int shift){
         auto i = r.mDigits.rbegin() + shift;
         *i += d; //sum
         int carry = *i / 10;
@@ -157,7 +152,7 @@ class BigInt{
         while(carry != 0){
             i++;
             *i += carry;
-            carry = *i;
+            carry = *i / 10;
             *i %= 10;
         }
     }
@@ -332,6 +327,10 @@ inline BigInt operator-(const BigInt &a, const BigInt &b){
 }
 
 BigInt operator*(const BigInt &a, const BigInt &b){
+    if(a == 0 || b == 0){
+            return BigInt();
+    }
+
     BigInt r = BigInt::multiplyAbsValues(a, b);
     r.mIsNegative = a.mIsNegative ^ b.mIsNegative;
     /*

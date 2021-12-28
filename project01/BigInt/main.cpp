@@ -321,30 +321,9 @@ TEST_CASE("operator>="){
 
 TEST_CASE("operator*"){
     SUBCASE("9*123"){
-        BigInt x("19");
-        BigInt y("123");
+        BigInt x(9);
+        BigInt y(123);
 
-        REQUIRE(x * y == 123 * 9);
-    }
-
-    SUBCASE("-19 and -19"){
-        BigInt x("-19");
-        BigInt y("-19");
-
-        REQUIRE(x >= y);
-    }
-
-    SUBCASE("3 and 3"){
-        BigInt x("3");
-        BigInt y("3");
-
-        REQUIRE(x >= y);
-    }
-
-    SUBCASE("-2 and -7"){
-        BigInt x("-7");
-        BigInt y("-2");
-
-        REQUIRE(y >= x);
+        REQUIRE(x * y == 1107);
     }
 }
