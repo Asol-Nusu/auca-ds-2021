@@ -21,7 +21,7 @@ int sz(const C &c) {
 
 using namespace std; 
 struct Region{
-    friend bool operator== (const Region &lhs, const Region &rhs);
+    friend bool operator==(const Region &lhs, const Region &rhs);
     char mLetter;
     int mCount = 0;
 

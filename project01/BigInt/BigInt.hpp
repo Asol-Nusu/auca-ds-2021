@@ -110,6 +110,7 @@ class BigInt{
         }
 
         while(r.mDigits.size() > 1 && r.mDigits.back() == 0){
+            //removing leading zeros
             r.mDigits.pop_back();
         }
 
