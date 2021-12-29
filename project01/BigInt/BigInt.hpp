@@ -48,9 +48,9 @@ class BigInt{
     //done
     static BigInt addAbsValues(const BigInt &a, const BigInt &b){
         BigInt r;
-        r.mDigits.clear();
+        r.mDigits.clear(); //remove all elements -> set size to 0
 
-        auto i = a.mDigits.rbegin();
+        auto i = a.mDigits.rbegin(); //pointer to the last element
         auto j =  b.mDigits.rbegin();
 
         int carry = 0;
